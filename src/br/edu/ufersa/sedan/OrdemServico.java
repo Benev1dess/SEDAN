@@ -10,36 +10,42 @@ public class OrdemServico {
     private LocalDate data;
 
     public void setFinalizada(boolean finalizada) {
+
+        if (!finalizada && this.pago) {
+            throw new IllegalStateException("Não é possível reabrir uma ordem que já foi paga.");
+        }
+
+        if (finalizada && this.orcamento == null) {
+            throw new IllegalStateException("Não é possível finalizar uma ordem sem um orçamento vinculado.");
+        }
+
         this.finalizada = finalizada;
     }
 
-    public void setPago(boolean pago) {
-        this.pago = pago;
-    }
-
-    public void setOrcamento(Orcamento orcamento) {
-        this.orcamento = orcamento;
-    }
-
     public void setData(LocalDate data) {
+        if (data == null) {
+            throw new IllegalArgumentException("A data não pode ser nula.");
+        }
+        if (data.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("A data da ordem não pode ser no futuro.");
+        }
         this.data = data;
     }
 
-    public Orcamento getOrcamento() {
-        return orcamento;
+    public void setOrcamento(Orcamento orcamento) {
+        if (orcamento == null) {
+            throw new IllegalArgumentException("Toda ordem de serviço precisa de um orçamento.");
+        }
+        this.orcamento = orcamento;
     }
 
-    public LocalDate getData() {
-        return data;
-    }
+    public void setPago(boolean pago) {
 
-    public boolean isPago() {
-        return pago;
-    }
+        if (pago && !this.finalizada) {
+            throw new IllegalStateException("Operação inválida: A ordem de serviço deve estar FINALIZADA antes de registrar o pagamento.");
+        }
 
-    public boolean isFinalizada() {
-        return finalizada;
+        this.pago = pago;
     }
-
 
 }
