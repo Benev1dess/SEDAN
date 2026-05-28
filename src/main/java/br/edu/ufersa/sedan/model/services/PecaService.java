@@ -1,6 +1,7 @@
-package br.edu.ufersa.sedan.service;
+package br.edu.ufersa.sedan.model.services;
 
-import br.edu.ufersa.sedan.model.Peca;
+import br.edu.ufersa.sedan.model.entities.Peca;
+
 import java.util.ArrayList;
 import java.util.List;
 

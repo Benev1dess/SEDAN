@@ -1,6 +1,7 @@
-package br.edu.ufersa.sedan.service;
-import br.edu.ufersa.sedan.model.Cliente;
-import br.edu.ufersa.sedan.model.Endereco; // Para podermos alterar o endereço do cliente
+package br.edu.ufersa.sedan.model.services;
+import br.edu.ufersa.sedan.model.entities.Cliente;
+import br.edu.ufersa.sedan.model.entities.Endereco;
+
 import java.util.ArrayList;
 import java.util.List;
 

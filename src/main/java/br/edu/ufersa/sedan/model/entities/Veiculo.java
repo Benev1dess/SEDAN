@@ -1,4 +1,5 @@
-package br.edu.ufersa.sedan.model;
+package br.edu.ufersa.sedan.model.entities;
+
 import java.util.List;
 import java.util.ArrayList;
 

@@ -1,5 +1,6 @@
-package br.edu.ufersa.sedan.service;
-import br.edu.ufersa.sedan.model.Veiculo;
+package br.edu.ufersa.sedan.model.services;
+import br.edu.ufersa.sedan.model.entities.Veiculo;
+
 import java.util.ArrayList;
 import java.util.List;
 

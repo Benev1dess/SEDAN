@@ -1,4 +1,4 @@
-package br.edu.ufersa.sedan.model;
+package br.edu.ufersa.sedan.model.entities;
 
 public class Peca {
 

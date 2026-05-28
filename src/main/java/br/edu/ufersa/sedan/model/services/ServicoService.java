@@ -1,7 +1,8 @@
-package br.edu.ufersa.sedan.service;
+package br.edu.ufersa.sedan.model.services;
 
-import br.edu.ufersa.sedan.model.Servico;
-import br.edu.ufersa.sedan.model.Orcamento;
+import br.edu.ufersa.sedan.model.entities.Endereco;
+import br.edu.ufersa.sedan.model.entities.Servico;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +35,9 @@ public class ServicoService {
     }
 
 
-    public List<Servico> pesquisarPorVeiculo(String placa, List<Orcamento> todosOrcamentos) {
+    public List<Servico> pesquisarPorVeiculo(String placa, List<Endereco.Orcamento> todosOrcamentos) {
         List<Servico> resultado = new ArrayList<>();
-        for (Orcamento o : todosOrcamentos) {
+        for (Endereco.Orcamento o : todosOrcamentos) {
             if (o.getVeiculo().getPlaca().equalsIgnoreCase(placa)) {
                 resultado.addAll(o.getServicos());
             }
@@ -44,19 +45,19 @@ public class ServicoService {
         return resultado;
     }
 
-    public List<Servico> pesquisarPorCliente(String nomeCliente, List<Orcamento> todosOrcamentos) {
+    public List<Servico> pesquisarPorCliente(String nomeCliente, List<Endereco.Orcamento> todosOrcamentos) {
         List<Servico> resultado = new ArrayList<>();
-        for (Orcamento o : todosOrcamentos) {
-            if (o.getVeiculo().getCliente().getNome().equalsIgnoreCase(nomeCliente)) {
+        for (Endereco.Orcamento o : todosOrcamentos) {
+            if (o.getVeiculo().getDono().getNome().equalsIgnoreCase(nomeCliente)) {
                 resultado.addAll(o.getServicos());
             }
         }
         return resultado;
     }
 
-    public List<Servico> pesquisarPorPeriodo(LocalDate inicio, LocalDate fim, List<Orcamento> todosOrcamentos) {
+    public List<Servico> pesquisarPorPeriodo(LocalDate inicio, LocalDate fim, List<Endereco.Orcamento> todosOrcamentos) {
         List<Servico> resultado = new ArrayList<>();
-        for (Orcamento o : todosOrcamentos) {
+        for (Endereco.Orcamento o : todosOrcamentos) {
             LocalDate data = o.getData();
             if ((data.isEqual(inicio) || data.isAfter(inicio)) && (data.isEqual(fim) || data.isBefore(fim))) {
                 resultado.addAll(o.getServicos());
