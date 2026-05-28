@@ -1,56 +1,108 @@
 package br.edu.ufersa.sedan.model.services;
-
+import br.edu.ufersa.sedan.model.entities.Orcamento;
 import br.edu.ufersa.sedan.model.entities.Servico;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 public class OrdemServicoService {
 
-    public void adicionarServico(Servico.OrdemServico ordem, Servico s) {
-        if (ordem.isFinalizada()) {
-            throw new IllegalStateException("Não é permitido adicionar serviços a uma ordem finalizada.");
-        }
-        ordem.getServicos().add(s);
+    private Orcamento orcamento;
+    private boolean finalizada;
+    private boolean pago;
+    private LocalDate data;
+    private List<Servico> servicos = new ArrayList<>();
+
+    public OrdemServicoService() {
+        this.data = LocalDate.now();
+        this.finalizada = false;
+        this.pago = false;
     }
 
-    public void finalizarOrdem(Servico.OrdemServico ordem) {
-        if (ordem.getOrcamento() == null) {
-            throw new IllegalStateException("A ordem não pode ser finalizada sem um orçamento vinculado.");
+    // --- Métodos de Integridade (Validações) ---
+
+    public void setOrcamento(Orcamento orcamento) {
+        if (orcamento == null) {
+            throw new IllegalArgumentException("Toda ordem de serviço precisa de um orçamento vinculado.");
         }
-        ordem.setFinalizada(true);
+        this.orcamento = orcamento;
     }
 
-    public void registrarPagamento(Servico.OrdemServico ordem) {
-        if (!ordem.isFinalizada()) {
-            throw new IllegalStateException("O pagamento só pode ser registrado se a ordem estiver finalizada.");
+    public void setFinalizada(boolean finalizada) {
+        if (!finalizada && this.pago) {
+            throw new IllegalStateException("Não é possível reabrir uma ordem que já foi paga.");
         }
-        ordem.setPago(true);
+
+        if (finalizada && this.orcamento == null) {
+            throw new IllegalStateException("Não é possível finalizar uma ordem sem um orçamento aprovado.");
+        }
+
+        this.finalizada = finalizada;
     }
 
-    public void reabrirOrdem(Servico.OrdemServico ordem) {
-        if (ordem.isPago()) {
-            throw new IllegalStateException("Uma ordem já paga não pode ser reaberta para modificações.");
+    public void setPago(boolean pago) {
+        if (pago && !this.finalizada) {
+            throw new IllegalStateException("A ordem deve ser finalizada antes de registrar o pagamento.");
         }
-        ordem.setFinalizada(false);
+        this.pago = pago;
     }
 
-    public void editarOrdem(int id, Servico.OrdemServico nova) {
-        // Lógica de persistência para atualização dos dados da ordem
-        System.out.println("Atualizando dados da ordem identificada pelo ID: " + id);
+    public void setData(LocalDate data) {
+        if (data == null) {
+            throw new IllegalArgumentException("A data não pode ser nula.");
+        }
+        if (data.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("A data da ordem não pode ser uma data futura.");
+        }
+        this.data = data;
+    }
+
+    // --- Métodos de Operação (Lógica de Negócio) ---
+
+    public void adicionarServico(Servico s) {
+        if (s == null) {
+            throw new IllegalArgumentException("O serviço a ser adicionado não pode ser nulo.");
+        }
+        if (this.finalizada) {
+            throw new IllegalStateException("Não é permitido adicionar serviços a uma ordem já finalizada.");
+        }
+        this.servicos.add(s);
+    }
+
+    public void editarOrdem(int id, OrdemServicoService novaOrdem) {
+        if (this.pago) {
+            throw new IllegalStateException("Ordens pagas não podem ser editadas.");
+        }
+        // Lógica para atualizar os campos da ordem atual com os dados da novaOrdem
     }
 
     public void excluirOrdem(int id) {
-        // Lógica para remoção da ordem do sistema
+        if (this.pago) {
+            throw new IllegalStateException("Não é permitido excluir uma ordem que já foi faturada (paga).");
+        }
+        // Lógica para remover do banco de dados ou lista
     }
 
-    public List<Servico.OrdemServico> buscarOrdemPorVeiculo(String placa) {
-        // Lógica de filtragem de ordens por placa do veículo
+    public List<OrdemServicoService> buscarOrdemPorVeiculo(String placa) {
+        if (placa == null || placa.isEmpty()) {
+            throw new IllegalArgumentException("A placa é obrigatória para a busca.");
+        }
         return new ArrayList<>();
     }
 
-    public List<Servico.OrdemServico> buscarOrdemPorCliente(String cpf) {
-        // Lógica de filtragem de ordens por identificação do cliente
+    public List<OrdemServicoService> buscarOrdemPorCliente(String cpf) {
+        if (cpf == null || cpf.isEmpty()) {
+            throw new IllegalArgumentException("O CPF é obrigatório para a busca.");
+        }
         return new ArrayList<>();
     }
+
+    // --- Getters ---
+
+    public Orcamento getOrcamento() { return orcamento; }
+    public boolean isFinalizada() { return finalizada; }
+    public boolean isPago() { return pago; }
+    public LocalDate getData() { return data; }
+    public List<Servico> getServicos() { return new ArrayList<>(servicos); }
 }

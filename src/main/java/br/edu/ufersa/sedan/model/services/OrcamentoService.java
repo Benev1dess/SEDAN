@@ -1,27 +1,27 @@
 package br.edu.ufersa.sedan.model.services;
 
-import br.edu.ufersa.sedan.model.entities.Endereco;
-
+import br.edu.ufersa.sedan.model.entities.Orcamento;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrcamentoService {
 
-    private List<Endereco.Orcamento> orcamentos = new ArrayList<>();
+    private List<Orcamento> orcamentos = new ArrayList<>();
 
     // --- OPERAÇÕES BÁSICAS (CRUD) ---
 
-    public void adicionar(Endereco.Orcamento o) {
+    public void adicionar(Orcamento o) {
         orcamentos.add(o);
     }
 
-    public List<Endereco.Orcamento> listarTodos() {
+    public List<Orcamento> listarTodos() {
         return new ArrayList<>(orcamentos);
     }
 
 
-    public boolean editarPorPlaca(String placa, Endereco.Orcamento novoOrcamento) {
+    public boolean editarPorPlaca(String placa, Orcamento novoOrcamento) {
         for (int i = 0; i < orcamentos.size(); i++) {
             if (orcamentos.get(i).getVeiculo().getPlaca().equalsIgnoreCase(placa)) {
                 orcamentos.set(i, novoOrcamento);
@@ -39,9 +39,9 @@ public class OrcamentoService {
     // --- PESQUISAS ESPECÍFICAS ---
 
 
-    public List<Endereco.Orcamento> buscarPorVeiculo(String placa) {
-        List<Endereco.Orcamento> resultado = new ArrayList<>();
-        for (Endereco.Orcamento o : orcamentos) {
+    public List<Orcamento> buscarPorVeiculo(String placa) {
+        List<Orcamento> resultado = new ArrayList<>();
+        for (Orcamento o : orcamentos) {
             if (o.getVeiculo().getPlaca().equalsIgnoreCase(placa)) {
                 resultado.add(o);
             }
@@ -50,10 +50,10 @@ public class OrcamentoService {
     }
 
 
-    public List<Endereco.Orcamento> buscarPorCliente(String nomeCliente) {
-        List<Endereco.Orcamento> resultado = new ArrayList<>();
-        for (Endereco.Orcamento o : orcamentos) {
-            String nomeDono = o.getVeiculo().getCliente().getNome();
+    public List<Orcamento> buscarPorCliente(String nomeCliente) {
+        List<Orcamento> resultado = new ArrayList<>();
+        for (Orcamento o : orcamentos) {
+            String nomeDono = o.getVeiculo().getDono().getNome();
             if (nomeDono.toLowerCase().contains(nomeCliente.toLowerCase())) {
                 resultado.add(o);
             }
@@ -61,9 +61,9 @@ public class OrcamentoService {
         return resultado;
     }
 
-    public List<Endereco.Orcamento> buscarPorPeriodo(LocalDate inicio, LocalDate fim) {
-        List<Endereco.Orcamento> resultado = new ArrayList<>();
-        for (Endereco.Orcamento o : orcamentos) {
+    public List<Orcamento> buscarPorPeriodo(LocalDate inicio, LocalDate fim) {
+        List<Orcamento> resultado = new ArrayList<>();
+        for (Orcamento o : orcamentos) {
             LocalDate dataDoc = o.getData();
             // Verifica se está dentro do intervalo
             if ((dataDoc.isEqual(inicio) || dataDoc.isAfter(inicio)) &&
