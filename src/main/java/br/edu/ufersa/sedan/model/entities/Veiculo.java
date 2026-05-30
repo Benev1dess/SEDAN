@@ -79,7 +79,7 @@ public class Veiculo {
     public int getAno() {
         return ano;
     }
-    public double getKm() {
+    public int getKm() {
         return km;
     }
     public Cliente getDono() {
