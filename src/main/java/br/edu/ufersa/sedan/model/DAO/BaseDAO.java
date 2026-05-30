@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public interface BaseDAO <E>{
-     final static String URL = "jdbc:mysql://localhost:3306/SedamDB";
+     final static String URL = "jdbc:mysql://localhost:3306/SedanDB";
      final static String USER = "root";
      final static String PASS = "root";
     static Connection con = getConnection();
@@ -29,6 +29,6 @@ public interface BaseDAO <E>{
     public E inserir(E entities);
     public void deletar(E entities);
     public void alterar(E entities);
-    public ResultSet buscar(String param);
+    public ResultSet buscar(int id);
     public ResultSet listar();
 }

@@ -3,16 +3,11 @@ import br.edu.ufersa.sedan.model.entities.Endereco;
 import java.sql.ResultSet;
 import java.sql.*;
 
-import static br.edu.ufersa.sedan.model.DAO.ClienteDAO.getConnection;
-
-public class EnderecoDAO{
-    private final static String URL = "jdbc:mysql://localhost:3306/SedamDB";
-    private final static String USER = "root";
-    private final static String PASS = "root";
-    private static Connection con = null;
+public class EnderecoDAO implements BaseDAO<Endereco>{
+    private Connection con = null;
 
     public Endereco inserir(Endereco entities) {
-        con = getConnection();
+        con = BaseDAO.getConnection();
         String sql = "INSERT INTO endereco(rua, bairro, num)" + "VALUES(?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -33,15 +28,92 @@ public class EnderecoDAO{
         return entities;
     }
 
+    @Override
+    public void deletar(Endereco entities) {
+        con = BaseDAO.getConnection();
+
+        String sql = "DELETE FROM endereco WHERE idEndereco = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, entities.getIdEndereco());
+
+            ps.executeUpdate();
+
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void alterar(Endereco entities) {
+        con = BaseDAO.getConnection();
+
+        String sql = "UPDATE endereco SET rua = ?, bairro = ?, num = ? WHERE idEndereco = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, entities.getRua());
+            ps.setString(2, entities.getBairro());
+            ps.setInt(3, entities.getNum());
+            ps.setInt(4, entities.getIdEndereco());
+
+            ps.executeUpdate();
+
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public ResultSet listar() {
+        con = BaseDAO.getConnection();
+
+        String sql = "SELECT * FROM endereco";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            return ps.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public ResultSet buscar(int id) {
+        con = BaseDAO.getConnection();
+
+        String sql = "SELECT * FROM endereco WHERE idEndereco = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public ResultSet buscarPorRua(String param){
-        con = getConnection();
+        con = BaseDAO.getConnection();
         String sql = "SELECT * FROM endereco AS e  WHERE e.rua=?";
         ResultSet rs = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, param);
             rs = ps.executeQuery();;
-            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,6 +121,7 @@ public class EnderecoDAO{
     }
 
     public ResultSet buscarPorBairro(String bairro) {
+        con = BaseDAO.getConnection();
         String sql = "SELECT * FROM endereco WHERE bairro = ?";
 
         try {
@@ -62,42 +135,4 @@ public class EnderecoDAO{
         return null;
     }
 
-    public ResultSet buscar(String rua, String bairro, int num) {
-        con = getConnection();
-
-        String sql = "SELECT * FROM endereco WHERE rua = ? AND bairro = ? AND num = ?";
-
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-
-            ps.setString(1, rua);
-            ps.setString(2, bairro);
-            ps.setInt(3, num);
-
-            return ps.executeQuery();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public static Connection getConnection() {
-        if (con == null) {
-            try {
-                con = DriverManager.getConnection(URL, USER, PASS);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return con;
-    }
-    public static void closeConnection(){
-        if (con != null){
-            try {
-                con.close();
-            } catch (SQLException e) {e.printStackTrace();}
-        }
-    }
 }
