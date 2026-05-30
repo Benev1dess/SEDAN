@@ -4,16 +4,18 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Veiculo {
+    private int id;
     private String marca;
     private String cor;
     private String placa;
     private int ano;
-    private double km;
+    private int km;
     private Cliente dono;
     private List<Servico> servicos = new ArrayList<>();
 
     // Construtor
-    public Veiculo(String marca, String cor, String placa, int ano, double km, List<Servico> servicos){
+    public Veiculo(int id, String marca, String cor, String placa, int ano, int km, List<Servico> servicos){
+        setId(id);
         setMarca(marca);
         setCor(cor);
         setPlaca(placa);
@@ -44,8 +46,8 @@ public class Veiculo {
             this.ano = ano;
         }
     }
-    public void setKm(double km){
-        if (km >= 0.0) {
+    public void setKm(int km){
+        if (km >= 0) {
             this.km = km;
         }
     }
@@ -59,6 +61,10 @@ public class Veiculo {
         } else {
             this.servicos = new ArrayList<>(servicos);
         }
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMarca() {
@@ -81,5 +87,9 @@ public class Veiculo {
     }
     public List<Servico> getServicos() {
         return new ArrayList<>(servicos);
+    }
+
+    public int getId() {
+        return id;
     }
 }

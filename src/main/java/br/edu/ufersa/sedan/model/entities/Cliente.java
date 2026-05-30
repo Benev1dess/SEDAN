@@ -6,13 +6,15 @@ import java.util.ArrayList;
 public class Cliente {
 
     // Atributos
+    private int id;
     private String nome;
     private String cpf;
     private Endereco endereco;
     private List<Veiculo> veiculos = new ArrayList<>(); // No plural, já que um cliente pode ter vários veículos
 
     // Construtor
-    public Cliente(String nome, String cpf, Endereco endereco, List<Veiculo> veiculos) {
+    public Cliente(int id, String nome, String cpf, Endereco endereco, List<Veiculo> veiculos) {
+        setId(id);
         setNome(nome);
         setCpf(cpf);
         setEndereco(endereco);
@@ -48,6 +50,14 @@ public class Cliente {
                 }
             }
         }
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void addVeiculo(Veiculo v) {

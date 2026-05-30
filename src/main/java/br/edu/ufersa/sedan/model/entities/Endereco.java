@@ -5,16 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Endereco {
+    private int idEndereco;
     private String rua;
     private String bairro;
     private int num;
 
-    public Endereco(String rua, String bairro, int num){
+    public Endereco(int idEndereco, String rua, String bairro, int num){
+        setIdEndereco(idEndereco);
         setRua(rua);
         setBairro(bairro);
         setNum(num);
     }
-
+    public void setIdEndereco(int id){
+        this.idEndereco = id;
+    }
     public void setRua(String rua){
         if (rua != null && !rua.trim().isEmpty()) {
             this.rua = rua;
@@ -39,5 +43,7 @@ public class Endereco {
     public int getNum(){
         return this.num;
     }
+    public int getIdEndereco(){return this.idEndereco;}
+
 
 }
