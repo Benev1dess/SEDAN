@@ -11,6 +11,29 @@ public class ClienteService {
     private ClienteDAO clienteDAO = new ClienteDAO();
     private EnderecoDAO enderecoDAO = new EnderecoDAO();
 
+    public void cadastrarCliente(Cliente cliente) {
+
+        if (cliente == null) {
+            return;
+        }
+
+        // valida CPF duplicado
+        if (buscarPorCpf(cliente.getCpf()) != null) {
+            System.out.println("CPF já cadastrado!");
+            return;
+        }
+
+        // salva endereço primeiro (se existir DAO funcionando pra isso)
+        Endereco endereco = cliente.getEndereco();
+
+        if (endereco != null) {
+            enderecoDAO.inserir(endereco);
+        }
+
+        // salva cliente
+        clienteDAO.inserir(cliente);
+    }
+
     public Cliente buscarPorCpf(String cpf) {
         ArrayList<Cliente> clientes = clienteDAO.buscarCpf(cpf);
         if (clientes.isEmpty()) {
