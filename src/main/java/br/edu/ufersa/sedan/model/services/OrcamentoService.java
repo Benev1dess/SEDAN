@@ -10,7 +10,7 @@ public class OrcamentoService {
 
     private List<Orcamento> orcamentos = new ArrayList<>();
 
-    // --- OPERAÇÕES BÁSICAS (CRUD) ---
+
 
     public void adicionar(Orcamento o) {
         orcamentos.add(o);
@@ -36,7 +36,6 @@ public class OrcamentoService {
         return orcamentos.removeIf(o -> o.getVeiculo().getPlaca().equalsIgnoreCase(placa));
     }
 
-    // --- PESQUISAS ESPECÍFICAS ---
 
 
     public List<Orcamento> buscarPorVeiculo(String placa) {

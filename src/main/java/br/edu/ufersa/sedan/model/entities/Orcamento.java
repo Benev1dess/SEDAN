@@ -6,12 +6,14 @@ import java.util.List;
 
 public class Orcamento {
 
+    private int id;
     private Veiculo veiculo;
     private List<Peca> pecas;
     private List<Servico> servicos;
     private LocalDate data;
 
-    public Orcamento(Veiculo veiculo) {
+    public Orcamento(int id, Veiculo veiculo) {
+        this.id = id;
         this.veiculo = veiculo;
         this.pecas = new ArrayList<>();
         this.servicos = new ArrayList<>();
@@ -54,6 +56,14 @@ public class Orcamento {
 
     public LocalDate getData() {
         return data;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
 

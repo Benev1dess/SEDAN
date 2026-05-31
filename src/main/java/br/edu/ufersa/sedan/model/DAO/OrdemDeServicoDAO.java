@@ -2,10 +2,8 @@ package br.edu.ufersa.sedan.model.DAO;
 
 import br.edu.ufersa.sedan.model.entities.OrdemServico;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class OrdemServicoDAO {
+public class OrdemDeServicoDAO {
     private final static String URL = "jdbc:mysql://localhost:3306/SedanDB";
     private final static String USER = "root";
     private final static String PASS = "root";

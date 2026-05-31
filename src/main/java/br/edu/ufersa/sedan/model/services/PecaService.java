@@ -24,12 +24,12 @@ public class PecaService {
         return null;
     }
 
-    // READ - listar todas
+
     public List<Peca> listar() {
         return new ArrayList<>(pecas);
     }
 
-    // UPDATE
+
     public boolean editar(String nome, Peca nova) {
         for (int i = 0; i < pecas.size(); i++) {
             if (pecas.get(i).getNome().equalsIgnoreCase(nome)) {
@@ -40,7 +40,7 @@ public class PecaService {
         return false;
     }
 
-    // DELETE
+
     public boolean excluir(String nome) {
         Peca p = buscarPorNome(nome);
         if (p != null) {
@@ -50,7 +50,7 @@ public class PecaService {
         return false;
     }
 
-    // EXTRA (muito bom)
+
     public List<Peca> buscarTodasPorNome(String nome) {
         List<Peca> resultado = new ArrayList<>();
 
