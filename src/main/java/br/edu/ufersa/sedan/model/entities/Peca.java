@@ -7,6 +7,18 @@ public class Peca {
     private double preco;
     private String fabricante;
 
+    // =========================================================================
+    // CORREÇÃO: Adicionado o construtor vazio que a OrcamentoDAO precisa!
+    // Usamos valores padrão válidos para não quebrar suas regras dos setters
+    // =========================================================================
+    public Peca() {
+        this.id = 0;
+        this.nome = "Item Não Identificado";
+        this.preco = 0.0;
+        this.fabricante = "Genérico";
+    }
+
+    // Mantido o seu construtor completo com parâmetros
     public Peca(int id, String nome, double preco, String fabricante) {
         setId(id);
         setNome(nome);
