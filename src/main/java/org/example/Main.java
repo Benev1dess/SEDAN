@@ -27,7 +27,7 @@ public class Main {
                 cliente.setEndereco(endereco);
 
                 clienteDAO.inserir(cliente); // Salva o cliente no banco!
-                System.out.println("✅ Cliente salvo!");
+                System.out.println("Cliente salvo!");
 
                 // TESTE 2: Buscar com o CPF EXATAMENTE igual ao que foi inserido
                 // Como o método na DAO busca por igualdade estrita, usamos sem pontos:
@@ -35,14 +35,14 @@ public class Main {
 
                 if (!resultadoBusca.isEmpty()) {
                         Cliente c = resultadoBusca.get(0); // Pega o cliente encontrado
-                        System.out.println("👤 Cliente encontrado: " + c.getNome());
+                        System.out.println("Cliente encontrado: " + c.getNome());
 
                         // TESTE 4: Alterar o nome usando o objeto que veio do banco (ele já tem o ID correto!)
                         c.setNome("Acsa Nova");
                         clienteDAO.alterar(c);
-                        System.out.println("🔄 Nome alterado com sucesso para 'Acsa Nova'!");
+                        System.out.println(" Nome alterado com sucesso para 'Acsa Nova'!");
                 } else {
-                        System.out.println("❌ Cliente não encontrado. Verifique o formato do CPF.");
+                        System.out.println("Cliente não encontrado. Verifique o formato do CPF.");
                 }
 
                 // TESTE 3: Listar todos
