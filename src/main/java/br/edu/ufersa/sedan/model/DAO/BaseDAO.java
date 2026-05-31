@@ -1,34 +1,27 @@
 package br.edu.ufersa.sedan.model.DAO;
-import java.sql.ResultSet;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
-public interface BaseDAO <E>{
-     final static String URL = "jdbc:mysql://localhost:3306/SedanDB";
-     final static String USER = "root";
-     final static String PASS = "root";
-    static Connection con = getConnection();
+public interface BaseDAO <E> {
+    final static String URL = "jdbc:mysql://localhost:3306/SedanBD"; // Ajustado para SedanBD
+    final static String USER = "root";
+    final static String PASS = "root";
 
     public static Connection getConnection() {
-            try {
-                return DriverManager.getConnection(URL, USER, PASS);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return null;
-    }
-    public static void closeConnection(){
-        if (con != null){
-            try {
-                con.close();
-            } catch (SQLException e) {e.printStackTrace();}
+        try {
+            return DriverManager.getConnection(URL, USER, PASS);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
-    public E inserir(E entities);
-    public void deletar(E entities);
-    public void alterar(E entities);
-    public ResultSet buscar(int id);
-    public ResultSet listar();
+    // Métodos abstratos que todo DAO vai ter que implementar
+    public void inserir(E entity);
+    public void deletar(E entity);
+    public void alterar(E entity);
+    public List<E> listar();
 }
