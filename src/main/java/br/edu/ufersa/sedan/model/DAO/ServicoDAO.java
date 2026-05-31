@@ -33,7 +33,6 @@ public class ServicoDAO {
 
             ResultSet rs = ps.getGeneratedKeys();
             if(rs.next()){
-                // Caso seu modelo Servico tenha ID (idServico ou id) para controle
                 // entities.setId(rs.getInt(1));
             }
             ps.close();
@@ -90,5 +89,25 @@ public class ServicoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Servico> buscarPorNome(String nome) {
+        List<Servico> lista = new ArrayList<>();
+        con = getConnection();
+        String sql = "SELECT * FROM servico WHERE nome LIKE ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, "%" + nome + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Servico s = new Servico();
+                    s.setNome(rs.getString("nome"));
+                    s.setPreco(rs.getDouble("preco"));
+                    lista.add(s);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 }

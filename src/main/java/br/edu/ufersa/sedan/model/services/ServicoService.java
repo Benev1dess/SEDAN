@@ -1,68 +1,58 @@
 package br.edu.ufersa.sedan.model.services;
-import br.edu.ufersa.sedan.model.entities.Orcamento;
+
+import br.edu.ufersa.sedan.model.DAO.ServicoDAO;
 import br.edu.ufersa.sedan.model.entities.Servico;
 
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ServicoService {
 
-    private List<Servico> servicos = new ArrayList<>();
+    private ServicoDAO servicoDAO = new ServicoDAO();
 
-
-    public void adicionar(Servico s) {
-        servicos.add(s);
-    }
-
-    public List<Servico> listar() {
-        return new ArrayList<>(servicos);
-    }
-
-    public boolean editar(String nomeAntigo, Servico novo) {
-        for (int i = 0; i < servicos.size(); i++) {
-            if (servicos.get(i).getNome().equalsIgnoreCase(nomeAntigo)) {
-                servicos.set(i, novo);
-                return true;
-            }
+    public void adicionar(Servico servico) {
+        if (servico == null) {
+            throw new IllegalArgumentException("O serviço não pode ser nulo.");
         }
-        return false;
-    }
-
-    public boolean excluir(String nome) {
-        return servicos.removeIf(s -> s.getNome().equalsIgnoreCase(nome));
-    }
-
-
-    public List<Servico> pesquisarPorVeiculo(String placa, List<Orcamento> todosOrcamentos) {
-        List<Servico> resultado = new ArrayList<>();
-        for (Orcamento o : todosOrcamentos) {
-            if (o.getVeiculo().getPlaca().equalsIgnoreCase(placa)) {
-                resultado.addAll(o.getServicos());
-            }
+        if (servico.getNome() == null || servico.getNome().isBlank()) {
+            throw new IllegalArgumentException("O nome do serviço é obrigatório.");
         }
-        return resultado;
+        if (servico.getPreco() < 0) {
+            throw new IllegalArgumentException("O preço do serviço não pode ser negativo.");
+        }
+        servicoDAO.inserir(servico);
     }
 
-    public List<Servico> pesquisarPorCliente(String nomeCliente, List<Orcamento> todosOrcamentos) {
-        List<Servico> resultado = new ArrayList<>();
-        for (Orcamento o : todosOrcamentos) {
-            if (o.getVeiculo().getDono().getNome().equalsIgnoreCase(nomeCliente)) {
-                resultado.addAll(o.getServicos());
-            }
-        }
-        return resultado;
+    public List<Servico> listarTodos() {
+        return servicoDAO.listarTodos();
     }
 
-    public List<Servico> pesquisarPorPeriodo(LocalDate inicio, LocalDate fim, List<Orcamento> todosOrcamentos) {
-        List<Servico> resultado = new ArrayList<>();
-        for (Orcamento o : todosOrcamentos) {
-            LocalDate data = o.getData();
-            if ((data.isEqual(inicio) || data.isAfter(inicio)) && (data.isEqual(fim) || data.isBefore(fim))) {
-                resultado.addAll(o.getServicos());
-            }
+    public void alterar(String nomeAntigo, Servico novoServico) {
+        if (nomeAntigo == null || nomeAntigo.isBlank()) {
+            throw new IllegalArgumentException("O nome do serviço a ser alterado é inválido.");
         }
-        return resultado;
+        if (novoServico == null) {
+            throw new IllegalArgumentException("Os novos dados do serviço não podem ser nulos.");
+        }
+        if (novoServico.getNome() == null || novoServico.getNome().isBlank()) {
+            throw new IllegalArgumentException("O novo nome do serviço é obrigatório.");
+        }
+        if (novoServico.getPreco() < 0) {
+            throw new IllegalArgumentException("O novo preço do serviço não pode ser negativo.");
+        }
+        servicoDAO.atualizar(nomeAntigo, novoServico);
+    }
+
+    public void deletar(String nome) {
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("O nome do serviço para exclusão é inválido.");
+        }
+        servicoDAO.deletar(nome);
+    }
+
+    public List<Servico> buscarPorNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("O nome para a busca não pode ser vazio.");
+        }
+        return servicoDAO.buscarPorNome(nome);
     }
 }
