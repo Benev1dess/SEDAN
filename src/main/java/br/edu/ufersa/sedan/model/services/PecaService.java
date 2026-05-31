@@ -1,65 +1,67 @@
 package br.edu.ufersa.sedan.model.services;
 
+import br.edu.ufersa.sedan.model.DAO.PecaDAO;
 import br.edu.ufersa.sedan.model.entities.Peca;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PecaService {
 
-    private List<Peca> pecas = new ArrayList<>();
+    private PecaDAO pecaDAO = new PecaDAO();
 
-    // CREATE
     public void adicionar(Peca peca) {
-        pecas.add(peca);
-    }
-
-    // READ - buscar por nome (primeiro encontrado)
-    public Peca buscarPorNome(String nome) {
-        for (Peca p : pecas) {
-            if (p.getNome().equalsIgnoreCase(nome)) {
-                return p;
-            }
+        if (peca == null) {
+            throw new IllegalArgumentException("A peça não pode ser nula.");
         }
-        return null;
+        pecaDAO.inserir(peca);
     }
 
-
-    public List<Peca> listar() {
-        return new ArrayList<>(pecas);
-    }
-
-
-    public boolean editar(String nome, Peca nova) {
-        for (int i = 0; i < pecas.size(); i++) {
-            if (pecas.get(i).getNome().equalsIgnoreCase(nome)) {
-                pecas.set(i, nova);
-                return true;
-            }
+    public void alterar(Peca peca) {
+        if (peca == null) {
+            throw new IllegalArgumentException("A peça não pode ser nula.");
         }
-        return false;
+        if (pecaDAO.buscarId(peca.getId()) == null) {
+            throw new IllegalArgumentException("Peça não encontrada para alteração.");
+        }
+        pecaDAO.alterar(peca);
     }
 
-
-    public boolean excluir(String nome) {
-        Peca p = buscarPorNome(nome);
-        if (p != null) {
-            pecas.remove(p);
-            return true;
+    public void deletar(Peca peca) {
+        if (peca == null) {
+            throw new IllegalArgumentException("A peça não pode ser nula.");
         }
-        return false;
+        if (pecaDAO.buscarId(peca.getId()) == null) {
+            throw new IllegalArgumentException("Peça não encontrada para exclusão.");
+        }
+        pecaDAO.deletar(peca);
     }
 
+    public List<Peca> listarTodos() {
+        return pecaDAO.listar();
+    }
 
-    public List<Peca> buscarTodasPorNome(String nome) {
-        List<Peca> resultado = new ArrayList<>();
-
-        for (Peca p : pecas) {
-            if (p.getNome().equalsIgnoreCase(nome)) {
-                resultado.add(p);
-            }
+    public Peca buscarPorId(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID inválido.");
         }
+        return pecaDAO.buscarId(id);
+    }
 
-        return resultado;
+    public List<Peca> buscarPorNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("O nome para busca não pode ser vazio.");
+        }
+        return pecaDAO.buscarNome(nome);
+    }
+
+    public List<Peca> buscarPorFabricante(String fabricante) {
+        if (fabricante == null || fabricante.trim().isEmpty()) {
+            throw new IllegalArgumentException("O fabricante para busca não pode ser vazio.");
+        }
+        return pecaDAO.buscarFabricante(fabricante);
+    }
+
+    public List<Peca> pesquisar(String nome, String fabricante, String automovel) {
+        return pecaDAO.pesquisar(nome, fabricante, automovel);
     }
 }
