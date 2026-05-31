@@ -10,7 +10,18 @@ public class Usuario {
     private double salario;
     private TipoUsuario tipo;
 
-    // Construtor completo utilizando ID como int
+    /**
+     * Construtor Vazio / Padrão
+     * OBRIGATÓRIO para a camada DAO conseguir instanciar o objeto
+     * e preencher os dados via seleções do banco de dados (ResultSet).
+     */
+    public Usuario() {
+    }
+
+    /**
+     * Construtor completo utilizando ID como int.
+     * Ideal para quando você já recebe o objeto montado das telas ou controladores.
+     */
     public Usuario(int id, String nome, String login, String senha, String email, String cpf, double salario, String tipo) {
         this.id = id;
         this.nome = nome;
@@ -30,7 +41,7 @@ public class Usuario {
     /**
      * Valida os dados obrigatórios dependendo da função do usuário no Sedan.
      */
-    private void validarCamposPorTipo() {
+    public void validarCamposPorTipo() {
         if (this.tipo == TipoUsuario.FUNCIONARIO) {
             if (this.cpf == null || this.cpf.isBlank()) {
                 throw new IllegalArgumentException("Erro: Funcionários precisam obrigatoriamente de um CPF.");
@@ -48,7 +59,8 @@ public class Usuario {
         }
     }
 
-    // GETTERS E SETTERS
+    // ==================== GETTERS E SETTERS ====================
+
     public int getId() {
         return id;
     }
@@ -130,9 +142,9 @@ public class Usuario {
     @Override
     public String toString() {
         if (tipo == TipoUsuario.ADM) {
-            return "[ID: " + id + "] Administrador: " + nome + " | Login: " + login + " | Email: " + email;
+            return "[ID: " + id + "] Encarregado ADM: " + nome + " | Login: " + login + " | Email: " + email;
         } else {
-            return "[ID: " + id + "] Funcionário: " + nome + " | Login: " + login + " | CPF: " + cpf + " | Salário: R$ " + salario;
+            return "[ID: " + id + "] Funcionário Operacional: " + nome + " | Login: " + login + " | CPF: " + cpf + " | Salário: R$ " + salario;
         }
     }
 }
