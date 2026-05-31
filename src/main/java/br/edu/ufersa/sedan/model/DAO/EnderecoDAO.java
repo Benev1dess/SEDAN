@@ -1,35 +1,39 @@
 package br.edu.ufersa.sedan.model.DAO;
 import br.edu.ufersa.sedan.model.entities.Endereco;
-import java.sql.ResultSet;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class EnderecoDAO implements BaseDAO<Endereco>{
+public class EnderecoDAO implements BaseDAO<Endereco> {
+
     private Connection con = null;
 
-    public Endereco inserir(Endereco entities) {
+    @Override
+    public void inserir(Endereco endereco) {
+
         con = BaseDAO.getConnection();
-        String sql = "INSERT INTO endereco(rua, bairro, num)" + "VALUES(?,?,?)";
+
+        String sql = "INSERT INTO endereco(rua, bairro, num) VALUES (?, ?, ?)";
+
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, entities.getRua());
-            ps.setString(2, entities.getBairro());
-            ps.setInt(3, entities.getNum());
-            ps.execute();
-            ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next()){
-                int idGen = rs.getInt(1);
-                entities.setIdEndereco(idGen);
-            }
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, endereco.getRua());
+            ps.setString(2, endereco.getBairro());
+            ps.setInt(3, endereco.getNum());
+
+            ps.executeUpdate();
+
             ps.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return entities;
     }
 
     @Override
-    public void deletar(Endereco entities) {
+    public void deletar(Endereco endereco) {
+
         con = BaseDAO.getConnection();
 
         String sql = "DELETE FROM endereco WHERE idEndereco = ?";
@@ -37,7 +41,7 @@ public class EnderecoDAO implements BaseDAO<Endereco>{
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 
-            ps.setInt(1, entities.getIdEndereco());
+            ps.setInt(1, endereco.getIdEndereco());
 
             ps.executeUpdate();
 
@@ -49,7 +53,8 @@ public class EnderecoDAO implements BaseDAO<Endereco>{
     }
 
     @Override
-    public void alterar(Endereco entities) {
+    public void alterar(Endereco endereco) {
+
         con = BaseDAO.getConnection();
 
         String sql = "UPDATE endereco SET rua = ?, bairro = ?, num = ? WHERE idEndereco = ?";
@@ -57,10 +62,10 @@ public class EnderecoDAO implements BaseDAO<Endereco>{
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 
-            ps.setString(1, entities.getRua());
-            ps.setString(2, entities.getBairro());
-            ps.setInt(3, entities.getNum());
-            ps.setInt(4, entities.getIdEndereco());
+            ps.setString(1, endereco.getRua());
+            ps.setString(2, endereco.getBairro());
+            ps.setInt(3, endereco.getNum());
+            ps.setInt(4, endereco.getIdEndereco());
 
             ps.executeUpdate();
 
@@ -72,67 +77,149 @@ public class EnderecoDAO implements BaseDAO<Endereco>{
     }
 
     @Override
-    public ResultSet listar() {
+    public List<Endereco> listar() {
+
+        ArrayList<Endereco> enderecos = new ArrayList<>();
+
         con = BaseDAO.getConnection();
 
         String sql = "SELECT * FROM endereco";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            return ps.executeQuery();
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Endereco endereco = new Endereco();
+
+                endereco.setIdEndereco(rs.getInt("idEndereco"));
+                endereco.setRua(rs.getString("rua"));
+                endereco.setBairro(rs.getString("bairro"));
+                endereco.setNum(rs.getInt("num"));
+
+                enderecos.add(endereco);
+            }
+
+            rs.close();
+            ps.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return enderecos;
     }
 
-    @Override
-    public ResultSet buscar(int id) {
+    public ArrayList<Endereco> buscarId(int id) {
+
+        ArrayList<Endereco> enderecos = new ArrayList<>();
+
         con = BaseDAO.getConnection();
 
         String sql = "SELECT * FROM endereco WHERE idEndereco = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+
             ps.setInt(1, id);
 
-            return ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Endereco endereco = new Endereco();
+
+                endereco.setIdEndereco(rs.getInt("idEndereco"));
+                endereco.setRua(rs.getString("rua"));
+                endereco.setBairro(rs.getString("bairro"));
+                endereco.setNum(rs.getInt("num"));
+
+                enderecos.add(endereco);
+            }
+
+            rs.close();
+            ps.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return enderecos;
     }
 
-    public ResultSet buscarPorRua(String param){
+    public ArrayList<Endereco> buscarPorRua(String rua) {
+
+        ArrayList<Endereco> enderecos = new ArrayList<>();
+
         con = BaseDAO.getConnection();
-        String sql = "SELECT * FROM endereco AS e  WHERE e.rua=?";
-        ResultSet rs = null;
+
+        String sql = "SELECT * FROM endereco WHERE rua = ?";
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, param);
-            rs = ps.executeQuery();;
+
+            ps.setString(1, rua);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Endereco endereco = new Endereco();
+
+                endereco.setIdEndereco(rs.getInt("idEndereco"));
+                endereco.setRua(rs.getString("rua"));
+                endereco.setBairro(rs.getString("bairro"));
+                endereco.setNum(rs.getInt("num"));
+
+                enderecos.add(endereco);
+            }
+
+            rs.close();
+            ps.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return rs;
+
+        return enderecos;
     }
 
-    public ResultSet buscarPorBairro(String bairro) {
+    public ArrayList<Endereco> buscarPorBairro(String bairro) {
+
+        ArrayList<Endereco> enderecos = new ArrayList<>();
+
         con = BaseDAO.getConnection();
+
         String sql = "SELECT * FROM endereco WHERE bairro = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+
             ps.setString(1, bairro);
-            return ps.executeQuery();
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Endereco endereco = new Endereco();
+
+                endereco.setIdEndereco(rs.getInt("idEndereco"));
+                endereco.setRua(rs.getString("rua"));
+                endereco.setBairro(rs.getString("bairro"));
+                endereco.setNum(rs.getInt("num"));
+
+                enderecos.add(endereco);
+            }
+
+            rs.close();
+            ps.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return enderecos;
     }
-
 }

@@ -12,6 +12,9 @@ public class Cliente {
     private Endereco endereco;
     private List<Veiculo> veiculos = new ArrayList<>(); // No plural, já que um cliente pode ter vários veículos
 
+    public Cliente() { //Construtor vazio para ser usado dentro do DAO
+    }
+
     // Construtor
     public Cliente(int id, String nome, String cpf, Endereco endereco, List<Veiculo> veiculos) {
         setId(id);

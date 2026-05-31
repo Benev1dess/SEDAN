@@ -16,6 +16,10 @@ public class Endereco {
         setBairro(bairro);
         setNum(num);
     }
+
+    public Endereco(){ //Construtor vazio para usar no DAO
+
+    }
     public void setIdEndereco(int id){
         this.idEndereco = id;
     }

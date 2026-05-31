@@ -1,110 +1,113 @@
 package br.edu.ufersa.sedan.model.services;
+import br.edu.ufersa.sedan.model.DAO.VeiculoDAO;
 import br.edu.ufersa.sedan.model.entities.Veiculo;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class VeiculoService {
-    private List<Veiculo> veiculos = new ArrayList<>(); // Guardar veículos existentes
+    private final VeiculoDAO veiculoDAO = new VeiculoDAO();
 
-    // Cadastrar veículo
-    public void cadastrarVeiculo(Veiculo veiculo){
-        if(veiculo != null && buscarPorPlaca(veiculo.getPlaca()) == null){
-            veiculos.add(veiculo);
+    public void cadastrarVeiculo(Veiculo veiculo) {
+        if (veiculo != null &&
+                buscarPorPlaca(veiculo.getPlaca()) == null) {
+            veiculoDAO.inserir(veiculo);
         }
     }
 
-    // Pesquisar por placa
-    public Veiculo buscarPorPlaca(String placa){
-        for(Veiculo v : veiculos){
-            if(v.getPlaca().equals(placa)){
-                return v;
-            }
+    public Veiculo buscarPorPlaca(String placa) {
+        ArrayList<Veiculo> veiculos =
+                veiculoDAO.buscarPorPlaca(placa);
+        if (veiculos.isEmpty()) {
+            return null;
         }
-        return null;
+
+        return veiculos.get(0);
     }
 
-    // Pesquisar usando dono
-    public List<Veiculo> buscarPorDono(String cpf){
-        List<Veiculo> encontrados = new ArrayList<>();
-        for(Veiculo v : veiculos){
-            if(v.getDono() != null &&
-                    v.getDono().getCpf().equals(cpf)){
+    public List<Veiculo> buscarPorDono(String cpf) {
+        ArrayList<Veiculo> encontrados = new ArrayList<>();
+        for (Veiculo v : veiculoDAO.listar()) {
+            if (v.getDono() != null &&
+                    v.getDono().getCpf().equals(cpf)) {
                 encontrados.add(v);
             }
         }
+
         return encontrados;
     }
 
-    // Listar veículos
-    public List<Veiculo> listarVeiculos(){
-        return new ArrayList<>(veiculos);
+    public List<Veiculo> listarVeiculos() {
+        return veiculoDAO.listar();
     }
 
-    // Alterar TODAS AS INFORMAÇÕES
-    public void alterarVeiculo(String placaAntiga, String novaMarca, String novaCor, String novaPlaca, int novoAno, double novoKm){
+    public void alterarVeiculo(String placaAntiga, String novaMarca, String novaCor, String novaPlaca, int novoAno, int novoKm) {
         Veiculo v = buscarPorPlaca(placaAntiga);
-        if(v != null){
-            if(
-                    placaAntiga.equals(novaPlaca)
-                            || buscarPorPlaca(novaPlaca) == null
-            ){
+        if (v != null) {
+
+            if (placaAntiga.equals(novaPlaca) || buscarPorPlaca(novaPlaca) == null) {
+
                 v.setMarca(novaMarca);
                 v.setCor(novaCor);
                 v.setPlaca(novaPlaca);
                 v.setAno(novoAno);
                 v.setKm(novoKm);
+
+                veiculoDAO.alterar(v);
             }
         }
     }
 
-    public void alterarMarca(String placa, String novaMarca){
+    public void alterarMarca(String placa, String novaMarca) {
         Veiculo v = buscarPorPlaca(placa);
-        if(v != null){
+
+        if (v != null) {
             v.setMarca(novaMarca);
+            veiculoDAO.alterar(v);
         }
     }
 
-    //Alterar Cor
-    public void alterarCor(String placa, String novaCor){
+    public void alterarCor(String placa, String novaCor) {
+
         Veiculo v = buscarPorPlaca(placa);
-        if(v != null){
+        if (v != null) {
+
             v.setCor(novaCor);
+
+            veiculoDAO.alterar(v);
         }
     }
 
-    public void alterarPlaca(String placa, String novaPlaca){
+    public void alterarPlaca(String placa, String novaPlaca) {
         Veiculo v = buscarPorPlaca(placa);
-        if(v != null && buscarPorPlaca(novaPlaca) == null){
+        if (v != null && buscarPorPlaca(novaPlaca) == null) {
             v.setPlaca(novaPlaca);
+            veiculoDAO.alterar(v);
         }
     }
 
-    //Alterar ano
-    public void alterarAno(String placa, int novoAno){
+    public void alterarAno(String placa, int novoAno) {
         Veiculo v = buscarPorPlaca(placa);
-        if(v != null){
+        if (v != null) {
             v.setAno(novoAno);
+            veiculoDAO.alterar(v);
         }
     }
 
-    // Alterar Quilometragem
-    public void alterarKm(String placa, double novoKm) {
+    public void alterarKm(String placa, int novoKm) {
         Veiculo v = buscarPorPlaca(placa);
         if (v != null) {
             v.setKm(novoKm);
+            veiculoDAO.alterar(v);
         }
     }
 
-    // Deletar veiculo
-    public boolean removerVeiculo(String placa){
+    public boolean removerVeiculo(String placa) {
         Veiculo v = buscarPorPlaca(placa);
-        if(v != null){
-            veiculos.remove(v);
+        if (v != null) {
+
+            veiculoDAO.deletar(v);
             return true;
         }
         return false;
     }
-
 }
-

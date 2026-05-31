@@ -23,7 +23,8 @@ public class Veiculo {
         setKm(km);
         setServicos(servicos);
     }
-
+    public Veiculo() { // pra usar no DAO
+    }
 
     // Set e Get
     public void setMarca(String marca){
@@ -51,7 +52,7 @@ public class Veiculo {
             this.km = km;
         }
     }
-    protected void setDono(Cliente dono) { //protected para não ser possível alterar o dono livremente
+    public void setDono(Cliente dono) { //protected para não ser possível alterar o dono livremente
         this.dono = dono;
     }
 

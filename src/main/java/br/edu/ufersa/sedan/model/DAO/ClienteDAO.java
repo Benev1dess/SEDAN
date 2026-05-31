@@ -1,57 +1,40 @@
 package br.edu.ufersa.sedan.model.DAO;
-
 import br.edu.ufersa.sedan.model.entities.Cliente;
-
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteDAO implements BaseDAO<Cliente> {
 
-    private Connection con = null;
+    private Connection con;
 
     @Override
-    public Cliente inserir(Cliente cliente) {
+    public void inserir(Cliente cliente) {
 
         con = BaseDAO.getConnection();
-
         String sql = "INSERT INTO cliente(nome, cpf) VALUES (?, ?)";
 
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getCpf());
-
             ps.executeUpdate();
-
-            ResultSet rs = ps.getGeneratedKeys();
-
-            if (rs.next()) {
-                cliente.setId(rs.getInt(1));
-            }
-
             ps.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return cliente;
     }
 
     @Override
     public void deletar(Cliente cliente) {
-
         con = BaseDAO.getConnection();
-
         String sql = "DELETE FROM cliente WHERE idCliente = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-
             ps.setInt(1, cliente.getId());
-
             ps.executeUpdate();
-
             ps.close();
 
         } catch (SQLException e) {
@@ -68,13 +51,10 @@ public class ClienteDAO implements BaseDAO<Cliente> {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getCpf());
             ps.setInt(3, cliente.getId());
-
             ps.executeUpdate();
-
             ps.close();
 
         } catch (SQLException e) {
@@ -83,103 +63,137 @@ public class ClienteDAO implements BaseDAO<Cliente> {
     }
 
     @Override
-    public ResultSet buscar(int id) {
+    public List<Cliente> listar() {
 
+        ArrayList<Cliente> clientes = new ArrayList<>();
         con = BaseDAO.getConnection();
-
-        String sql = "SELECT * FROM cliente WHERE idCliente = ?";
-
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-
-            ps.setInt(1, id);
-
-            return ps.executeQuery();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    @Override
-    public ResultSet listar() {
-
-        con = BaseDAO.getConnection();
-
         String sql = "SELECT * FROM cliente";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
 
-            return ps.executeQuery();
+            while (rs.next()) {
 
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt("idCliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+
+                clientes.add(cliente);
+            }
+            rs.close();
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return null;
+        return clientes;
     }
 
-    public ResultSet buscarCpf(String cpf) {
-
+    public ArrayList<Cliente> buscarId(int id) {
+        ArrayList<Cliente> clientes = new ArrayList<>();
         con = BaseDAO.getConnection();
+        String sql = "SELECT * FROM cliente WHERE idCliente = ?";
 
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt("idCliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+
+                clientes.add(cliente);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clientes;
+    }
+
+    public ArrayList<Cliente> buscarCpf(String cpf) {
+
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        con = BaseDAO.getConnection();
         String sql = "SELECT * FROM cliente WHERE cpf = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-
             ps.setString(1, cpf);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt("idCliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
 
-            return ps.executeQuery();
-
+                clientes.add(cliente);
+            }
+            rs.close();
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return null;
+        return clientes;
     }
 
-    public ResultSet buscarNome(String nome) {
-
+    public ArrayList<Cliente> buscarNome(String nome) {
+        ArrayList<Cliente> clientes = new ArrayList<>();
         con = BaseDAO.getConnection();
-
         String sql = "SELECT * FROM cliente WHERE nome = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-
             ps.setString(1, nome);
+            ResultSet rs = ps.executeQuery();
 
-            return ps.executeQuery();
+            while (rs.next()) {
 
+                Cliente cliente = new Cliente();
+
+                cliente.setId(rs.getInt("idCliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+
+                clientes.add(cliente);
+            }
+            rs.close();
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return null;
+        return clientes;
     }
 
-    public ResultSet buscar(String nome, String cpf) {
-
+    public ArrayList<Cliente> buscar(String nome, String cpf) {
+        ArrayList<Cliente> clientes = new ArrayList<>();
         con = BaseDAO.getConnection();
-
         String sql = "SELECT * FROM cliente WHERE nome = ? AND cpf = ?";
-
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-
             ps.setString(1, nome);
             ps.setString(2, cpf);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
 
-            return ps.executeQuery();
+                Cliente cliente = new Cliente();
 
+                cliente.setId(rs.getInt("idCliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+
+                clientes.add(cliente);
+            }
+            rs.close();
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return null;
+        return clientes;
     }
 }
