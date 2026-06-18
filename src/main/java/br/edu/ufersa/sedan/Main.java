@@ -12,7 +12,7 @@ public class Main extends Application {
 
         @Override
         public void start(Stage stage) throws Exception {
-                URL fxmlUrl = getClass().getResource("/br/edu/ufersa/sedan/views/loginView.fxml");
+                URL fxmlUrl = getClass().getResource("/br/edu/ufersa/sedan/views/veiculoView.fxml");
 
                 if (fxmlUrl == null) {
                         throw new IllegalStateException(
@@ -23,7 +23,7 @@ public class Main extends Application {
 
                 Parent root = FXMLLoader.load(fxmlUrl);
                 stage.setScene(new Scene(root));
-                stage.setTitle("Sedan Project - Login");
+                stage.setTitle("Sedan Project - cliente");
                 stage.show();
         }
 

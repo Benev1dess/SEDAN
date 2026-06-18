@@ -1,32 +1,216 @@
+/* =========================================================
+   style.css  –  Oficina do Seu Zé
+   ========================================================= */
+
+/* ── Reset / Root ─────────────────────────────────────────── */
 .root {
     -fx-background-color: #d9d9d9;
     -fx-font-family: "Segoe UI", "Arial", sans-serif;
 }
 
-/* Cabeçalho vermelho */
+/* ── Header vermelho ──────────────────────────────────────── */
 .header {
     -fx-background-color: #cc0000;
+    -fx-padding: 8 16 8 16;
 }
 
-/* Área externa cinza claro ao redor do painel */
+/* ── Sidebar fixa ─────────────────────────────────────────── */
+.sidebar {
+    -fx-background-color: #1a1a1a;
+    -fx-min-width: 160px;
+    -fx-max-width: 160px;
+    -fx-pref-width: 160px;
+}
+
+/* Botão genérico da sidebar */
+.sidebar-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cccccc;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 16 12 16;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-cursor: hand;
+    -fx-graphic-text-gap: 10;
+}
+
+.sidebar-item:hover {
+    -fx-background-color: #333333;
+    -fx-text-fill: #ffffff;
+}
+
+.sidebar-item:pressed {
+    -fx-background-color: #444444;
+}
+
+/* Item ativo / selecionado */
+.sidebar-item-active {
+    -fx-background-color: #2a2a2a;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: transparent transparent transparent #cc0000;
+    -fx-border-width: 0 0 0 3;
+}
+
+/* Ícone de emoji dentro do botão */
+.sidebar-icon {
+    -fx-font-size: 14px;
+    -fx-text-fill: #cccccc;
+}
+
+/* Botão Sair – cor diferente */
+.sidebar-sair {
+    -fx-border-color: transparent transparent #333333 transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* ── Painel externo (fundo cinza claro) ───────────────────── */
 .outer-panel {
     -fx-background-color: #d9d9d9;
+    -fx-padding: 20;
 }
 
-/* Painel cinza escuro central, onde fica o formulário */
+/* ── Título da página ─────────────────────────────────────── */
+.page-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a;
+}
+
+/* ── Painel da tabela ─────────────────────────────────────── */
+.table-panel {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-padding: 12;
+}
+
+/* ── TableView ────────────────────────────────────────────── */
+.clientes-table {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.clientes-table .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.clientes-table .column-header,
+.clientes-table .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #bbbbbb transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-size: 32px;
+}
+
+.clientes-table .column-header .label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.clientes-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #dddddd transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.clientes-table .table-row-cell:hover {
+    -fx-background-color: #e8e8e8;
+}
+
+.clientes-table .table-row-cell:selected {
+    -fx-background-color: #dce8f5;
+}
+
+.clientes-table .table-cell {
+    -fx-font-size: 13px;
+    -fx-text-fill: #1a1a1a;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 6 8 6 8;
+}
+
+/* Placeholder quando a tabela está vazia */
+.clientes-table .placeholder .label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #888888;
+}
+
+/* ── Rodapé da tabela ─────────────────────────────────────── */
+.table-footer {
+    -fx-padding: 8 0 0 0;
+}
+
+/* ── Botão Adicionar clientes ─────────────────────────────── */
+.add-button {
+    -fx-background-color: white;
+    -fx-text-fill: #1a1a1a;
+    -fx-font-size: 13px;
+    -fx-border-color: #aaaaaa;
+    -fx-border-width: 1;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    -fx-padding: 6 14 6 14;
+    -fx-cursor: hand;
+}
+
+.add-button:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #888888;
+}
+
+.add-button:pressed {
+    -fx-background-color: #e0e0e0;
+}
+
+/* ── Botões de ação na tabela (editar / excluir) ──────────── */
+.action-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #444444;
+    -fx-border-color: transparent;
+    -fx-padding: 2 6 2 6;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-background-radius: 2;
+}
+
+.action-button:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+.action-button-delete {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cc0000;
+    -fx-border-color: transparent;
+    -fx-padding: 2 6 2 6;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-background-radius: 2;
+}
+
+.action-button-delete:hover {
+    -fx-background-color: #fde8e8;
+}
+
+/* ── Painel cinza escuro central (login) ──────────────────── */
 .content-panel {
     -fx-background-color: #7f7f7f;
     -fx-background-radius: 2;
 }
 
-/* Rótulos USUÁRIO / SENHA */
+/* ── Rótulos USUÁRIO / SENHA ──────────────────────────────── */
 .field-label {
     -fx-text-fill: #1a1a1a;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
 
-/* Campos de texto e senha */
+/* ── Campos de texto e senha ──────────────────────────────── */
 .text-input {
     -fx-background-color: white;
     -fx-background-radius: 2;
@@ -40,7 +224,7 @@
     -fx-border-color: #333333;
 }
 
-/* Botão LOGIN (branco) */
+/* ── Botão LOGIN (branco) ─────────────────────────────────── */
 .login-button {
     -fx-background-color: white;
     -fx-text-fill: #1a1a1a;
@@ -54,15 +238,10 @@
     -fx-cursor: hand;
 }
 
-.login-button:hover {
-    -fx-background-color: #f0f0f0;
-}
+.login-button:hover  { -fx-background-color: #f0f0f0; }
+.login-button:pressed { -fx-background-color: #e0e0e0; }
 
-.login-button:pressed {
-    -fx-background-color: #e0e0e0;
-}
-
-/* Botão REGISTRO (vermelho) */
+/* ── Botão REGISTRO (vermelho) ────────────────────────────── */
 .registro-button {
     -fx-background-color: #cc0000;
     -fx-text-fill: white;
@@ -76,10 +255,158 @@
     -fx-cursor: hand;
 }
 
-.registro-button:hover {
-    -fx-background-color: #a30000;
+.registro-button:hover  { -fx-background-color: #a30000; }
+.registro-button:pressed { -fx-background-color: #8a0000; }
+
+/* ── Filtros / Checkboxes ─────────────────────────────────── */
+.filter-checkbox {
+    -fx-font-size: 13px;
+    -fx-text-fill: #1a1a1a;
+    -fx-cursor: hand;
 }
 
-.registro-button:pressed {
-    -fx-background-color: #8a0000;
+.filter-checkbox .box {
+    -fx-background-color: white;
+    -fx-border-color: #888888;
+    -fx-border-width: 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+}
+
+.filter-checkbox:selected .box {
+    -fx-background-color: #cc0000;
+    -fx-border-color: #8a0000;
+}
+
+.filter-checkbox:selected .mark {
+    -fx-background-color: white;
+}
+
+.filter-checkbox:hover .box {
+    -fx-border-color: #555555;
+}
+
+/* ── Caixa de busca ───────────────────────────────────────── */
+.search-box {
+    -fx-background-color: white;
+    -fx-border-color: #bbbbbb;
+    -fx-border-width: 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-padding: 2 8 2 8;
+}
+
+.search-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-font-size: 13px;
+    -fx-padding: 4 0 4 0;
+    -fx-pref-height: 28px;
+}
+
+.search-field:focused {
+    -fx-border-color: transparent;
+}
+
+.search-icon-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 2 4 2 4;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.search-icon-button:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 2;
+}
+
+/* ── Placeholder da tabela ────────────────────────────────── */
+.placeholder-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #888888;
+}
+
+/* ── Diálogo de edição / adição ───────────────────────────── */
+.dialog-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a;
+    -fx-padding: 0 0 8 0;
+}
+
+/* ── Sobrescreve table-panel para crescer verticalmente ────── */
+.table-panel {
+    -fx-min-height: 480px;
+}
+
+/* ── Ajuste no outer-panel para preencher o BorderPane ─────── */
+.outer-panel {
+    -fx-min-height: 600px;
+}
+
+/* ── Toolbar acima da tabela ──────────────────────────────── */
+.table-toolbar {
+    -fx-padding: 0 0 10 0;
+}
+
+/* ── Checkboxes de filtro ─────────────────────────────────── */
+.filter-checkbox {
+    -fx-font-size: 13px;
+    -fx-text-fill: #1a1a1a;
+    -fx-cursor: hand;
+}
+
+.filter-checkbox .box {
+    -fx-background-color: white;
+    -fx-border-color: #888888;
+    -fx-border-width: 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+}
+
+.filter-checkbox:selected .box {
+    -fx-background-color: #cc0000;
+    -fx-border-color: #8a0000;
+}
+
+.filter-checkbox:selected .mark {
+    -fx-background-color: white;
+}
+
+/* ── Caixa de busca ───────────────────────────────────────── */
+.search-box {
+    -fx-background-color: white;
+    -fx-border-color: #bbbbbb;
+    -fx-border-width: 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-padding: 2 8 2 8;
+}
+
+.search-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-font-size: 13px;
+    -fx-padding: 4 0 4 0;
+    -fx-pref-height: 28px;
+}
+
+.search-field:focused {
+    -fx-border-color: transparent;
+}
+
+.search-icon-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 2 4 2 4;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.search-icon-button:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 2;
 }
