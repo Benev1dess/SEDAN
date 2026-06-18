@@ -1,0 +1,85 @@
+.root {
+    -fx-background-color: #d9d9d9;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* Cabeçalho vermelho */
+.header {
+    -fx-background-color: #cc0000;
+}
+
+/* Área externa cinza claro ao redor do painel */
+.outer-panel {
+    -fx-background-color: #d9d9d9;
+}
+
+/* Painel cinza escuro central, onde fica o formulário */
+.content-panel {
+    -fx-background-color: #7f7f7f;
+    -fx-background-radius: 2;
+}
+
+/* Rótulos USUÁRIO / SENHA */
+.field-label {
+    -fx-text-fill: #1a1a1a;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Campos de texto e senha */
+.text-input {
+    -fx-background-color: white;
+    -fx-background-radius: 2;
+    -fx-border-color: #595959;
+    -fx-border-width: 1;
+    -fx-padding: 6 10 6 10;
+    -fx-font-size: 13px;
+}
+
+.text-input:focused {
+    -fx-border-color: #333333;
+}
+
+/* Botão LOGIN (branco) */
+.login-button {
+    -fx-background-color: white;
+    -fx-text-fill: #1a1a1a;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-color: #595959;
+    -fx-border-width: 1;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+.login-button:pressed {
+    -fx-background-color: #e0e0e0;
+}
+
+/* Botão REGISTRO (vermelho) */
+.registro-button {
+    -fx-background-color: #cc0000;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-color: #8a0000;
+    -fx-border-width: 1;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+}
+
+.registro-button:hover {
+    -fx-background-color: #a30000;
+}
+
+.registro-button:pressed {
+    -fx-background-color: #8a0000;
+}
