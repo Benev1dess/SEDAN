@@ -12,8 +12,7 @@ public class UsuarioDAO implements BaseDAO<Usuario> {
     @Override
     public void inserir(Usuario usuario) {
         con = BaseDAO.getConnection();
-        // Atualizado para incluir todos os campos do Model
-        String sql = "INSERT INTO usuario(nome, login, senha, email, cpf, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tb_usuario(nome, login, senha, email, cpf, salario, tipo) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, usuario.getNome());
@@ -33,7 +32,7 @@ public class UsuarioDAO implements BaseDAO<Usuario> {
     @Override
     public void deletar(Usuario usuario) {
         con = BaseDAO.getConnection();
-        String sql = "DELETE FROM usuario WHERE idUsuario = ?";
+        String sql = "DELETE FROM tb_usuario WHERE idUsuario = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, usuario.getId());
@@ -46,8 +45,7 @@ public class UsuarioDAO implements BaseDAO<Usuario> {
     @Override
     public void alterar(Usuario usuario) {
         con = BaseDAO.getConnection();
-        // Atualizado para alterar todos os campos do Model
-        String sql = "UPDATE usuario SET nome = ?, login = ?, senha = ?, email = ?, cpf = ?, salario = ?, tipo = ? WHERE idUsuario = ?";
+        String sql = "UPDATE tb_usuario SET nome = ?, login = ?, senha = ?, email = ?, cpf = ?, salario = ?, tipo = ? WHERE idUsuario = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, usuario.getNome());
@@ -69,23 +67,21 @@ public class UsuarioDAO implements BaseDAO<Usuario> {
     public List<Usuario> listar() {
         List<Usuario> usuarios = new ArrayList<>();
         con = BaseDAO.getConnection();
-        String sql = "SELECT * FROM usuario";
+        String sql = "SELECT * FROM tb_usuarios";
 
         try (PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Usuario usuario = new Usuario(); // Agora funciona porque adicionamos o construtor vazio!
+                Usuario usuario = new Usuario();
 
-                usuario.setId(rs.getInt("idUsuario"));
+                usuario.setId(rs.getInt("id"));
                 usuario.setNome(rs.getString("nome"));
                 usuario.setLogin(rs.getString("login"));
                 usuario.setSenha(rs.getString("senha"));
                 usuario.setEmail(rs.getString("email"));
                 usuario.setCpf(rs.getString("cpf"));
                 usuario.setSalario(rs.getDouble("salario"));
-
-                // Pega a String do banco ("ADM" ou "FUNCIONARIO") e joga no método seguro do seu Model
                 usuario.setTipoString(rs.getString("tipo"));
 
                 usuarios.add(usuario);
@@ -93,6 +89,6 @@ public class UsuarioDAO implements BaseDAO<Usuario> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return usuarios; // Regra do professor mantida: retorna a lista pura
+        return usuarios;
     }
 }

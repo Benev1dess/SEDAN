@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.edu.ufersa.sedan.controllers.ClienteFormController"
+      stylesheets="@../css/style.css"
+      styleClass="dialog-root"
+      prefWidth="420" spacing="0">
+
+    <padding><Insets top="28" right="28" bottom="24" left="28"/></padding>
+
+    <!-- Título -->
+    <Label fx:id="lblTitulo" text="Novo Cliente" styleClass="dialog-title"/>
+
+    <!-- Campos -->
+    <VBox spacing="4">
+        <VBox.margin><Insets top="18"/></VBox.margin>
+
+        <Label text="NOME" styleClass="dialog-field-label"/>
+        <TextField fx:id="txtNome" styleClass="dialog-field" maxWidth="Infinity"/>
+
+        <Label text="CPF" styleClass="dialog-field-label">
+            <VBox.margin><Insets top="10"/></VBox.margin>
+        </Label>
+        <TextField fx:id="txtCpf" styleClass="dialog-field" maxWidth="Infinity"
+                   promptText="Somente números"/>
+
+        <Label text="RUA" styleClass="dialog-field-label">
+            <VBox.margin><Insets top="10"/></VBox.margin>
+        </Label>
+        <TextField fx:id="txtRua" styleClass="dialog-field" maxWidth="Infinity"/>
+
+        <Label text="NÚMERO" styleClass="dialog-field-label">
+            <VBox.margin><Insets top="10"/></VBox.margin>
+        </Label>
+        <TextField fx:id="txtNumero" styleClass="dialog-field" maxWidth="Infinity"/>
+
+        <Label text="BAIRRO" styleClass="dialog-field-label">
+            <VBox.margin><Insets top="10"/></VBox.margin>
+        </Label>
+        <TextField fx:id="txtBairro" styleClass="dialog-field" maxWidth="Infinity"/>
+    </VBox>
+
+    <!-- Botões -->
+    <HBox spacing="14" alignment="CENTER">
+        <VBox.margin><Insets top="24"/></VBox.margin>
+        <Button text="CANCELAR"  styleClass="dialog-btn-red"   prefWidth="160" onAction="#onCancelar"/>
+        <Button text="CONFIRMAR" styleClass="dialog-btn-green" prefWidth="160" onAction="#onSalvar"/>
+    </HBox>
+
+</VBox>

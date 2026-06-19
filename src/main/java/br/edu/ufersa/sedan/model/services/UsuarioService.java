@@ -1,8 +1,9 @@
 package br.edu.ufersa.sedan.model.services;
 
 import br.edu.ufersa.sedan.model.DAO.UsuarioDAO;
-import br.edu.ufersa.sedan.model.entities.Usuario;
 import br.edu.ufersa.sedan.model.entities.TipoUsuario;
+import br.edu.ufersa.sedan.model.entities.Usuario;
+
 import java.util.List;
 
 public class UsuarioService {

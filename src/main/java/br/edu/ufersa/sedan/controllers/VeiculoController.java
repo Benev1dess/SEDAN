@@ -7,14 +7,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,7 +20,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class VeiculoController {
@@ -43,13 +40,10 @@ public class VeiculoController {
     @FXML private TableColumn<Veiculo, String> colKm;
     @FXML private TableColumn<Veiculo, Void>   colAcoes;
 
-    // ── Service ───────────────────────────────────────────────
     private final VeiculoService veiculoService = new VeiculoService();
-
-    // ── Lista master ──────────────────────────────────────────
     private ObservableList<Veiculo> listaMaster = FXCollections.observableArrayList();
 
-    // ── Inicialização ─────────────────────────────────────────
+    // ── Init ──────────────────────────────────────────────────
     @FXML
     public void initialize() {
         carregarLogo();
@@ -59,20 +53,15 @@ public class VeiculoController {
 
     private void carregarLogo() {
         try {
-            Image logo = new Image(
-                    Objects.requireNonNull(
-                            getClass().getResourceAsStream("/br/edu/ufersa/sedan/images/logo.png")
-                    )
-            );
+            Image logo = new Image(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/br/edu/ufersa/sedan/images/logo.png")
+            ));
             logoImage.setImage(logo);
-        } catch (Exception e) {
-            // Logo não encontrada — header fica sem imagem, sem quebrar a tela
-        }
+        } catch (Exception ignored) {}
     }
 
     // ── Colunas ───────────────────────────────────────────────
     private void configurarColunas() {
-
         colPlaca.setCellValueFactory(c ->
                 new SimpleStringProperty(c.getValue().getPlaca()));
 
@@ -93,63 +82,49 @@ public class VeiculoController {
         colKm.setCellValueFactory(c ->
                 new SimpleStringProperty(String.valueOf(c.getValue().getKm())));
 
-        // Coluna ações: ✏ editar | 🗑 deletar
         colAcoes.setCellFactory(col -> new TableCell<>() {
-
             private final Button btnEditar  = new Button("✏");
             private final Button btnDeletar = new Button("🗑");
 
             {
                 btnEditar .getStyleClass().add("action-button");
                 btnDeletar.getStyleClass().add("action-button-delete");
-
-                btnEditar .setOnAction(e ->
-                        abrirDialogo(getTableView().getItems().get(getIndex())));
-                btnDeletar.setOnAction(e ->
-                        confirmarExclusao(getTableView().getItems().get(getIndex())));
+                btnEditar .setOnAction(e -> abrirDialogoEditar(getTableView().getItems().get(getIndex())));
+                btnDeletar.setOnAction(e -> abrirDialogoExcluir(getTableView().getItems().get(getIndex())));
             }
 
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    HBox box = new HBox(4, btnEditar, btnDeletar);
-                    box.setAlignment(Pos.CENTER);
-                    setGraphic(box);
-                }
+                if (empty) { setGraphic(null); return; }
+                HBox box = new HBox(4, btnEditar, btnDeletar);
+                box.setAlignment(Pos.CENTER);
+                setGraphic(box);
             }
         });
     }
 
-    // ── Carregar do BD via Service ────────────────────────────
+    // ── Carregar ──────────────────────────────────────────────
     private void carregarVeiculos() {
         List<Veiculo> lista = veiculoService.listarVeiculos();
         listaMaster = FXCollections.observableArrayList(lista);
         tabelaVeiculos.setItems(listaMaster);
     }
 
-    // ── Busca / Filtro ────────────────────────────────────────
+    // ── Busca ─────────────────────────────────────────────────
     @FXML
     private void onBuscar() {
         String termo = txtBusca.getText().trim().toLowerCase();
-
-        if (termo.isEmpty()) {
-            tabelaVeiculos.setItems(listaMaster);
-            return;
-        }
+        if (termo.isEmpty()) { tabelaVeiculos.setItems(listaMaster); return; }
 
         boolean porNome  = chkNomeProprietario.isSelected();
         boolean porPlaca = chkPlaca.isSelected();
 
         List<Veiculo> filtrados = listaMaster.stream()
                 .filter(v -> {
-                    boolean mNome  = porNome
-                            && v.getDono() != null
+                    boolean mNome  = porNome  && v.getDono() != null
                             && v.getDono().getNome().toLowerCase().contains(termo);
-                    boolean mPlaca = porPlaca
-                            && v.getPlaca().toLowerCase().contains(termo);
+                    boolean mPlaca = porPlaca && v.getPlaca().toLowerCase().contains(termo);
                     return mNome || mPlaca;
                 })
                 .collect(Collectors.toList());
@@ -159,145 +134,83 @@ public class VeiculoController {
 
     @FXML private void onFiltroChanged() { onBuscar(); }
 
-    // ── Botão Adicionar ───────────────────────────────────────
+    // ── Adicionar ─────────────────────────────────────────────
     @FXML
     private void onAdicionar() {
-        abrirDialogo(null);
-    }
+        try {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(
+                    getClass().getResource("/br/edu/ufersa/sedan/views/veiculoAdicionarDialog.fxml")
+            ));
+            Parent root = loader.load();
 
-    // ── Diálogo Adicionar / Editar ────────────────────────────
-    private void abrirDialogo(Veiculo existente) {
+            VeiculoAdicionarController ctrl = loader.getController();
+            ctrl.setAoSalvar(this::carregarVeiculos);
 
-        Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.setTitle(existente == null ? "Adicionar Veículo" : "Editar Veículo");
-        dialog.setResizable(false);
+            Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(tabelaVeiculos.getScene().getWindow());
+            dialog.setTitle("Adicionar Veículo");
+            dialog.setResizable(false);
+            dialog.setScene(new Scene(root));
+            dialog.showAndWait();
 
-        TextField tfPlaca = campo("Ex: ABC1234");
-        TextField tfMarca = campo("Ex: Fiat Uno");
-        TextField tfCor   = campo("Ex: Azul");
-        TextField tfAno   = campo("Ex: 2020");
-        TextField tfKm    = campo("Ex: 45000");
-
-        if (existente != null) {
-            tfPlaca.setText(existente.getPlaca());
-            tfMarca.setText(existente.getMarca());
-            tfCor  .setText(existente.getCor());
-            tfAno  .setText(String.valueOf(existente.getAno()));
-            tfKm   .setText(String.valueOf(existente.getKm()));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
-        Label lblErro = new Label();
-        lblErro.setStyle("-fx-text-fill:#cc0000;-fx-font-size:12px;");
+    // ── Editar ────────────────────────────────────────────────
+    private void abrirDialogoEditar(Veiculo veiculo) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(
+                    getClass().getResource("/br/edu/ufersa/sedan/views/veiculoEditarDialog.fxml")
+            ));
+            Parent root = loader.load();
 
-        Button btnSalvar   = new Button("Salvar");
-        Button btnCancelar = new Button("Cancelar");
-        btnSalvar  .getStyleClass().add("registro-button");
-        btnCancelar.getStyleClass().add("add-button");
+            VeiculoEditarController ctrl = loader.getController();
+            ctrl.setVeiculo(veiculo);
+            ctrl.setAoSalvar(this::carregarVeiculos);
 
-        btnSalvar.setOnAction(e -> {
-            lblErro.setText("");
-            try {
-                String placa = tfPlaca.getText().trim();
-                String marca = tfMarca.getText().trim();
-                String cor   = tfCor  .getText().trim();
-                int    ano   = Integer.parseInt(tfAno.getText().trim());
-                int    km    = Integer.parseInt(tfKm .getText().trim());
+            Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(tabelaVeiculos.getScene().getWindow());
+            dialog.setTitle("Editar Veículo");
+            dialog.setResizable(false);
+            dialog.setScene(new Scene(root));
+            dialog.showAndWait();
 
-                if (placa.isEmpty() || marca.isEmpty() || cor.isEmpty()) {
-                    lblErro.setText("Preencha todos os campos obrigatórios.");
-                    return;
-                }
-
-                if (existente == null) {
-                    Veiculo novo = new Veiculo();
-                    novo.setPlaca(placa);
-                    novo.setMarca(marca);
-                    novo.setCor(cor);
-                    novo.setAno(ano);
-                    novo.setKm(km);
-                    veiculoService.cadastrarVeiculo(novo);
-                } else {
-                    veiculoService.alterarVeiculo(
-                            existente.getPlaca(), marca, cor, placa, ano, km);
-                }
-
-                carregarVeiculos();
-                dialog.close();
-
-            } catch (NumberFormatException ex) {
-                lblErro.setText("Ano e KM precisam ser números inteiros.");
-            }
-        });
-
-        btnCancelar.setOnAction(e -> dialog.close());
-
-        // Layout
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(12);
-        grid.setPadding(new Insets(24));
-        grid.setStyle("-fx-background-color:#d9d9d9;");
-
-        String[]    rotulos = {"Placa *", "Marca *", "Cor *", "Ano *", "KM *"};
-        TextField[] campos  = {tfPlaca, tfMarca, tfCor, tfAno, tfKm};
-
-        for (int i = 0; i < rotulos.length; i++) {
-            Label lbl = new Label(rotulos[i]);
-            lbl.getStyleClass().add("field-label");
-            grid.add(lbl,      0, i);
-            grid.add(campos[i], 1, i);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        grid.add(lblErro, 0, rotulos.length, 2, 1);
-
-        HBox botoes = new HBox(10, btnCancelar, btnSalvar);
-        botoes.setAlignment(Pos.CENTER_RIGHT);
-        botoes.setPadding(new Insets(8, 0, 0, 0));
-        grid.add(botoes, 0, rotulos.length + 1, 2, 1);
-
-        Scene scene = new Scene(grid, 380, 330);
-        scene.getStylesheets().add(
-                getClass().getResource("/br/edu/ufersa/sedan/css/style.css").toExternalForm()
-        );
-        dialog.setScene(scene);
-        dialog.showAndWait();
     }
 
-    private TextField campo(String prompt) {
-        TextField tf = new TextField();
-        tf.setPromptText(prompt);
-        tf.getStyleClass().add("text-input");
-        tf.setPrefWidth(220);
-        return tf;
-    }
+    // ── Excluir ───────────────────────────────────────────────
+    private void abrirDialogoExcluir(Veiculo veiculo) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(
+                    getClass().getResource("/br/edu/ufersa/sedan/views/veiculoExcluirDialog.fxml")
+            ));
+            Parent root = loader.load();
 
-    // ── Confirmar exclusão ────────────────────────────────────
-    private void confirmarExclusao(Veiculo veiculo) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar Exclusão");
-        alert.setHeaderText("Excluir veículo");
-        alert.setContentText(
-                "Deseja excluir o veículo de placa " + veiculo.getPlaca() + "?\n" +
-                        "Esta ação não pode ser desfeita.");
+            VeiculoExcluirController ctrl = loader.getController();
+            ctrl.setVeiculo(veiculo);
+            ctrl.setAoExcluir(this::carregarVeiculos);
 
-        Optional<ButtonType> res = alert.showAndWait();
-        if (res.isPresent() && res.get() == ButtonType.OK) {
-            boolean ok = veiculoService.removerVeiculo(veiculo.getPlaca());
-            if (!ok) {
-                new Alert(Alert.AlertType.ERROR,
-                        "Não foi possível remover o veículo.", ButtonType.OK)
-                        .showAndWait();
-            } else {
-                carregarVeiculos();
-            }
+            Stage dialog = new Stage();
+            VeiculoExcluirController.stage = dialog; // passa referência para o controller fechar
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(tabelaVeiculos.getScene().getWindow());
+            dialog.setTitle("Confirmar Exclusão");
+            dialog.setResizable(false);
+            dialog.setScene(new Scene(root));
+            dialog.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     // ── Navegação da Sidebar ──────────────────────────────────
-    // Implemente os métodos abaixo seguindo o mesmo padrão
-    // do ClienteController (trocar a cena pelo FXML correspondente)
-
     @FXML private void onClientes()     { navegarPara("/br/edu/ufersa/sedan/views/clienteView.fxml"); }
     @FXML private void onVeiculos()     { /* já estamos aqui */ }
     @FXML private void onPecas()        { navegarPara("/br/edu/ufersa/sedan/views/pecaView.fxml"); }
@@ -309,8 +222,7 @@ public class VeiculoController {
 
     @FXML
     private void onSair() {
-        Stage stage = (Stage) tabelaVeiculos.getScene().getWindow();
-        stage.close();
+        ((Stage) tabelaVeiculos.getScene().getWindow()).close();
     }
 
     private void navegarPara(String fxmlPath) {

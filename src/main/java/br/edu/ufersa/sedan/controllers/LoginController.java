@@ -1,57 +1,85 @@
 package br.edu.ufersa.sedan.controllers;
 
+import br.edu.ufersa.sedan.model.entities.Usuario;
+import br.edu.ufersa.sedan.model.services.UsuarioService;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class LoginController {
 
-    @FXML
-    private TextField usuarioField;
+    @FXML private TextField     usuarioField;
+    @FXML private PasswordField senhaField;
 
-    @FXML
-    private PasswordField senhaField;
+    private final UsuarioService usuarioService = new UsuarioService();
 
     @FXML
     private void handleLogin() {
         String usuario = usuarioField.getText().trim();
-        String senha = senhaField.getText().trim();
+        String senha   = senhaField.getText().trim();
 
         if (usuario.isEmpty() || senha.isEmpty()) {
-            mostrarAlerta("Atenção", "Preencha usuário e senha para continuar.");
+            mostrarAlerta(Alert.AlertType.WARNING, "Atenção",
+                    "Preencha usuário e senha para continuar.");
             return;
         }
 
-        // TODO: chamar o service/DAO de autenticação (model.services / model.DAO)
-        boolean credenciaisValidas = autenticar(usuario, senha);
+        // Usa o método que já existe no UsuarioService, que consulta o banco
+        // via UsuarioDAO.listar() e compara login + senha.
+        Usuario logado = usuarioService.fazerLogin(usuario, senha);
 
-        if (credenciaisValidas) {
-            System.out.println("Login realizado com sucesso: " + usuario);
-            // TODO: abrir a tela principal do sistema
+        if (logado != null) {
+            abrirTelaPrincipal(logado);
         } else {
-            mostrarAlerta("Erro", "Usuário ou senha inválidos.");
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro",
+                    "Usuário ou senha inválidos.");
         }
     }
 
     @FXML
     private void handleRegistro() {
-        // TODO: abrir a tela de cadastro de novo usuário
-        System.out.println("Abrindo tela de registro...");
+        // TODO: abrir a tela de cadastro de novo usuário (registroView.fxml),
+        // assim que ela existir. Por enquanto, apenas avisa.
+        mostrarAlerta(Alert.AlertType.INFORMATION, "Registro",
+                "Tela de registro de usuário ainda não implementada.");
     }
 
-    private boolean autenticar(String usuario, String senha) {
-        // Lógica de autenticação real deve ser implementada aqui,
-        // delegando para uma classe em model.services, por exemplo.
-        return true;
+    /**
+     * Após o login bem-sucedido, abre a tela principal do sistema
+     * (ex: veiculoView.fxml ou clienteView.fxml) na mesma janela.
+     * Ajuste o caminho conforme a tela inicial real do seu projeto.
+     */
+    private void abrirTelaPrincipal(Usuario usuarioLogado) {
+        try {
+            Parent root = FXMLLoader.load(
+                    Objects.requireNonNull(
+                            getClass().getResource("/br/edu/ufersa/sedan/views/clienteView.fxml")
+                    )
+            );
+
+            Stage stage = (Stage) usuarioField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Oficina do Seu Zé — " + usuarioLogado.getNome());
+
+        } catch (IOException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro",
+                    "Não foi possível abrir a tela principal: " + e.getMessage());
+        }
     }
 
-    private void mostrarAlerta(String titulo, String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensagem) {
+        Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
         alert.showAndWait();
     }
 }
-

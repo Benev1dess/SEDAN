@@ -27,10 +27,6 @@
         <HBox alignment="CENTER" prefHeight="80.0" styleClass="header" BorderPane.alignment="CENTER">
             <children>
                 <ImageView fitHeight="60.0" preserveRatio="true">
-                    <image>
-                        <!-- Coloque a logo em: src/main/resources/br/edu/ufersa/sedan/images/logo.png -->
-                        <Image url="@../images/logo.png" />
-                    </image>
                 </ImageView>
             </children>
         </HBox>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.edu.ufersa.sedan.controllers.VeiculoEditarController"
+      stylesheets="@../css/style.css"
+      styleClass="dialog-root"
+      prefWidth="520" spacing="0">
+
+    <padding><Insets top="28" right="28" bottom="24" left="28"/></padding>
+
+    <!-- Título -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Editar Veículo" styleClass="dialog-title"/>
+        <Label text="✏" styleClass="dialog-title-icon"/>
+    </HBox>
+
+    <VBox spacing="0">
+        <padding><Insets top="18" bottom="0"/></padding>
+
+        <GridPane hgap="14" vgap="0">
+
+            <!-- Linha 1 -->
+            <Label text="AUTOMÓVEL" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Label text="PLACA"     styleClass="dialog-field-label" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Label text="MARCA"     styleClass="dialog-field-label" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+
+            <TextField fx:id="tfAutomovel" styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="tfPlaca"     styleClass="dialog-field" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <TextField fx:id="tfMarca"     styleClass="dialog-field" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+
+            <Region GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="12"/>
+
+            <!-- Linha 2 -->
+            <Label text="ANO"     styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <Label text="KM"      styleClass="dialog-field-label" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            <Label text="SERVIÇO" styleClass="dialog-field-label" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+
+            <TextField fx:id="tfAno"     styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <TextField fx:id="tfKm"      styleClass="dialog-field" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            <TextField fx:id="tfServico" styleClass="dialog-field" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+
+            <Region GridPane.columnIndex="0" GridPane.rowIndex="5" prefHeight="12"/>
+
+            <!-- Linha 3 -->
+            <Label text="PEÇA"  styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+            <Label text="VALOR" styleClass="dialog-field-label" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+            <TextField fx:id="tfPeca"  styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+            <TextField fx:id="tfValor" styleClass="dialog-field" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+
+        </GridPane>
+    </VBox>
+
+    <Label fx:id="lblErro" styleClass="dialog-error" wrapText="true">
+        <VBox.margin><Insets top="8"/></VBox.margin>
+    </Label>
+
+    <!-- Botões -->
+    <HBox spacing="14" alignment="CENTER">
+        <VBox.margin><Insets top="24"/></VBox.margin>
+        <Button text="CANCELAR"  styleClass="dialog-btn-red"   prefWidth="180" onAction="#onCancelar"/>
+        <Button text="CONFIRMAR" styleClass="dialog-btn-green" prefWidth="180" onAction="#onConfirmar"/>
+    </HBox>
+
+</VBox>

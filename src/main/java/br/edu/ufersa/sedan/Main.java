@@ -12,7 +12,7 @@ public class Main extends Application {
 
         @Override
         public void start(Stage stage) throws Exception {
-                URL fxmlUrl = getClass().getResource("/br/edu/ufersa/sedan/views/veiculoView.fxml");
+                URL fxmlUrl = getClass().getResource("/br/edu/ufersa/sedan/views/loginView.fxml");
 
                 if (fxmlUrl == null) {
                         throw new IllegalStateException(
