@@ -410,3 +410,9 @@
     -fx-background-color: #f0f0f0;
     -fx-background-radius: 2;
 }
+
+/* ── Toolbar acima da tabela ──────────────────────────────── */
+.table-toolbar {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 16;
+}
