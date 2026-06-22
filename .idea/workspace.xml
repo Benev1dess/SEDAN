@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e6bbac0-e0e3-4ad9-8d6c-abe26fb02a74" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/VeiculoAdicionarController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/VeiculoEditarController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/VeiculoExcluirController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/clienteFormView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/veiculoAdicionarDialog.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/veiculoEditarDialog.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/veiculoExcluirDialog.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/VeiculoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/VeiculoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/DAO/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/DAO/UsuarioDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/UsuarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/loginView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/loginView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,12 +29,12 @@
     &quot;assignee&quot;: &quot;Acsaemilly&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Benev1dess/SEDAN.git&quot;,
-    &quot;accountId&quot;: &quot;5558ac1b-ed96-48cc-a553-d6ffdf23e160&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Benev1dess/SEDAN.git",
+    "accountId": "cb3d2010-ab04-43ad-9447-e4e62eaf4a6b"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
@@ -85,13 +72,25 @@
       <recent name="br.edu.ufersa.sedan" />
     </key>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
-      </set>
-    </attachedChunks>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.edu.ufersa.sedan.Main" />
+      <module name="SedanProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.edu.ufersa.sedan.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -108,5 +107,15 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.sql.SQLSyntaxErrorException" package="java.sql" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
