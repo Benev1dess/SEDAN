@@ -152,15 +152,16 @@ public class ClienteController implements Initializable {
         });
     }
 
-    // Navegação da Sidebar
-    @FXML private void onClientes() {}
-    @FXML private void onVeiculos() { navegarPara("veiculoView.fxml"); }
-    @FXML private void onPecas() { navegarPara("pecaView.fxml"); }
-    @FXML private void onServicos() { navegarPara("servicoView.fxml"); }
-    @FXML private void onOrcamentos() { navegarPara("orcamentoView.fxml"); }
-    @FXML private void onOrdemServico() { navegarPara("ordemServicoView.fxml"); }
-    @FXML private void onRelatorios() { navegarPara("relatorioView.fxml"); }
-    @FXML private void onFuncionarios() { navegarPara("funcionarioView.fxml"); }
+
+    //Navegação do Menu Lateral
+    @FXML private void onClientes()     { navegarPara("/br/edu/ufersa/sedan/views/clienteView.fxml"); }
+    @FXML private void onVeiculos()     { /* Tela Atual */ }
+    @FXML private void onPecas()        { navegarPara("/br/edu/ufersa/sedan/views/pecaView.fxml"); }
+    @FXML private void onServicos()     { navegarPara("/br/edu/ufersa/sedan/views/servicoView.fxml"); }
+    @FXML private void onOrcamentos()   { navegarPara("/br/edu/ufersa/sedan/views/orcamentoView.fxml"); }
+    @FXML private void onOrdemServico() { navegarPara("/br/edu/ufersa/sedan/views/ordemServicoView.fxml"); }
+    @FXML private void onRelatorios()   { navegarPara("/br/edu/ufersa/sedan/views/relatorioView.fxml"); }
+    @FXML private void onFuncionarios() { navegarPara("/br/edu/ufersa/sedan/views/funcionarioView.fxml"); }
 
     @FXML
     private void onSair() {
@@ -174,14 +175,26 @@ public class ClienteController implements Initializable {
         });
     }
 
-    private void navegarPara(String fxmlFile) {
+    private void navegarPara(String fxmlPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ufersa/sedan/views/" + fxmlFile));
-            Parent root = loader.load();
-            Stage stage = (Stage) tabelaClientes.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            // 1. Tente capturar a URL
+            java.net.URL url = getClass().getResource(fxmlPath);
+
+            // 2. Se for null, o problema é o caminho!
+            if (url == null) {
+                System.err.println("ERRO FATAL: Arquivo não encontrado.");
+                System.err.println("Caminho buscado: " + fxmlPath);
+                System.err.println("DICA: Verifique se o arquivo está na pasta 'src/main/resources'");
+                return; // Interrompe a execução antes do erro acontecer
+            }
+
+            // 3. Se passou pelo if, o arquivo existe!
+            Parent root = FXMLLoader.load(url);
+            Stage stage = (Stage) tabelaClientes.getScene().getWindow(); // Certifique-se que tabelaClientes existe
+            stage.getScene().setRoot(root);
+
         } catch (IOException e) {
-            mostrarErro("Erro ao navegar: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

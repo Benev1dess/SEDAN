@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import br.edu.ufersa.sedan.util.Sessao;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -35,14 +36,15 @@ public class LoginController {
         Usuario logado = usuarioService.fazerLogin(usuario, senha);
 
         if (logado != null) {
+            // AQUI VOCÊ SALVA O USUÁRIO NA SESSÃO ANTES DE MUDAR DE TELA
+            Sessao.getInstance().setUsuario(logado);
+
             abrirTelaPrincipal(logado);
         } else {
             mostrarAlerta(Alert.AlertType.ERROR, "Erro",
                     "Usuário ou senha inválidos.");
         }
     }
-
-
 
     private void abrirTelaPrincipal(Usuario usuarioLogado) {
         try {
