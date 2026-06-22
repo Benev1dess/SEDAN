@@ -2,7 +2,6 @@ package br.edu.ufersa.sedan.controllers;
 
 import br.edu.ufersa.sedan.model.entities.Cliente;
 import br.edu.ufersa.sedan.model.entities.Endereco;
-import br.edu.ufersa.sedan.model.entities.Veiculo;
 import br.edu.ufersa.sedan.model.services.ClienteService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -14,83 +13,66 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class ClienteController implements Initializable {
 
-    // ── Tabela ──────────────────────────────────────────────────
-    @FXML private TableView<Cliente>           tabelaClientes;
+    @FXML private ImageView logoImage;
+    @FXML private CheckBox chkNome;
+    @FXML private CheckBox chkCpf;
+    @FXML private TextField txtBusca;
+
+    @FXML private TableView<Cliente> tabelaClientes;
     @FXML private TableColumn<Cliente, String> colNome;
     @FXML private TableColumn<Cliente, String> colCpf;
     @FXML private TableColumn<Cliente, String> colEndereco;
-    @FXML private TableColumn<Cliente, String> colAutomovel;
-    @FXML private TableColumn<Cliente, Void>   colAcoes;
+    @FXML private TableColumn<Cliente, Void> colAcoes;
+    @FXML private Button btnAdicionar;
 
     private final ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
     private final ClienteService clienteService = new ClienteService();
 
-    // ── Inicialização ────────────────────────────────────────────
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Inicializar logo caso necessário (opcional, replicando comportamento do veículo)
+        // logoImage.setImage(new Image(getClass().getResourceAsStream("/br/edu/ufersa/sedan/images/logo.png")));
+
         configurarColunas();
         carregarDados();
         tabelaClientes.setItems(listaClientes);
     }
 
     private void configurarColunas() {
-        colNome.setCellValueFactory(c ->
-                new SimpleStringProperty(c.getValue().getNome()));
+        colNome.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNome()));
+        colCpf.setCellValueFactory(c -> new SimpleStringProperty(formatarCpf(c.getValue().getCpf())));
 
-        colCpf.setCellValueFactory(c ->
-                new SimpleStringProperty(formatarCpf(c.getValue().getCpf())));
-
-        // Exibe endereço no formato "Rua, Número, Bairro"
         colEndereco.setCellValueFactory(c -> {
             Endereco e = c.getValue().getEndereco();
-            if (e == null) return new SimpleStringProperty("—");
-            String texto = e.getRua() + ", " + e.getNum() + ", " + e.getBairro();
-            return new SimpleStringProperty(texto);
-        });
-
-        // Exibe os veículos separados por vírgula
-        colAutomovel.setCellValueFactory(c -> {
-            List<Veiculo> veiculos = c.getValue().getVeiculos();
-            if (veiculos == null || veiculos.isEmpty())
+            if (e == null || e.getRua() == null || e.getRua().isEmpty()) {
                 return new SimpleStringProperty("—");
-            String texto = veiculos.stream()
-                    .map(Veiculo::getMarca)   // ajuste para getPlaca() se preferir
-                    .collect(Collectors.joining(", "));
-            return new SimpleStringProperty(texto);
+            }
+            return new SimpleStringProperty(e.getRua() + ", " + e.getNum() + " - " + e.getBairro());
         });
 
-        // Coluna de ações: botões ✏ e 🗑
         colAcoes.setCellFactory(col -> new TableCell<>() {
-            private final Button btnEditar  = new Button("✏");
+            private final Button btnEditar = new Button("✏");
             private final Button btnExcluir = new Button("🗑");
-            private final HBox   box        = new HBox(4, btnEditar, btnExcluir);
+            private final HBox box = new HBox(8, btnEditar, btnExcluir);
 
             {
                 box.setAlignment(Pos.CENTER);
-                btnEditar .getStyleClass().add("action-button");
+                btnEditar.getStyleClass().add("action-button");
                 btnExcluir.getStyleClass().add("action-button-delete");
 
-                btnEditar.setOnAction(e -> {
-                    Cliente c = getTableView().getItems().get(getIndex());
-                    abrirFormulario(c);
-                });
-
-                btnExcluir.setOnAction(e -> {
-                    Cliente c = getTableView().getItems().get(getIndex());
-                    confirmarExclusao(c);
-                });
+                btnEditar.setOnAction(e -> abrirFormulario(getTableView().getItems().get(getIndex())));
+                btnExcluir.setOnAction(e -> confirmarExclusao(getTableView().getItems().get(getIndex())));
             }
 
             @Override
@@ -101,27 +83,43 @@ public class ClienteController implements Initializable {
         });
     }
 
-    // ── Dados ────────────────────────────────────────────────────
-
     private void carregarDados() {
         listaClientes.setAll(clienteService.listarClientes());
     }
 
-    // ── Ações da tela ─────────────────────────────────────────────
+    @FXML
+    private void onBuscar() {
+        String termo = txtBusca.getText().trim();
+        if (termo.isEmpty()) {
+            carregarDados();
+            return;
+        }
+
+        // Lógica simples de filtro local ou via service com base nos CheckBoxes selecionados
+        ObservableList<Cliente> filtrados = FXCollections.observableArrayList();
+        for (Cliente c : clienteService.listarClientes()) {
+            boolean bateNome = chkNome.isSelected() && c.getNome().toLowerCase().contains(termo.toLowerCase());
+            boolean bateCpf = chkCpf.isSelected() && c.getCpf().contains(termo);
+            if (bateNome || bateCpf) {
+                filtrados.add(c);
+            }
+        }
+        listaClientes.setAll(filtrados);
+    }
 
     @FXML
-    private void onAdicionarCliente() {
+    private void onFiltroChanged() {
+        onBuscar();
+    }
+
+    @FXML
+    private void onAdicionar() {
         abrirFormulario(null);
     }
 
-    /**
-     * Abre o formulário modal de criação (cliente == null) ou edição.
-     * O controller do formulário recebe o cliente e o callback de refresh.
-     */
     private void abrirFormulario(Cliente cliente) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/br/edu/ufersa/sedan/views/clienteFormView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ufersa/sedan/views/clienteFormView.fxml"));
             Parent root = loader.load();
 
             ClienteFormController formCtrl = loader.getController();
@@ -147,8 +145,7 @@ public class ClienteController implements Initializable {
 
         alert.showAndWait().ifPresent(resp -> {
             if (resp == ButtonType.OK) {
-                boolean ok = clienteService.removerCliente(cliente.getCpf());
-                if (ok) {
+                if (clienteService.removerCliente(cliente.getCpf())) {
                     carregarDados();
                 } else {
                     mostrarErro("Não foi possível remover o cliente.");
@@ -157,34 +154,31 @@ public class ClienteController implements Initializable {
         });
     }
 
-    // ── Navegação da sidebar ─────────────────────────────────────
-
-    @FXML private void onClientes()     { /* já estamos aqui */ }
-    @FXML private void onVeiculos()     { navegarPara("veiculoView.fxml"); }
-    @FXML private void onPecas()        { navegarPara("pecaView.fxml"); }
-    @FXML private void onServicos()     { navegarPara("servicoView.fxml"); }
-    @FXML private void onOrcamentos()   { navegarPara("orcamentoView.fxml"); }
+    // ── Navegação da Sidebar ─────────────────────────────────────
+    @FXML private void onClientes() {}
+    @FXML private void onVeiculos() { navegarPara("veiculoView.fxml"); }
+    @FXML private void onPecas() { navegarPara("pecaView.fxml"); }
+    @FXML private void onServicos() { navegarPara("servicoView.fxml"); }
+    @FXML private void onOrcamentos() { navegarPara("orcamentoView.fxml"); }
     @FXML private void onOrdemServico() { navegarPara("ordemServicoView.fxml"); }
-    @FXML private void onRelatorios()   { navegarPara("relatorioView.fxml"); }
+    @FXML private void onRelatorios() { navegarPara("relatorioView.fxml"); }
+    @FXML private void onFuncionarios() { navegarPara("funcionarioView.fxml"); }
 
     @FXML
     private void onSair() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Sair");
-        alert.setHeaderText(null);
         alert.setContentText("Deseja realmente sair?");
         alert.showAndWait().ifPresent(resp -> {
             if (resp == ButtonType.OK) {
-                Stage stage = (Stage) tabelaClientes.getScene().getWindow();
-                stage.close();
+                ((Stage) tabelaClientes.getScene().getWindow()).close();
             }
         });
     }
 
     private void navegarPara(String fxmlFile) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/br/edu/ufersa/sedan/views/" + fxmlFile));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ufersa/sedan/views/" + fxmlFile));
             Parent root = loader.load();
             Stage stage = (Stage) tabelaClientes.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -193,21 +187,14 @@ public class ClienteController implements Initializable {
         }
     }
 
-    // ── Utilitários ───────────────────────────────────────────────
-
-    /** Formata CPF de "12345678910" para "123.456.789-10". */
     private String formatarCpf(String cpf) {
         if (cpf == null || cpf.length() != 11) return cpf;
-        return cpf.substring(0, 3) + "."
-                + cpf.substring(3, 6) + "."
-                + cpf.substring(6, 9) + "-"
-                + cpf.substring(9);
+        return cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-" + cpf.substring(9);
     }
 
     private void mostrarErro(String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erro");
-        alert.setHeaderText(null);
         alert.setContentText(msg);
         alert.showAndWait();
     }

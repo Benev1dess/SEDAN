@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
@@ -13,10 +12,8 @@
             prefWidth="900" prefHeight="600"
             styleClass="root">
 
-    <!-- SIDEBAR -->
     <left>
         <VBox styleClass="sidebar" prefWidth="160">
-
             <VBox spacing="0" VBox.vgrow="ALWAYS">
 
                 <Button text="Clientes" styleClass="sidebar-item, sidebar-item-active"
@@ -41,7 +38,7 @@
 
                 <Button text="Orçamentos" styleClass="sidebar-item"
                         maxWidth="Infinity" onAction="#onOrcamentos">
-                    <graphic><Label text="R$"/></graphic>
+                    <graphic><Label text="💲"/></graphic>
                 </Button>
 
                 <Button text="Ordem de serviço" styleClass="sidebar-item"
@@ -55,31 +52,30 @@
                     <graphic><Label text="📄"/></graphic>
                 </Button>
 
+                <Button text="Funcionários" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onFuncionarios">
+                    <graphic><Label text="👥"/></graphic>
+                </Button>
+
                 <Region VBox.vgrow="ALWAYS"/>
 
                 <Button text="Sair" styleClass="sidebar-item, sidebar-sair"
                         maxWidth="Infinity" onAction="#onSair">
-                    <graphic><Label text="⬡"/></graphic>
+                    <graphic><Label text="🚪"/></graphic>
                 </Button>
 
             </VBox>
         </VBox>
     </left>
 
-    <!-- CONTEÚDO -->
     <center>
         <VBox spacing="0">
 
-            <!-- HEADER -->
             <HBox styleClass="header" alignment="CENTER" prefHeight="70">
-
                 <ImageView fx:id="logoImage" fitHeight="55" preserveRatio="true"/>
             </HBox>
 
-            <!-- PAINEL PRINCIPAL -->
             <VBox styleClass="outer-panel" VBox.vgrow="ALWAYS" spacing="0">
-
-                <!-- padding CORRIGIDO -->
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
@@ -88,7 +84,35 @@
 
                 <VBox styleClass="table-panel" VBox.vgrow="ALWAYS">
 
-                    <!-- TABELA CORRIGIDA -->
+                    <HBox spacing="16" alignment="CENTER_LEFT" styleClass="table-toolbar">
+                        <padding><Insets bottom="10"/></padding>
+
+                        <VBox spacing="4">
+                            <CheckBox fx:id="chkNome"
+                                      text="Nome"
+                                      styleClass="filter-checkbox"
+                                      selected="true"
+                                      onAction="#onFiltroChanged"/>
+                            <CheckBox fx:id="chkCpf"
+                                      text="CPF"
+                                      styleClass="filter-checkbox"
+                                      selected="true"
+                                      onAction="#onFiltroChanged"/>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <HBox styleClass="search-box" alignment="CENTER_LEFT" spacing="4">
+                            <TextField fx:id="txtBusca"
+                                       promptText="Busque por nome ou CPF..."
+                                       styleClass="search-field"
+                                       prefWidth="320"
+                                       onKeyReleased="#onBuscar"/>
+                            <Button text="🔍" styleClass="search-icon-button"
+                                    onAction="#onBuscar"/>
+                        </HBox>
+                    </HBox>
+
                     <TableView fx:id="tabelaClientes"
                                VBox.vgrow="ALWAYS"
                                styleClass="clientes-table">
@@ -98,11 +122,10 @@
                         </columnResizePolicy>
 
                         <columns>
-                            <TableColumn fx:id="colNome" text="Nome" prefWidth="180"/>
-                            <TableColumn fx:id="colCpf" text="CPF" prefWidth="150"/>
-                            <TableColumn fx:id="colEndereco" text="Endereço" prefWidth="240"/>
-                            <TableColumn fx:id="colAutomovel" text="Automóvel" prefWidth="140"/>
-                            <TableColumn fx:id="colAcoes" text="" prefWidth="80" sortable="false"/>
+                            <TableColumn fx:id="colNome"     text="Nome"     prefWidth="250"/>
+                            <TableColumn fx:id="colCpf"      text="CPF"      prefWidth="150"/>
+                            <TableColumn fx:id="colEndereco" text="Endereço" prefWidth="350"/>
+                            <TableColumn fx:id="colAcoes"    text=""         prefWidth="80" sortable="false"/>
                         </columns>
 
                     </TableView>
@@ -111,7 +134,7 @@
                         <Button fx:id="btnAdicionar"
                                 text="+ Adicionar clientes"
                                 styleClass="add-button"
-                                onAction="#onAdicionarCliente"/>
+                                onAction="#onAdicionar"/>
                     </HBox>
 
                 </VBox>
