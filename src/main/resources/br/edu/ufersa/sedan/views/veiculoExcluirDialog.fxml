@@ -14,13 +14,13 @@
 
     <padding><Insets top="36" right="32" bottom="28" left="32"/></padding>
 
-    <!-- Título -->
+
     <HBox alignment="CENTER" spacing="12">
         <Label text="CONFIRMAR EXCLUSÃO" styleClass="dialog-title-exclusao"/>
         <Label text="🗑" styleClass="dialog-title-icon-exclusao"/>
     </HBox>
 
-    <!-- Botões -->
+
     <HBox spacing="14" alignment="CENTER">
         <VBox.margin><Insets top="28"/></VBox.margin>
         <Button text="CANCELAR"  styleClass="dialog-btn-red"   prefWidth="160" onAction="#onCancelar"/>

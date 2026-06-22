@@ -41,8 +41,6 @@ public class ClienteController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Inicializar logo caso necessário (opcional, replicando comportamento do veículo)
-        // logoImage.setImage(new Image(getClass().getResourceAsStream("/br/edu/ufersa/sedan/images/logo.png")));
 
         configurarColunas();
         carregarDados();
@@ -95,7 +93,7 @@ public class ClienteController implements Initializable {
             return;
         }
 
-        // Lógica simples de filtro local ou via service com base nos CheckBoxes selecionados
+
         ObservableList<Cliente> filtrados = FXCollections.observableArrayList();
         for (Cliente c : clienteService.listarClientes()) {
             boolean bateNome = chkNome.isSelected() && c.getNome().toLowerCase().contains(termo.toLowerCase());
@@ -154,7 +152,7 @@ public class ClienteController implements Initializable {
         });
     }
 
-    // ── Navegação da Sidebar ─────────────────────────────────────
+    // Navegação da Sidebar
     @FXML private void onClientes() {}
     @FXML private void onVeiculos() { navegarPara("veiculoView.fxml"); }
     @FXML private void onPecas() { navegarPara("pecaView.fxml"); }

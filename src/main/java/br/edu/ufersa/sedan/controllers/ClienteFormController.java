@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class ClienteFormController {
 
-    // ── Campos do formulário ──────────────────────────────────────
+    // formulário
     @FXML private Label    lblTitulo;
     @FXML private TextField txtNome;
     @FXML private TextField txtCpf;
@@ -17,18 +17,11 @@ public class ClienteFormController {
     @FXML private TextField txtNumero;
     @FXML private TextField txtBairro;
 
-    // ── Estado ───────────────────────────────────────────────────
+    // Estado
     private Cliente        clienteEditando; // null = novo cadastro
     private ClienteService clienteService;
     private Runnable       onSucesso;       // callback para atualizar a tabela pai
 
-    /**
-     * Chamado pelo ClienteController antes de exibir o Stage.
-     *
-     * @param cliente        null para novo, ou instância existente para edição
-     * @param clienteService serviço compartilhado
-     * @param onSucesso      callback executado após salvar com sucesso
-     */
     public void setDados(Cliente cliente, ClienteService clienteService, Runnable onSucesso) {
         this.clienteEditando = cliente;
         this.clienteService  = clienteService;
@@ -52,7 +45,7 @@ public class ClienteFormController {
         }
     }
 
-    // ── Ações ─────────────────────────────────────────────────────
+    // Ações
 
     @FXML
     private void onSalvar() {
@@ -70,14 +63,14 @@ public class ClienteFormController {
         endereco.setBairro(bairro);
 
         if (clienteEditando == null) {
-            // ── Novo cliente ──────────────────────────────────────
+            // Novo cliente
             Cliente novo = new Cliente();
             novo.setNome(nome);
             novo.setCpf(cpf);
             novo.setEndereco(endereco);
             clienteService.cadastrarCliente(novo);
         } else {
-            // ── Atualizar cliente existente ───────────────────────
+            //Atualizar cliente existente
             clienteService.alterarCliente(
                     clienteEditando.getCpf(),
                     nome,
@@ -95,7 +88,7 @@ public class ClienteFormController {
         fechar();
     }
 
-    // ── Validação ─────────────────────────────────────────────────
+    //  Validação
 
     private boolean validar() {
         StringBuilder erros = new StringBuilder();

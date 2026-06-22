@@ -32,8 +32,6 @@ public class LoginController {
             return;
         }
 
-        // Usa o método que já existe no UsuarioService, que consulta o banco
-        // via UsuarioDAO.listar() e compara login + senha.
         Usuario logado = usuarioService.fazerLogin(usuario, senha);
 
         if (logado != null) {
@@ -52,11 +50,7 @@ public class LoginController {
                 "Tela de registro de usuário ainda não implementada.");
     }
 
-    /**
-     * Após o login bem-sucedido, abre a tela principal do sistema
-     * (ex: veiculoView.fxml ou clienteView.fxml) na mesma janela.
-     * Ajuste o caminho conforme a tela inicial real do seu projeto.
-     */
+
     private void abrirTelaPrincipal(Usuario usuarioLogado) {
         try {
             Parent root = FXMLLoader.load(

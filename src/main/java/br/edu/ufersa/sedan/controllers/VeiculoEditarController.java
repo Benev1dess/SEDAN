@@ -20,18 +20,16 @@ public class VeiculoEditarController {
 
     private final VeiculoService veiculoService = new VeiculoService();
 
-    // Veículo sendo editado — definido pelo VeiculoController antes de showAndWait()
     private Veiculo veiculoOriginal;
     private Runnable aoSalvar;
 
     public void setVeiculo(Veiculo v) {
         this.veiculoOriginal = v;
-        tfAutomovel.setText(v.getCor());     // cor/modelo no campo "Automóvel"
+        tfAutomovel.setText(v.getCor());
         tfPlaca    .setText(v.getPlaca());
         tfMarca    .setText(v.getMarca());
         tfAno      .setText(String.valueOf(v.getAno()));
         tfKm       .setText(String.valueOf(v.getKm()));
-        // Serviço e Peça são extensões futuras — deixar em branco por ora
     }
 
     public void setAoSalvar(Runnable r) { this.aoSalvar = r; }
@@ -44,16 +42,15 @@ public class VeiculoEditarController {
             String automovel = tfAutomovel.getText().trim();
             String marca     = tfMarca.getText().trim();
             int    ano       = Integer.parseInt(tfAno.getText().trim());
-            int    km        = Integer.parseInt(tfKm .getText().trim());
+            int    km        = Integer.parseInt(tfKm.getText().trim());
 
             if (placa.isEmpty() || marca.isEmpty() || automovel.isEmpty()) {
                 lblErro.setText("Preencha Automóvel, Placa e Marca.");
                 return;
             }
 
-            // Usa a placaOriginal como chave de busca no service
             veiculoService.alterarVeiculo(
-                    veiculoOriginal.getPlaca(),  // placa antiga
+                    veiculoOriginal.getPlaca(),
                     marca, automovel, placa, ano, km
             );
 
@@ -65,8 +62,7 @@ public class VeiculoEditarController {
         }
     }
 
-    @FXML
-    private void onCancelar() { fechar(); }
+    @FXML private void onCancelar() { fechar(); }
 
     private void fechar() {
         ((Stage) tfPlaca.getScene().getWindow()).close();

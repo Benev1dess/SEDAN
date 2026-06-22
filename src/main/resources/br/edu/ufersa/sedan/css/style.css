@@ -1,20 +1,17 @@
-/* =========================================================
-   style.css  –  Oficina do Seu Zé
-   ========================================================= */
 
-/* ── Reset / Root ─────────────────────────────────────────── */
+/*  Reset / Root */
 .root {
     -fx-background-color: #d9d9d9;
     -fx-font-family: "Segoe UI", "Arial", sans-serif;
 }
 
-/* ── Header vermelho ──────────────────────────────────────── */
+/* Header vermelho*/
 .header {
     -fx-background-color: #cc0000;
     -fx-padding: 8 16 8 16;
 }
 
-/* ── Sidebar fixa ─────────────────────────────────────────── */
+/*Sidebar fixa*/
 .sidebar {
     -fx-background-color: #1a1a1a;
     -fx-min-width: 160px;
@@ -65,20 +62,20 @@
     -fx-border-width: 1 0 0 0;
 }
 
-/* ── Painel externo (fundo cinza claro) ───────────────────── */
+/* ainel externo (fundo cinza claro)*/
 .outer-panel {
     -fx-background-color: #d9d9d9;
     -fx-padding: 20;
 }
 
-/* ── Título da página ─────────────────────────────────────── */
+/*Título da página */
 .page-title {
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: #1a1a1a;
 }
 
-/* ── Painel da tabela ─────────────────────────────────────── */
+/*  Painel da tabela  */
 .table-panel {
     -fx-background-color: #f0f0f0;
     -fx-border-color: #cccccc;
@@ -88,7 +85,7 @@
     -fx-padding: 12;
 }
 
-/* ── TableView ────────────────────────────────────────────── */
+/*  TableView  */
 .clientes-table {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -141,12 +138,12 @@
     -fx-text-fill: #888888;
 }
 
-/* ── Rodapé da tabela ─────────────────────────────────────── */
+/*  Rodapé da tabela */
 .table-footer {
     -fx-padding: 8 0 0 0;
 }
 
-/* ── Botão Adicionar clientes ─────────────────────────────── */
+/* Botão Adicionar clientes */
 .add-button {
     -fx-background-color: white;
     -fx-text-fill: #1a1a1a;
@@ -168,7 +165,7 @@
     -fx-background-color: #e0e0e0;
 }
 
-/* ── Botões de ação na tabela (editar / excluir) ──────────── */
+/*  Botões de ação na tabela (editar / excluir) */
 .action-button {
     -fx-background-color: transparent;
     -fx-text-fill: #444444;
@@ -197,20 +194,20 @@
     -fx-background-color: #fde8e8;
 }
 
-/* ── Painel cinza escuro central (login) ──────────────────── */
+/* Painel cinza escuro central (login)*/
 .content-panel {
     -fx-background-color: #7f7f7f;
     -fx-background-radius: 2;
 }
 
-/* ── Rótulos USUÁRIO / SENHA ──────────────────────────────── */
+/* Rótulos USUÁRIO / SENHA  */
 .field-label {
     -fx-text-fill: #1a1a1a;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
 
-/* ── Campos de texto e senha ──────────────────────────────── */
+/* Campos de texto e senha */
 .text-input {
     -fx-background-color: white;
     -fx-background-radius: 2;
@@ -224,7 +221,7 @@
     -fx-border-color: #333333;
 }
 
-/* ── Botão LOGIN (branco) ─────────────────────────────────── */
+/* Botão LOGIN (branco) */
 .login-button {
     -fx-background-color: white;
     -fx-text-fill: #1a1a1a;
@@ -241,7 +238,7 @@
 .login-button:hover  { -fx-background-color: #f0f0f0; }
 .login-button:pressed { -fx-background-color: #e0e0e0; }
 
-/* ── Botão REGISTRO (vermelho) ────────────────────────────── */
+/* Botão REGISTRO (vermelho) */
 .registro-button {
     -fx-background-color: #cc0000;
     -fx-text-fill: white;
@@ -258,7 +255,7 @@
 .registro-button:hover  { -fx-background-color: #a30000; }
 .registro-button:pressed { -fx-background-color: #8a0000; }
 
-/* ── Filtros / Checkboxes ─────────────────────────────────── */
+/* Filtros / Checkboxes  */
 .filter-checkbox {
     -fx-font-size: 13px;
     -fx-text-fill: #1a1a1a;
@@ -286,7 +283,7 @@
     -fx-border-color: #555555;
 }
 
-/* ── Caixa de busca ───────────────────────────────────────── */
+/* caixa de busca */
 .search-box {
     -fx-background-color: white;
     -fx-border-color: #bbbbbb;
@@ -322,13 +319,13 @@
     -fx-background-radius: 2;
 }
 
-/* ── Placeholder da tabela ────────────────────────────────── */
+/* Placeholder da tabela */
 .placeholder-label {
     -fx-font-size: 13px;
     -fx-text-fill: #888888;
 }
 
-/* ── Diálogo de edição / adição ───────────────────────────── */
+/* Diálogo de edição / adição  */
 .dialog-title {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
@@ -336,22 +333,22 @@
     -fx-padding: 0 0 8 0;
 }
 
-/* ── Sobrescreve table-panel para crescer verticalmente ────── */
+/* Sobrescreve table-panel para crescer verticalmente */
 .table-panel {
     -fx-min-height: 480px;
 }
 
-/* ── Ajuste no outer-panel para preencher o BorderPane ─────── */
+/* Ajuste no outer-panel para preencher o BorderPane */
 .outer-panel {
     -fx-min-height: 600px;
 }
 
-/* ── Toolbar acima da tabela ──────────────────────────────── */
+/* Toolbar acima da tabela */
 .table-toolbar {
     -fx-padding: 0 0 10 0;
 }
 
-/* ── Checkboxes de filtro ─────────────────────────────────── */
+/* Checkboxes de filtr*/
 .filter-checkbox {
     -fx-font-size: 13px;
     -fx-text-fill: #1a1a1a;
@@ -375,7 +372,7 @@
     -fx-background-color: white;
 }
 
-/* ── Caixa de busca ───────────────────────────────────────── */
+/* Caixa de busca */
 .search-box {
     -fx-background-color: white;
     -fx-border-color: #bbbbbb;
@@ -411,13 +408,13 @@
     -fx-background-radius: 2;
 }
 
-/* ── Toolbar acima da tabela ──────────────────────────────── */
+/*  Toolbar acima da tabela */
 .table-toolbar {
     -fx-alignment: CENTER_LEFT;
     -fx-spacing: 16;
 }
 
-/* ── Checkboxes de Filtro e Estado ────────────────────────── */
+/* Checkboxes de Filtro e Estado*/
 .filter-checkbox {
     -fx-text-fill: #4b5563;
     -fx-font-size: 12px;
@@ -429,7 +426,7 @@
     -fx-font-weight: bold;
 }
 
-/* ── Customizações do Diálogo de Exclusão da OS ─────────────── */
+/* Customizações do Diálogo de Exclusão da OS */
 .dialog-title-exclusao {
     -fx-font-family: "Segoe UI", Arial;
     -fx-font-size: 15px;
@@ -466,4 +463,13 @@
 
 .dialog-btn-green:hover {
     -fx-background-color: #15803d;
+}
+
+.dialog-suggestions {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 0 0 4px 4px;
+    -fx-background-radius: 0 0 4px 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 8, 0.0, 0, 4);
 }

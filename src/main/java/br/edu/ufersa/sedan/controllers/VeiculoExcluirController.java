@@ -12,6 +12,8 @@ public class VeiculoExcluirController {
     private Veiculo veiculo;
     private Runnable aoExcluir;
 
+    public static Stage stage;
+
     public void setVeiculo(Veiculo v)     { this.veiculo    = v; }
     public void setAoExcluir(Runnable r)  { this.aoExcluir  = r; }
 
@@ -28,12 +30,8 @@ public class VeiculoExcluirController {
     private void onCancelar() { fechar(); }
 
     private void fechar() {
-        // Fecha qualquer janela que contenha este controller
-        // (pegamos o stage a partir de um nó qualquer — usamos o stage direto)
-        Stage stage = VeiculoExcluirController.stage;
-        if (stage != null) stage.close();
+        if (stage != null) {
+            stage.close();
+        }
     }
-
-    // Helper estático para passar o Stage antes do showAndWait
-    public static Stage stage;
 }
