@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import br.edu.ufersa.sedan.util.Sessao;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -32,11 +33,12 @@ public class LoginController {
             return;
         }
 
-        // Usa o método que já existe no UsuarioService, que consulta o banco
-        // via UsuarioDAO.listar() e compara login + senha.
         Usuario logado = usuarioService.fazerLogin(usuario, senha);
 
         if (logado != null) {
+            // AQUI VOCÊ SALVA O USUÁRIO NA SESSÃO ANTES DE MUDAR DE TELA
+            Sessao.getInstance().setUsuario(logado);
+
             abrirTelaPrincipal(logado);
         } else {
             mostrarAlerta(Alert.AlertType.ERROR, "Erro",
@@ -44,19 +46,6 @@ public class LoginController {
         }
     }
 
-    @FXML
-    private void handleRegistro() {
-        // TODO: abrir a tela de cadastro de novo usuário (registroView.fxml),
-        // assim que ela existir. Por enquanto, apenas avisa.
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Registro",
-                "Tela de registro de usuário ainda não implementada.");
-    }
-
-    /**
-     * Após o login bem-sucedido, abre a tela principal do sistema
-     * (ex: veiculoView.fxml ou clienteView.fxml) na mesma janela.
-     * Ajuste o caminho conforme a tela inicial real do seu projeto.
-     */
     private void abrirTelaPrincipal(Usuario usuarioLogado) {
         try {
             Parent root = FXMLLoader.load(

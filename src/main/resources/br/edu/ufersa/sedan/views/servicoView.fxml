@@ -2,13 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="br.edu.ufersa.sedan.controllers.ClienteController"
+            fx:controller="br.edu.ufersa.sedan.controllers.ServicoController"
             stylesheets="@../css/style.css"
             prefWidth="900" prefHeight="600"
             styleClass="root">
@@ -17,7 +16,7 @@
         <VBox styleClass="sidebar" prefWidth="160">
             <VBox spacing="0" VBox.vgrow="ALWAYS">
 
-                <Button text="Clientes" styleClass="sidebar-item, sidebar-item-active"
+                <Button text="Clientes" styleClass="sidebar-item"
                         maxWidth="Infinity" onAction="#onClientes">
                     <graphic><Label text="👤"/></graphic>
                 </Button>
@@ -32,7 +31,7 @@
                     <graphic><Label text="⚙"/></graphic>
                 </Button>
 
-                <Button text="Serviços" styleClass="sidebar-item"
+                <Button text="Serviços" styleClass="sidebar-item, sidebar-item-active"
                         maxWidth="Infinity" onAction="#onServicos">
                     <graphic><Label text="🔧"/></graphic>
                 </Button>
@@ -73,11 +72,7 @@
         <VBox spacing="0">
 
             <HBox styleClass="header" alignment="CENTER" prefHeight="70">
-                <ImageView fx:id="logoImage" fitHeight="55" preserveRatio="true">
-                    <image>
-                        <Image url="@../images/logo.png"/>
-                    </image>
-                </ImageView>
+                <ImageView fx:id="logoImage" fitHeight="55" preserveRatio="true"/>
             </HBox>
 
             <VBox styleClass="outer-panel" VBox.vgrow="ALWAYS" spacing="0">
@@ -85,7 +80,7 @@
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
 
-                <Label text="GERENCIAMENTO DE CLIENTES" styleClass="page-title"/>
+                <Label text="GERENCIAMENTO DE SERVIÇOS" styleClass="page-title"/>
 
                 <VBox styleClass="table-panel" VBox.vgrow="ALWAYS">
 
@@ -93,13 +88,8 @@
                         <padding><Insets bottom="10"/></padding>
 
                         <VBox spacing="4">
-                            <CheckBox fx:id="chkNome"
-                                      text="Nome"
-                                      styleClass="filter-checkbox"
-                                      selected="true"
-                                      onAction="#onFiltroChanged"/>
-                            <CheckBox fx:id="chkCpf"
-                                      text="CPF"
+                            <CheckBox fx:id="chkNomeServico"
+                                      text="Nome do serviço"
                                       styleClass="filter-checkbox"
                                       selected="true"
                                       onAction="#onFiltroChanged"/>
@@ -109,7 +99,7 @@
 
                         <HBox styleClass="search-box" alignment="CENTER_LEFT" spacing="4">
                             <TextField fx:id="txtBusca"
-                                       promptText="Busque por nome ou CPF..."
+                                       promptText="Busque pelo nome do serviço..."
                                        styleClass="search-field"
                                        prefWidth="320"
                                        onKeyReleased="#onBuscar"/>
@@ -118,7 +108,7 @@
                         </HBox>
                     </HBox>
 
-                    <TableView fx:id="tabelaClientes"
+                    <TableView fx:id="tabelaServicos"
                                VBox.vgrow="ALWAYS"
                                styleClass="clientes-table">
 
@@ -127,17 +117,16 @@
                         </columnResizePolicy>
 
                         <columns>
-                            <TableColumn fx:id="colNome"     text="Nome"     prefWidth="250"/>
-                            <TableColumn fx:id="colCpf"      text="CPF"      prefWidth="150"/>
-                            <TableColumn fx:id="colEndereco" text="Endereço" prefWidth="350"/>
-                            <TableColumn fx:id="colAcoes"    text=""         prefWidth="80" sortable="false"/>
+                            <TableColumn fx:id="colNomeServico" text="Nome do serviço" prefWidth="450"/>
+                            <TableColumn fx:id="colPreco"       text="Preço"            prefWidth="250"/>
+                            <TableColumn fx:id="colAcoes"       text=""                 prefWidth="100" sortable="false"/>
                         </columns>
 
                     </TableView>
 
                     <HBox alignment="CENTER_RIGHT" styleClass="table-footer">
                         <Button fx:id="btnAdicionar"
-                                text="+ Adicionar clientes"
+                                text="+ Adicionar serviços"
                                 styleClass="add-button"
                                 onAction="#onAdicionar"/>
                     </HBox>

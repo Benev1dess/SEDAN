@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.edu.ufersa.sedan.controllers.FuncionarioExcluirController"
+      stylesheets="@../css/style.css"
+      styleClass="dialog-root"
+      prefWidth="420"
+      spacing="0"
+      alignment="CENTER">
+
+    <padding>
+        <Insets top="36" right="32" bottom="28" left="32"/>
+    </padding>
+
+    <HBox alignment="CENTER" spacing="12">
+        <Label text="CONFIRMAR EXCLUSÃO"
+               styleClass="dialog-title-exclusao"/>
+
+        <Label text="🗑"
+               styleClass="dialog-title-icon-exclusao"/>
+    </HBox>
+
+    <Label fx:id="lblMensagem"
+           wrapText="true"
+           alignment="CENTER">
+        <VBox.margin>
+            <Insets top="20" bottom="20"/>
+        </VBox.margin>
+    </Label>
+
+    <HBox spacing="14" alignment="CENTER">
+        <Button text="CANCELAR"
+                styleClass="dialog-btn-red"
+                prefWidth="160"
+                onAction="#onCancelar"/>
+
+        <Button text="CONFIRMAR"
+                styleClass="dialog-btn-green"
+                prefWidth="160"
+                onAction="#onConfirmar"/>
+    </HBox>
+
+</VBox>

@@ -67,7 +67,7 @@ public class UsuarioDAO implements BaseDAO<Usuario> {
     public List<Usuario> listar() {
         List<Usuario> usuarios = new ArrayList<>();
         con = BaseDAO.getConnection();
-        String sql = "SELECT * FROM tb_usuarios";
+        String sql = "SELECT * FROM tb_usuario";
 
         try (PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.edu.ufersa.sedan.controllers.OrdemServicoEditarController"
+      stylesheets="@../css/style.css"
+      styleClass="dialog-root"
+      prefWidth="520" spacing="0">
+
+    <padding><Insets top="28" right="28" bottom="24" left="28"/></padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Atualizar Estados da OS" styleClass="dialog-title"/>
+        <Label text="✏" styleClass="dialog-title-icon"/>
+    </HBox>
+
+    <VBox spacing="0">
+        <padding><Insets top="18" bottom="0"/></padding>
+
+        <GridPane hgap="14" vgap="0">
+            <Label text="ID ORÇAMENTO VINCULADO" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="tfOrcamentoId" styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="1" editable="false"/>
+        </GridPane>
+
+        <HBox spacing="30" alignment="CENTER_LEFT">
+            <padding><Insets top="20" bottom="10"/></padding>
+            <CheckBox fx:id="chkFinalizada" text="Finalizada" styleClass="filter-checkbox"/>
+            <CheckBox fx:id="chkPago" text="Paga (Faturada)" styleClass="filter-checkbox"/>
+        </HBox>
+    </VBox>
+
+    <Label fx:id="lblErro" styleClass="dialog-error" wrapText="true">
+        <VBox.margin><Insets top="16"/></VBox.margin>
+    </Label>
+
+    <HBox spacing="14" alignment="CENTER">
+        <VBox.margin><Insets top="24"/></VBox.margin>
+        <Button text="CANCELAR"  styleClass="dialog-btn-red"   prefWidth="180" onAction="#onCancelar"/>
+        <Button text="CONFIRMAR" styleClass="dialog-btn-green" prefWidth="180" onAction="#onConfirmar"/>
+    </HBox>
+</VBox>

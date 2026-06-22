@@ -9,12 +9,11 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="br.edu.ufersa.sedan.controllers.VeiculoController"
             stylesheets="@../css/style.css"
-            prefWidth="900" prefHeight="600"
+            prefWidth="1000" prefHeight="650"
             styleClass="root">
 
-    <!-- ── SIDEBAR ─────────────────────────────────────────── -->
     <left>
-        <VBox styleClass="sidebar" prefWidth="160">
+        <VBox styleClass="sidebar" prefWidth="180">
             <VBox spacing="0" VBox.vgrow="ALWAYS">
 
                 <Button text="Clientes" styleClass="sidebar-item"
@@ -69,16 +68,13 @@
         </VBox>
     </left>
 
-    <!-- ── CONTEÚDO ────────────────────────────────────────── -->
     <center>
         <VBox spacing="0">
 
-            <!-- HEADER -->
-            <HBox styleClass="header" alignment="CENTER" prefHeight="70">
-                <ImageView fx:id="logoImage" fitHeight="55" preserveRatio="true"/>
+            <HBox styleClass="header" alignment="CENTER" prefHeight="75">
+                <ImageView fx:id="logoImage" fitHeight="60" preserveRatio="true"/>
             </HBox>
 
-            <!-- PAINEL PRINCIPAL -->
             <VBox styleClass="outer-panel" VBox.vgrow="ALWAYS" spacing="0">
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
@@ -88,7 +84,6 @@
 
                 <VBox styleClass="table-panel" VBox.vgrow="ALWAYS">
 
-                    <!-- Filtros + Busca -->
                     <HBox spacing="16" alignment="CENTER_LEFT" styleClass="table-toolbar">
                         <padding><Insets bottom="10"/></padding>
 
@@ -111,14 +106,13 @@
                             <TextField fx:id="txtBusca"
                                        promptText="Busque por nome do proprietário ou placa..."
                                        styleClass="search-field"
-                                       prefWidth="320"
+                                       prefWidth="350"
                                        onKeyReleased="#onBuscar"/>
                             <Button text="🔍" styleClass="search-icon-button"
                                     onAction="#onBuscar"/>
                         </HBox>
                     </HBox>
 
-                    <!-- Tabela -->
                     <TableView fx:id="tabelaVeiculos"
                                VBox.vgrow="ALWAYS"
                                styleClass="clientes-table">
@@ -128,18 +122,17 @@
                         </columnResizePolicy>
 
                         <columns>
-                            <TableColumn fx:id="colPlaca"        text="Placa"        prefWidth="120"/>
+                            <TableColumn fx:id="colPlaca"        text="Placa"        prefWidth="100"/>
                             <TableColumn fx:id="colProprietario" text="Proprietário" prefWidth="160"/>
-                            <TableColumn fx:id="colMarca"        text="Marca"        prefWidth="130"/>
-                            <TableColumn fx:id="colCor"          text="Cor"          prefWidth="90"/>
-                            <TableColumn fx:id="colAno"          text="Ano"          prefWidth="70"/>
+                            <TableColumn fx:id="colMarca"        text="Marca"        prefWidth="140"/>
+                            <TableColumn fx:id="colCor"          text="Cor"          prefWidth="100"/>
+                            <TableColumn fx:id="colAno"          text="Ano"          prefWidth="80"/>
                             <TableColumn fx:id="colKm"           text="KM"           prefWidth="80"/>
-                            <TableColumn fx:id="colAcoes"        text=""             prefWidth="80" sortable="false"/>
+                            <TableColumn fx:id="colAcoes"        text=""             prefWidth="90" sortable="false"/>
                         </columns>
 
                     </TableView>
 
-                    <!-- Rodapé -->
                     <HBox alignment="CENTER_RIGHT" styleClass="table-footer">
                         <Button fx:id="btnAdicionar"
                                 text="+ Adicionar veículos"

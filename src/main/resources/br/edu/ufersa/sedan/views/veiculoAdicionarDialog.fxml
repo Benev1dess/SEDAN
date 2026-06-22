@@ -3,18 +3,16 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="br.edu.ufersa.sedan.controllers.VeiculoAdicionarController"
       stylesheets="@../css/style.css"
       styleClass="dialog-root"
-      prefWidth="520" spacing="0">
+      prefWidth="540" spacing="0">
 
     <padding><Insets top="28" right="28" bottom="24" left="28"/></padding>
 
-    <!-- Título -->
     <HBox alignment="CENTER_LEFT" spacing="10">
         <Label text="Adicionar Veículo" styleClass="dialog-title"/>
         <Label text="+" styleClass="dialog-title-icon"/>
@@ -23,67 +21,58 @@
     <VBox spacing="0">
         <padding><Insets top="18" bottom="0"/></padding>
 
-        <!-- Busca de cliente -->
         <Label text="NOME DO CLIENTE JÁ CADASTRADO" styleClass="dialog-field-label"/>
-        <VBox spacing="0">
-            <padding><Insets top="4" bottom="16"/></padding>
-            <HBox styleClass="dialog-search-box" alignment="CENTER_LEFT" spacing="4">
+
+        <AnchorPane>
+            <VBox.margin><Insets top="4" bottom="16"/></VBox.margin>
+
+            <HBox styleClass="dialog-search-box" alignment="CENTER_LEFT" spacing="4"
+                  AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                 <TextField fx:id="txtBuscaCliente"
                            styleClass="dialog-search-field"
                            HBox.hgrow="ALWAYS"
                            onKeyReleased="#onBuscarCliente"/>
                 <Button text="🔍" styleClass="dialog-search-icon" onAction="#onBuscarCliente"/>
             </HBox>
-            <!-- Sugestões de autocomplete -->
+
             <ListView fx:id="listaSugestoes"
                       styleClass="dialog-suggestions"
-                      prefHeight="80"
+                      prefHeight="180"
+                      maxHeight="200"
+                      visible="false"
                       managed="false"
-                      visible="false"/>
-        </VBox>
+                      AnchorPane.topAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+        </AnchorPane>
 
-        <!-- Grid de campos: 3 colunas -->
         <GridPane hgap="14" vgap="0">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.3"/>
+            </columnConstraints>
 
-            <!-- Linha 1: AUTOMÓVEL | PLACA | MARCA -->
-            <Label text="AUTOMÓVEL" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Label text="COR" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
             <Label text="PLACA"     styleClass="dialog-field-label" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             <Label text="MARCA"     styleClass="dialog-field-label" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
 
-            <TextField fx:id="tfAutomovel" styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="tfCor" styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
             <TextField fx:id="tfPlaca"     styleClass="dialog-field" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             <TextField fx:id="tfMarca"     styleClass="dialog-field" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
 
-            <!-- espaçamento entre linhas -->
             <Region GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="12"/>
 
-            <!-- Linha 2: ANO | KM | SERVIÇO -->
             <Label text="ANO"     styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
             <Label text="KM"      styleClass="dialog-field-label" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-            <Label text="SERVIÇO" styleClass="dialog-field-label" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
 
             <TextField fx:id="tfAno"     styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
             <TextField fx:id="tfKm"      styleClass="dialog-field" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-            <TextField fx:id="tfServico" styleClass="dialog-field" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
-
-            <Region GridPane.columnIndex="0" GridPane.rowIndex="5" prefHeight="12"/>
-
-            <!-- Linha 3: PEÇA | VALOR -->
-            <Label text="PEÇA"  styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-            <Label text="VALOR" styleClass="dialog-field-label" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-
-            <TextField fx:id="tfPeca"  styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-            <TextField fx:id="tfValor" styleClass="dialog-field" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-
         </GridPane>
     </VBox>
 
-    <!-- Erro -->
     <Label fx:id="lblErro" styleClass="dialog-error" wrapText="true">
         <VBox.margin><Insets top="8"/></VBox.margin>
     </Label>
 
-    <!-- Botão ADICIONAR NOVO CLIENTE -->
     <Button text="ADICIONAR NOVO CLIENTE"
             styleClass="dialog-btn-blue"
             maxWidth="Infinity"
@@ -91,9 +80,8 @@
         <VBox.margin><Insets top="16"/></VBox.margin>
     </Button>
 
-    <!-- Botões CANCELAR / CONFIRMAR -->
     <HBox spacing="14" alignment="CENTER">
-        <VBox.margin><Insets top="12"/></VBox.margin>
+        <VBox.margin><Insets top="16"/></VBox.margin>
         <Button text="CANCELAR"  styleClass="dialog-btn-red"   prefWidth="180" onAction="#onCancelar"/>
         <Button text="CONFIRMAR" styleClass="dialog-btn-green" prefWidth="180" onAction="#onConfirmar"/>
     </HBox>

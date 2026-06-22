@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServicoDAO {
-    private final static String URL = "jdbc:mysql://localhost:3306/SedanDB";
+    private final static String URL = "jdbc:mysql://localhost:3306/sedanbd";
     private final static String USER = "root";
     private final static String PASS = "root";
     private static Connection con = null;

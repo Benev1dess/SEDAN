@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.edu.ufersa.sedan.controllers.ServicoAdicionarController"
+      stylesheets="@../css/style.css"
+      styleClass="dialog-root"
+      prefWidth="520" spacing="0">
+
+    <padding><Insets top="28" right="28" bottom="24" left="28"/></padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Adicionar Serviço" styleClass="dialog-title"/>
+        <Label text="+" styleClass="dialog-title-icon"/>
+    </HBox>
+
+    <VBox spacing="0">
+        <padding><Insets top="18" bottom="0"/></padding>
+
+        <GridPane hgap="14" vgap="0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="100" prefWidth="300" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="100" prefWidth="150" />
+            </columnConstraints>
+
+            <Label text="NOME DO SERVIÇO" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Label text="PREÇO (R$)"       styleClass="dialog-field-label" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <TextField fx:id="txtNome"  styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="1" promptText="Ex: Alinhamento e Balanceamento"/>
+            <TextField fx:id="txtPreco" styleClass="dialog-field" GridPane.columnIndex="1" GridPane.rowIndex="1" promptText="0.00"/>
+        </GridPane>
+    </VBox>
+
+    <Label fx:id="lblErro" styleClass="dialog-error" wrapText="true">
+        <VBox.margin><Insets top="16"/></VBox.margin>
+    </Label>
+
+    <HBox spacing="14" alignment="CENTER">
+        <VBox.margin><Insets top="24"/></VBox.margin>
+        <Button text="CANCELAR"  styleClass="dialog-btn-red"   prefWidth="180" onAction="#onCancelar"/>
+        <Button text="CONFIRMAR" styleClass="dialog-btn-green" prefWidth="180" onAction="#onSalvar"/>
+    </HBox>
+
+</VBox>
