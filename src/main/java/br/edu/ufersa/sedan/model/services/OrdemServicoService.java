@@ -1,5 +1,8 @@
 package br.edu.ufersa.sedan.model.services;
+
+import br.edu.ufersa.sedan.model.DAO.OrdemDeServicoDAO;
 import br.edu.ufersa.sedan.model.entities.Orcamento;
+import br.edu.ufersa.sedan.model.entities.OrdemServico;
 import br.edu.ufersa.sedan.model.entities.Servico;
 
 import java.util.ArrayList;
@@ -7,6 +10,8 @@ import java.util.List;
 import java.time.LocalDate;
 
 public class OrdemServicoService {
+
+    private final OrdemDeServicoDAO dao = new OrdemDeServicoDAO();
 
     private Orcamento orcamento;
     private boolean finalizada;
@@ -58,7 +63,50 @@ public class OrdemServicoService {
         this.data = data;
     }
 
-    // --- Métodos de Operação (Lógica de Negócio) ---
+    // --- Métodos de Operação (Lógica de Negócio e Integração com Banco) ---
+
+    /**
+     * Busca todas as ordens salvas no banco de dados para alimentar a tabela principal.
+     */
+    public List<OrdemServico> listarTodasOrdens() {
+        return dao.listarTodos();
+    }
+
+    /**
+     * Salva uma nova ordem de serviço no banco de dados.
+     */
+    public void salvarNoBanco(OrdemServico os) {
+        dao.inserir(os);
+    }
+
+    /**
+     * Modifica o status (finalizada e pago) de uma ordem de serviço existente no banco.
+     */
+    public void modificarStatus(OrdemServico os) {
+        // Roda as validações rigorosas da própria Service usando o estado atual do objeto enviado
+        this.setOrcamento(os.getOrcamento());
+        this.setFinalizada(os.isFinalizada());
+        this.setPago(os.isPago());
+
+        // Se as validações passarem, atualiza no banco
+        dao.atualizarStatus(os);
+    }
+
+    /**
+     * Remove uma ordem de serviço do banco de dados com base no objeto de entidade.
+     */
+    public void removerOrdem(OrdemServico os) {
+        if (os == null || os.getOrcamento() == null) {
+            throw new IllegalArgumentException("Ordem de serviço ou orçamento inválido para exclusão.");
+        }
+        // Aplica a sua regra de negócio nativa de proteção contra faturamento
+        if (os.isPago()) {
+            throw new IllegalStateException("Não é permitido excluir uma ordem que já foi faturada (paga).");
+        }
+
+        // Delega a remoção para a DAO usando a chave (id do orçamento)
+        dao.deletar(os.getOrcamento().getId());
+    }
 
     public void adicionarServico(Servico s) {
         if (s == null) {
@@ -74,14 +122,14 @@ public class OrdemServicoService {
         if (this.pago) {
             throw new IllegalStateException("Ordens pagas não podem ser editadas.");
         }
-        // Lógica para atualizar os campos da ordem atual com os dados da novaOrdem
+        // Mantida a assinatura para compatibilidade com implementações futuras locais
     }
 
     public void excluirOrdem(int id) {
         if (this.pago) {
             throw new IllegalStateException("Não é permitido excluir uma ordem que já foi faturada (paga).");
         }
-        // Lógica para remover do banco de dados ou lista
+        dao.deletar(id);
     }
 
     public List<OrdemServicoService> buscarOrdemPorVeiculo(String placa) {

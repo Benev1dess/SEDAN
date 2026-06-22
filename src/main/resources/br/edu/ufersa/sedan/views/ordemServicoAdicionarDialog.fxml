@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.edu.ufersa.sedan.controllers.OrdemServicoAdicionarController"
+      stylesheets="@../css/style.css"
+      styleClass="dialog-root"
+      prefWidth="520" spacing="0">
+
+    <padding><Insets top="28" right="28" bottom="24" left="28"/></padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Emitir Ordem de Serviço" styleClass="dialog-title"/>
+        <Label text="+" styleClass="dialog-title-icon"/>
+    </HBox>
+
+    <VBox spacing="0">
+        <padding><Insets top="18" bottom="0"/></padding>
+
+        <Label text="NÚMERO DO ORÇAMENTO APROVADO" styleClass="dialog-field-label"/>
+        <VBox spacing="0">
+            <padding><Insets top="4" bottom="16"/></padding>
+            <HBox styleClass="dialog-search-box" alignment="CENTER_LEFT" spacing="4">
+                <TextField fx:id="txtBuscaOrcamento" styleClass="dialog-search-field" HBox.hgrow="ALWAYS" promptText="Ex: 12"/>
+                <Button text="Vincular" styleClass="dialog-search-icon" onAction="#onBuscarOrcamento"/>
+            </HBox>
+        </VBox>
+
+        <HBox spacing="30" alignment="CENTER_LEFT">
+            <padding><Insets top="10" bottom="10"/></padding>
+            <CheckBox fx:id="chkFinalizada" text="Marcar como Finalizada" styleClass="filter-checkbox"/>
+            <CheckBox fx:id="chkPago" text="Marcar como Paga" styleClass="filter-checkbox"/>
+        </HBox>
+    </VBox>
+
+    <Label fx:id="lblErro" styleClass="dialog-error" wrapText="true">
+        <VBox.margin><Insets top="8"/></VBox.margin>
+    </Label>
+
+    <HBox spacing="14" alignment="CENTER">
+        <VBox.margin><Insets top="24"/></VBox.margin>
+        <Button text="CANCELAR"  styleClass="dialog-btn-red"   prefWidth="180" onAction="#onCancelar"/>
+        <Button text="CONFIRMAR" styleClass="dialog-btn-green" prefWidth="180" onAction="#onConfirmar"/>
+    </HBox>
+</VBox>
