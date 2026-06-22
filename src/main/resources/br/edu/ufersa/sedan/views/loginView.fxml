@@ -11,18 +11,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<!--
-    Local físico esperado: src/main/resources/br/edu/ufersa/sedan/views/loginView.fxml
-    CSS em:                src/main/resources/br/edu/ufersa/sedan/css/style.css
-    Controller em:          br.edu.ufersa.sedan.controllers.LoginController
--->
+
 <BorderPane prefHeight="520.0" prefWidth="720.0"
             stylesheets="@../css/style.css"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="br.edu.ufersa.sedan.controllers.LoginController">
 
-    <!-- Cabeçalho vermelho com a logo -->
+
     <top>
         <HBox alignment="CENTER" prefHeight="80.0" styleClass="header" BorderPane.alignment="CENTER">
             <children>
@@ -32,7 +28,7 @@
         </HBox>
     </top>
 
-    <!-- Área central cinza com o formulário -->
+
     <center>
         <VBox alignment="CENTER" styleClass="outer-panel" BorderPane.alignment="CENTER">
             <padding>
@@ -45,13 +41,6 @@
                     </padding>
                     <children>
 
-                        <!-- Ícone chave de boca + engrenagem -->
-                        <ImageView fitHeight="90.0" preserveRatio="true">
-                            <image>
-                                <!-- Coloque o ícone em: src/main/resources/br/edu/ufersa/sedan/images/icon.png -->
-                                <Image url="@../images/icon.png" />
-                            </image>
-                        </ImageView>
 
                         <VBox alignment="CENTER" spacing="8">
                             <children>
@@ -70,7 +59,6 @@
                         <VBox alignment="CENTER" spacing="12">
                             <children>
                                 <Button maxWidth="180.0" onAction="#handleLogin" styleClass="login-button" text="LOGIN" />
-                                <Button maxWidth="180.0" onAction="#handleRegistro" styleClass="registro-button" text="REGISTRO" />
                             </children>
                         </VBox>
 

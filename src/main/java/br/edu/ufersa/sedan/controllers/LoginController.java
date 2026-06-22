@@ -42,13 +42,6 @@ public class LoginController {
         }
     }
 
-    @FXML
-    private void handleRegistro() {
-        // TODO: abrir a tela de cadastro de novo usuário (registroView.fxml),
-        // assim que ela existir. Por enquanto, apenas avisa.
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Registro",
-                "Tela de registro de usuário ainda não implementada.");
-    }
 
 
     private void abrirTelaPrincipal(Usuario usuarioLogado) {
