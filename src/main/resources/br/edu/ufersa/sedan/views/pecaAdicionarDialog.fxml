@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="20.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-padding: 35px;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.sedan.controllers.PecaAdicionarController">
+    <children>
+
+        <HBox alignment="CENTER_LEFT">
+            <children>
+                <Label text="Adicionar Peça +" textFill="BLACK">
+                    <font>
+                        <Font name="Arial Bold" size="28.0" />
+                    </font>
+                </Label>
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0" />
+            </VBox.margin>
+        </HBox>
+
+        <VBox spacing="6.0">
+            <children>
+                <Label text="NOME DA PEÇA" textFill="#1A1A1A">
+                    <font>
+                        <Font name="Arial Bold" size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtNome" style="-fx-background-color: #FFFFFF; -fx-background-radius: 6px; -fx-padding: 10px; -fx-border-color: transparent;" />
+            </children>
+        </VBox>
+
+        <VBox spacing="6.0">
+            <children>
+                <Label text="PREÇO" textFill="#1A1A1A">
+                    <font>
+                        <Font name="Arial Bold" size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtPreco" promptText="0.00" style="-fx-background-color: #FFFFFF; -fx-background-radius: 6px; -fx-padding: 10px; -fx-border-color: transparent;" />
+            </children>
+        </VBox>
+
+        <VBox spacing="6.0">
+            <children>
+                <Label text="FABRICANTE" textFill="#1A1A1A">
+                    <font>
+                        <Font name="Arial Bold" size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtFabricante" style="-fx-background-color: #FFFFFF; -fx-background-radius: 6px; -fx-padding: 10px; -fx-border-color: transparent;" />
+            </children>
+        </VBox>
+
+        <VBox spacing="6.0">
+            <children>
+                <Label text="CLIENTE" textFill="#1A1A1A">
+                    <font>
+                        <Font name="Arial Bold" size="13.0" />
+                    </font>
+                </Label>
+                <ComboBox fx:id="cbCliente" maxWidth="1.7976931348623157E308" promptText="Selecione o cliente proprietário..." style="-fx-background-color: #FFFFFF; -fx-background-radius: 6px; -fx-padding: 6px; -fx-border-color: transparent;" />
+            </children>
+        </VBox>
+
+        <VBox spacing="6.0">
+            <children>
+                <Label text="AUTOMÓVEL" textFill="#1A1A1A">
+                    <font>
+                        <Font name="Arial Bold" size="13.0" />
+                    </font>
+                </Label>
+                <ComboBox fx:id="cbAutomovel" maxWidth="1.7976931348623157E308" promptText="Selecione o veículo vinculado..." style="-fx-background-color: #FFFFFF; -fx-background-radius: 6px; -fx-padding: 6px; -fx-border-color: transparent;" />
+            </children>
+        </VBox>
+
+        <HBox alignment="CENTER" spacing="25.0">
+            <children>
+                <Button fx:id="btnCancelar" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #C00000; -fx-text-fill: #FFFFFF; -fx-background-radius: 8px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px; -fx-cursor: hand; -fx-border-color: #900000; -fx-border-radius: 8px;" text="CANCELAR" />
+                <Button fx:id="btnConfirmar" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #32CD32; -fx-text-fill: #FFFFFF; -fx-background-radius: 8px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px; -fx-cursor: hand; -fx-border-color: #228B22; -fx-border-radius: 8px;" text="CONFIRMAR" />
+            </children>
+            <VBox.margin>
+                <Insets top="15.0" />
+            </VBox.margin>
+        </HBox>
+
+    </children>
+</VBox>

@@ -7,20 +7,27 @@ public class Peca {
     private double preco;
     private String fabricante;
 
+    // Novas propriedades para associar com os dados da tabela
+    private String carro;   // Se tiver uma classe Veiculo, pode usar: private Veiculo carro;
+    private String cliente; // Se tiver uma classe Cliente, pode usar: private Cliente cliente;
 
     public Peca() {
         this.id = 0;
         this.nome = "Item Não Identificado";
         this.preco = 0.0;
         this.fabricante = "Genérico";
+        this.carro = "Não informado";
+        this.cliente = "Não informado";
     }
 
-    // Mantido o seu construtor completo com parâmetros
-    public Peca(int id, String nome, double preco, String fabricante) {
+    // Construtor completo atualizado para receber carro e cliente da tela
+    public Peca(int id, String nome, double preco, String fabricante, String carro, String cliente) {
         setId(id);
         setNome(nome);
         setPreco(preco);
         setFabricante(fabricante);
+        setCarro(carro);
+        setCliente(cliente);
     }
 
     public int getId() {
@@ -41,6 +48,23 @@ public class Peca {
 
     public String getFabricante() {
         return fabricante;
+    }
+
+    // GETTERS E SETTERS das novas propriedades (Obrigatórios para o JavaFX preencher a tabela)
+    public String getCarro() {
+        return carro;
+    }
+
+    public void setCarro(String carro) {
+        this.carro = carro;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 
     public void setNome(String nome) {

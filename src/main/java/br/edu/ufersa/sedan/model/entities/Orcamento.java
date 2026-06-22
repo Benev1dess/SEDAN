@@ -12,16 +12,14 @@ public class Orcamento {
     private List<Servico> servicos;
     private LocalDate data;
 
-    // =========================================================================
-    // CORREÇÃO: 1. Adicionado o construtor vazio que a OrcamentoDAO precisa!
-    // =========================================================================
+
     public Orcamento() {
         this.pecas = new ArrayList<>();
         this.servicos = new ArrayList<>();
-        this.data = LocalDate.now(); // Garante que mesmo vazio ele comece com a data de hoje
+        this.data = LocalDate.now();
     }
 
-    // 2. Mantido o seu construtor atual com parâmetros
+
     public Orcamento(int id, Veiculo veiculo) {
         this.id = id;
         this.veiculo = veiculo;
@@ -52,9 +50,7 @@ public class Orcamento {
         return total;
     }
 
-    // =========================================================================
-    // CORREÇÃO: 3. Adicionados os métodos SETTERS que a OrcamentoDAO usa para popular o objeto
-    // =========================================================================
+
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
     }
@@ -71,9 +67,7 @@ public class Orcamento {
         this.data = data;
     }
 
-    // =========================================================================
-    // Getters e Setters que você já tinha criado
-    // =========================================================================
+
     public Veiculo getVeiculo() {
         return veiculo;
     }
@@ -97,5 +91,40 @@ public class Orcamento {
 
     public void setId(int id) {
         this.id = id;
+    }
+    // --- MÉTODOS AUXILIARES PARA ADAPTAR COM O DAO ---
+
+    // Traduz o objeto Veiculo para a String da placa que o DAO precisa salvar
+    public String getPlacaVeiculo() {
+        return (this.veiculo != null) ? this.veiculo.getPlaca() : null;
+        // Nota: Garanta que na sua classe Veiculo exista o método getPlaca()
+    }
+
+    // Atalho para o DAO preencher a placa vinda do banco diretamente na entidadeNOVO
+    public void setPlacaVeiculo(String placa) {
+        if (this.veiculo == null) {
+            this.veiculo = new Veiculo(); // Cria uma instância vazia para injetar a placa
+        }
+        this.veiculo.setPlaca(placa); // Garanta que exista setPlaca na classe Veiculo
+    }
+
+    // Traduz o nome antigo 'getDataOrcamento' do DAO para o seu atributo 'data'
+    public LocalDate getDataOrcamento() {
+        return this.data;
+    }
+
+    // Atalho para o DAO injetar a data vinda do banco
+    public void setDataOrcamento(LocalDate dataOrcamento) {
+        this.data = dataOrcamento;
+    }
+
+    // Traduz o nome 'getListaPecas' do DAO para o seu atributo 'pecas'
+    public List<Peca> getListaPecas() {
+        return this.pecas;
+    }
+
+    // Atalho para o DAO injetar a lista de peças vinda do banco
+    public void setListaPecas(List<Peca> listaPecas) {
+        this.pecas = listaPecas;
     }
 }

@@ -410,3 +410,19 @@
     -fx-background-color: #f0f0f0;
     -fx-background-radius: 2;
 }
+
+/* Muda a cor de fundo do quadrado quando o CheckBox está selecionado */
+.check-box:selected .box {
+    -fx-background-color: #C00000;
+    -fx-border-color: #C00000;
+}
+
+/* Garante que a marca do visto (o check) fique branca brilhante */
+.check-box:selected .mark {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Estilo opcional para quando passar o mouse por cima */
+.check-box:hover .box {
+    -fx-border-color: #C00000;
+}
