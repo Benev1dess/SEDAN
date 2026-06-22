@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
@@ -32,7 +33,11 @@
     <center>
         <VBox spacing="0">
             <HBox styleClass="header" alignment="CENTER" prefHeight="70">
-                <ImageView fx:id="logoImage" fitHeight="55" preserveRatio="true"/>
+                <ImageView fx:id="logoImage" fitHeight="55" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/logo.png"/>
+                    </image>
+                </ImageView>
             </HBox>
 
             <VBox styleClass="outer-panel" VBox.vgrow="ALWAYS" spacing="0">
