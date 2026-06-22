@@ -3,88 +3,63 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="20.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-padding: 35px;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.sedan.controllers.PecaAdicionarController">
-    <children>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.edu.ufersa.sedan.controllers.PecaAdicionarController"
+      stylesheets="@../css/style.css"
+      styleClass="dialog-root"
+      prefWidth="520" spacing="0">
 
-        <HBox alignment="CENTER_LEFT">
-            <children>
-                <Label text="Adicionar Peça +" textFill="BLACK">
-                    <font>
-                        <Font name="Arial Bold" size="28.0" />
-                    </font>
-                </Label>
-            </children>
-            <VBox.margin>
-                <Insets bottom="10.0" />
-            </VBox.margin>
-        </HBox>
+    <padding><Insets top="28" right="28" bottom="24" left="28"/></padding>
 
-        <VBox spacing="6.0">
-            <children>
-                <Label text="NOME DA PEÇA" textFill="#1A1A1A">
-                    <font>
-                        <Font name="Arial Bold" size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="txtNome" style="-fx-background-color: #FFFFFF; -fx-background-radius: 6px; -fx-padding: 10px; -fx-border-color: transparent;" />
-            </children>
-        </VBox>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Adicionar Peça" styleClass="dialog-title"/>
+        <Label text="+" styleClass="dialog-title-icon"/>
+    </HBox>
 
-        <VBox spacing="6.0">
-            <children>
-                <Label text="PREÇO" textFill="#1A1A1A">
-                    <font>
-                        <Font name="Arial Bold" size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="txtPreco" promptText="0.00" style="-fx-background-color: #FFFFFF; -fx-background-radius: 6px; -fx-padding: 10px; -fx-border-color: transparent;" />
-            </children>
-        </VBox>
+    <VBox spacing="0">
+        <padding><Insets top="18" bottom="0"/></padding>
 
-        <VBox spacing="6.0">
-            <children>
-                <Label text="FABRICANTE" textFill="#1A1A1A">
-                    <font>
-                        <Font name="Arial Bold" size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="txtFabricante" style="-fx-background-color: #FFFFFF; -fx-background-radius: 6px; -fx-padding: 10px; -fx-border-color: transparent;" />
-            </children>
-        </VBox>
+        <GridPane hgap="14" vgap="0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
 
-        <VBox spacing="6.0">
-            <children>
-                <Label text="CLIENTE" textFill="#1A1A1A">
-                    <font>
-                        <Font name="Arial Bold" size="13.0" />
-                    </font>
-                </Label>
-                <ComboBox fx:id="cbCliente" maxWidth="1.7976931348623157E308" promptText="Selecione o cliente proprietário..." style="-fx-background-color: #FFFFFF; -fx-background-radius: 6px; -fx-padding: 6px; -fx-border-color: transparent;" />
-            </children>
-        </VBox>
+            <Label text="NOME DA PEÇA" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+            <Label text="PREÇO"        styleClass="dialog-field-label" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
 
-        <VBox spacing="6.0">
-            <children>
-                <Label text="AUTOMÓVEL" textFill="#1A1A1A">
-                    <font>
-                        <Font name="Arial Bold" size="13.0" />
-                    </font>
-                </Label>
-                <ComboBox fx:id="cbAutomovel" maxWidth="1.7976931348623157E308" promptText="Selecione o veículo vinculado..." style="-fx-background-color: #FFFFFF; -fx-background-radius: 6px; -fx-padding: 6px; -fx-border-color: transparent;" />
-            </children>
-        </VBox>
+            <TextField fx:id="txtNome"  styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2"/>
+            <TextField fx:id="txtPreco" styleClass="dialog-field" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
 
-        <HBox alignment="CENTER" spacing="25.0">
-            <children>
-                <Button fx:id="btnCancelar" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #C00000; -fx-text-fill: #FFFFFF; -fx-background-radius: 8px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px; -fx-cursor: hand; -fx-border-color: #900000; -fx-border-radius: 8px;" text="CANCELAR" />
-                <Button fx:id="btnConfirmar" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #32CD32; -fx-text-fill: #FFFFFF; -fx-background-radius: 8px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px; -fx-cursor: hand; -fx-border-color: #228B22; -fx-border-radius: 8px;" text="CONFIRMAR" />
-            </children>
-            <VBox.margin>
-                <Insets top="15.0" />
-            </VBox.margin>
-        </HBox>
+            <Region GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="12"/>
 
-    </children>
+            <Label text="FABRICANTE" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="3"/>
+            <TextField fx:id="txtFabricante" styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="3"/>
+
+            <Region GridPane.columnIndex="0" GridPane.rowIndex="5" prefHeight="12"/>
+
+            <Label text="CLIENTE" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="3"/>
+            <ComboBox fx:id="cbCliente" styleClass="dialog-field" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="3"/>
+
+            <Region GridPane.columnIndex="0" GridPane.rowIndex="8" prefHeight="12"/>
+
+            <Label text="AUTOMÓVEL" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.columnSpan="3"/>
+            <ComboBox fx:id="cbAutomovel" styleClass="dialog-field" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="3"/>
+
+        </GridPane>
+    </VBox>
+
+    <Label fx:id="lblErro" styleClass="dialog-error" wrapText="true">
+        <VBox.margin><Insets top="8"/></VBox.margin>
+    </Label>
+
+    <HBox spacing="14" alignment="CENTER">
+        <VBox.margin><Insets top="20"/></VBox.margin>
+        <Button fx:id="btnCancelar" text="CANCELAR"  styleClass="dialog-btn-red"   prefWidth="180"/>
+        <Button fx:id="btnConfirmar" text="CONFIRMAR" styleClass="dialog-btn-green" prefWidth="180"/>
+    </HBox>
+
 </VBox>

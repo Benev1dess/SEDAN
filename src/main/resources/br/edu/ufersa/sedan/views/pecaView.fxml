@@ -2,125 +2,152 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.shape.SVGPath?>
 
-<BorderPane prefHeight="720.0" prefWidth="1024.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.sedan.controllers.PecaController">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="br.edu.ufersa.sedan.controllers.PecaController"
+            stylesheets="@../css/style.css"
+            prefWidth="900" prefHeight="600"
+            styleClass="root">
 
     <left>
-        <VBox prefWidth="220.0" spacing="10.0" style="-fx-background-color: #1A1A1A; -fx-padding: 15px 15px 20px 15px;" BorderPane.alignment="CENTER">
-            <children>
+        <VBox styleClass="sidebar" prefWidth="160">
+            <VBox spacing="0" VBox.vgrow="ALWAYS">
 
-                <Button maxWidth="1.7976931348623157E308" alignment="BASELINE_LEFT" style="-fx-background-color: transparent; -fx-text-fill: #8A8A8A; -fx-graphic-text-gap: 12px;" text="Clientes">
-                    <graphic>
-                        <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" fill="#8A8A8A" scaleX="0.85" scaleY="0.85" />
-                    </graphic>
+                <Button text="Clientes" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onClientes">
+                    <graphic><Label text="👤"/></graphic>
                 </Button>
 
-                <Button maxWidth="1.7976931348623157E308" alignment="BASELINE_LEFT" style="-fx-background-color: transparent; -fx-text-fill: #8A8A8A; -fx-graphic-text-gap: 12px;" text="Veículos">
-                    <graphic>
-                        <SVGPath content="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1-1.5 1zm11 0c-.83 0-1.5-.67-1.5-1s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1-1.5 1zM5 11l1.5-4.5h11L19 11H5z" fill="#8A8A8A" scaleX="0.85" scaleY="0.85" />
-                    </graphic>
+                <Button text="Veículos" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onVeiculos">
+                    <graphic><Label text="🚗"/></graphic>
                 </Button>
 
-                <Button maxWidth="1.7976931348623157E308" alignment="BASELINE_LEFT" style="-fx-background-color: #2D2D2D; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-graphic-text-gap: 12px;" text="Peças">
-                    <graphic>
-                        <SVGPath content="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l-.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3-1.57-3-3.5s1.57-3 3-3 3 1.57 3 3.5-1.57 3-3 3.5z" fill="#FFFFFF" scaleX="0.85" scaleY="0.85" />
-                    </graphic>
+                <Button text="Peças" styleClass="sidebar-item, sidebar-item-active"
+                        maxWidth="Infinity" onAction="#onPecas">
+                    <graphic><Label text="⚙"/></graphic>
                 </Button>
 
-                <Button maxWidth="1.7976931348623157E308" alignment="BASELINE_LEFT" style="-fx-background-color: transparent; -fx-text-fill: #8A8A8A; -fx-graphic-text-gap: 12px;" text="Serviços">
-                    <graphic>
-                        <SVGPath content="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.3C.5 6.7.9 9.8 2.9 11.8c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.1z" fill="#8A8A8A" scaleX="0.85" scaleY="0.85" />
-                    </graphic>
+                <Button text="Serviços" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onServicos">
+                    <graphic><Label text="🔧"/></graphic>
                 </Button>
 
-                <Button maxWidth="1.7976931348623157E308" alignment="BASELINE_LEFT" style="-fx-background-color: transparent; -fx-text-fill: #8A8A8A; -fx-graphic-text-gap: 12px;" text="Orçamentos">
-                    <graphic>
-                        <SVGPath content="M5 2H19c1.1 0 2 .9 2 2V20c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm6 6H7v2h4V8zm0 4H7v2h4v-2zm6-4h-4v2h4V8zm0 4h-4v2h4v-2z" fill="#8A8A8A" scaleX="0.85" scaleY="0.85" />
-                    </graphic>
+                <Button text="Orçamentos" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onOrcamentos">
+                    <graphic><Label text="💲"/></graphic>
                 </Button>
 
-                <Button maxWidth="1.7976931348623157E308" alignment="BASELINE_LEFT" style="-fx-background-color: transparent; -fx-text-fill: #8A8A8A; -fx-graphic-text-gap: 12px;" text="Ordem de serviço">
-                    <graphic>
-                        <SVGPath content="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" fill="#8A8A8A" scaleX="0.85" scaleY="0.85" />
-                    </graphic>
+                <Button text="Ordem de serviço" styleClass="sidebar-item"
+                        maxWidth="Infinity" wrapText="true"
+                        onAction="#onOrdemServico">
+                    <graphic><Label text="📋"/></graphic>
                 </Button>
 
-                <Button maxWidth="1.7976931348623157E308" alignment="BASELINE_LEFT" style="-fx-background-color: transparent; -fx-text-fill: #8A8A8A; -fx-graphic-text-gap: 12px;" text="Relatórios">
-                    <graphic>
-                        <SVGPath content="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2z" fill="#8A8A8A" scaleX="0.85" scaleY="0.85" />
-                    </graphic>
+                <Button text="Relatórios" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onRelatorios">
+                    <graphic><Label text="📄"/></graphic>
                 </Button>
 
-                <Button maxWidth="1.7976931348623157E308" alignment="BASELINE_LEFT" style="-fx-background-color: transparent; -fx-text-fill: #8A8A8A; -fx-graphic-text-gap: 12px;" text="Funcionários">
-                    <graphic>
-                        <SVGPath content="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="#8A8A8A" scaleX="0.85" scaleY="0.85" />
-                    </graphic>
+                <Button text="Funcionários" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onFuncionarios">
+                    <graphic><Label text="👥"/></graphic>
                 </Button>
 
-                <Region VBox.vgrow="ALWAYS" />
+                <Region VBox.vgrow="ALWAYS"/>
 
-                <Button style="-fx-background-color: transparent; -fx-text-fill: #8A8A8A; -fx-graphic-text-gap: 12px;" text="Sair">
-                    <graphic>
-                        <SVGPath content="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" fill="#8A8A8A" scaleX="0.85" scaleY="0.85" />
-                    </graphic>
+                <Button text="Sair" styleClass="sidebar-item, sidebar-sair"
+                        maxWidth="Infinity" onAction="#onSair">
+                    <graphic><Label text="🚪"/></graphic>
                 </Button>
-            </children>
+
+            </VBox>
         </VBox>
     </left>
 
     <center>
-        <VBox BorderPane.alignment="CENTER">
-            <children>
+        <VBox spacing="0">
 
-                <HBox alignment="CENTER" prefHeight="60.0" style="-fx-background-color: #C00000;" />
+            <HBox styleClass="header" alignment="CENTER" prefHeight="70">
+                <ImageView fx:id="logoImage" fitHeight="55" preserveRatio="true"/>
+            </HBox>
 
-                <VBox spacing="15.0" style="-fx-background-color: #DCDCDC; -fx-padding: 25px;" VBox.vgrow="ALWAYS">
-                    <children>
-                        <Label text="GERENCIAMENTO DE PEÇAS" textFill="#333333">
-                            <font>
-                                <Font name="Arial Bold" size="16.0" />
-                            </font>
-                        </Label>
+            <VBox styleClass="outer-panel" VBox.vgrow="ALWAYS" spacing="0">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
 
-                        <HBox alignment="CENTER_LEFT" spacing="15.0">
-                            <children>
-                                <VBox spacing="8.0">
-                                    <children>
-                                        <CheckBox fx:id="chkFabricante" selected="true" text="Fabricante" style="-fx-text-fill: #333333; -fx-font-weight: bold;" />
-                                        <CheckBox fx:id="chkAutomovel" selected="true" text="Automóvel" style="-fx-text-fill: #333333; -fx-font-weight: bold;" />
-                                        <CheckBox fx:id="chkNome" selected="true" text="Nome" style="-fx-text-fill: #333333; -fx-font-weight: bold;" />
-                                    </children>
-                                </VBox>
-                                <Region HBox.hgrow="ALWAYS" />
-                                <TextField fx:id="searchField" promptText="Busque por nome, fabricante ou automóvel..." prefWidth="380.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #CCCCCC; -fx-padding: 8px;" />
-                            </children>
+                <Label text="GERENCIAMENTO DE PEÇAS" styleClass="page-title"/>
+
+                <VBox styleClass="table-panel" VBox.vgrow="ALWAYS">
+
+                    <HBox spacing="16" alignment="CENTER_LEFT" styleClass="table-toolbar">
+                        <padding><Insets bottom="10"/></padding>
+
+                        <VBox spacing="4">
+                            <CheckBox fx:id="chkFabricante"
+                                      text="Fabricante"
+                                      styleClass="filter-checkbox"
+                                      selected="true"
+                                      onAction="#onFiltroChanged"/>
+                            <CheckBox fx:id="chkAutomovel"
+                                      text="Automóvel"
+                                      styleClass="filter-checkbox"
+                                      selected="true"
+                                      onAction="#onFiltroChanged"/>
+                            <CheckBox fx:id="chkNome"
+                                      text="Nome"
+                                      styleClass="filter-checkbox"
+                                      selected="true"
+                                      onAction="#onFiltroChanged"/>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <HBox styleClass="search-box" alignment="CENTER_LEFT" spacing="4">
+                            <TextField fx:id="searchField"
+                                       promptText="Busque por nome, fabricante ou automóvel..."
+                                       styleClass="search-field"
+                                       prefWidth="320"
+                                       onKeyReleased="#onBuscar"/>
+                            <Button text="🔍" styleClass="search-icon-button"
+                                    onAction="#onBuscar"/>
                         </HBox>
+                    </HBox>
 
-                        <TableView fx:id="tabelaPecas" style="-fx-background-color: #FFFFFF;" VBox.vgrow="ALWAYS">
-                            <columns>
-                                <TableColumn fx:id="colNome" text="Nome" />
-                                <TableColumn fx:id="colPreco" text="Preço" />
-                                <TableColumn fx:id="colFabricante" text="Fabricante" />
-                                <TableColumn fx:id="colCarro" text="Carro" />
-                                <TableColumn fx:id="colCliente" text="Cliente" />
-                                <TableColumn fx:id="colAcoes" prefWidth="120.0" text="Ações" style="-fx-alignment: CENTER;" />
-                            </columns>
-                            <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                            </columnResizePolicy>
-                        </TableView>
+                    <TableView fx:id="tabelaPecas"
+                               VBox.vgrow="ALWAYS"
+                               styleClass="clientes-table">
 
-                        <HBox alignment="CENTER_RIGHT">
-                            <children>
-                                <Button fx:id="btnAdicionar" mnemonicParsing="false" style="-fx-background-color: #FFFFFF; -fx-border-color: #BBBBBB; -fx-border-radius: 4px; -fx-padding: 8px 15px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="+ Adicionar peças" />
-                            </children>
-                        </HBox>
-                    </children>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+
+                        <columns>
+                            <TableColumn fx:id="colNome"        text="Nome"        prefWidth="160"/>
+                            <TableColumn fx:id="colPreco"       text="Preço"       prefWidth="100"/>
+                            <TableColumn fx:id="colFabricante"  text="Fabricante"  prefWidth="130"/>
+                            <TableColumn fx:id="colCarro"       text="Carro"       prefWidth="130"/>
+                            <TableColumn fx:id="colCliente"     text="Cliente"     prefWidth="150"/>
+
+                            <TableColumn fx:id="colAcoes"       text=""            prefWidth="80" sortable="false"/>
+                        </columns>
+
+                    </TableView>
+
+                    <HBox alignment="CENTER_RIGHT" styleClass="table-footer">
+                        <Button fx:id="btnAdicionar"
+                                text="+ Adicionar peças"
+                                styleClass="add-button"
+                                onAction="#abrirModalAdicionarPeca"/>
+                    </HBox>
+
                 </VBox>
-            </children>
+            </VBox>
         </VBox>
     </center>
+
 </BorderPane>

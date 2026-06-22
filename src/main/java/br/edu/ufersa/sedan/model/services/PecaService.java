@@ -7,11 +7,15 @@ import java.util.List;
 
 public class PecaService {
 
-    private PecaDAO pecaDAO = new PecaDAO();
+    private final PecaDAO pecaDAO = new PecaDAO();
 
     public void adicionar(Peca peca) {
         if (peca == null) {
             throw new IllegalArgumentException("A peça não pode ser nula.");
+        }
+        // Opcional: Validar se já existe uma peça cadastrada com o mesmo nome para evitar duplicados
+        if (peca.getNome() == null || peca.getNome().trim().isEmpty()) {
+            throw new IllegalArgumentException("O nome da peça é obrigatório.");
         }
         pecaDAO.inserir(peca);
     }
@@ -20,7 +24,8 @@ public class PecaService {
         if (peca == null) {
             throw new IllegalArgumentException("A peça não pode ser nula.");
         }
-        if (pecaDAO.buscarId(peca.getId()) == null) {
+        // Correção do bug: Agora busca pelo nome para validar se ela existe no banco antes de alterar
+        if (pecaDAO.buscarNome(peca.getNome()).isEmpty()) {
             throw new IllegalArgumentException("Peça não encontrada para alteração.");
         }
         pecaDAO.alterar(peca);
@@ -30,7 +35,8 @@ public class PecaService {
         if (peca == null) {
             throw new IllegalArgumentException("A peça não pode ser nula.");
         }
-        if (pecaDAO.buscarId(peca.getId()) == null) {
+        // Correção do bug: Valida a existência usando o critério de negócio do nome
+        if (pecaDAO.buscarNome(peca.getNome()).isEmpty()) {
             throw new IllegalArgumentException("Peça não encontrada para exclusão.");
         }
         pecaDAO.deletar(peca);
@@ -38,13 +44,6 @@ public class PecaService {
 
     public List<Peca> listarTodos() {
         return pecaDAO.listar();
-    }
-
-    public Peca buscarPorId(int id) {
-        if (id <= 0) {
-            throw new IllegalArgumentException("ID inválido.");
-        }
-        return pecaDAO.buscarId(id);
     }
 
     public List<Peca> buscarPorNome(String nome) {
