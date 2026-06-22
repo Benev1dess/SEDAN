@@ -155,7 +155,7 @@ public class ClienteController implements Initializable {
 
     //Navegação do Menu Lateral
     @FXML private void onClientes()     { navegarPara("/br/edu/ufersa/sedan/views/clienteView.fxml"); }
-    @FXML private void onVeiculos()     { /* Tela Atual */ }
+    @FXML private void onVeiculos()     { navegarPara("/br/edu/ufersa/sedan/views/veiculoView.fxml"); }
     @FXML private void onPecas()        { navegarPara("/br/edu/ufersa/sedan/views/pecaView.fxml"); }
     @FXML private void onServicos()     { navegarPara("/br/edu/ufersa/sedan/views/servicoView.fxml"); }
     @FXML private void onOrcamentos()   { navegarPara("/br/edu/ufersa/sedan/views/orcamentoView.fxml"); }

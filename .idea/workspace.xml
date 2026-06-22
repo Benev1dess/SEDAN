@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e6bbac0-e0e3-4ad9-8d6c-abe26fb02a74" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/FuncionarioAdicionarController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/FuncionarioController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/FuncionarioEditarController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/FuncionarioExcluirController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/util/Sessao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/funcionarioAdicionarDialog.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/funcionarioEditarDialog.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/funcionarioExcluirDialog.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/funcionarioView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/ClienteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/LoginController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
