@@ -23,7 +23,7 @@ public class VeiculoAdicionarController {
     @FXML private TextField txtBuscaCliente;
     @FXML private ListView<Cliente> listaSugestoes;
 
-    @FXML private TextField tfAutomovel;
+    @FXML private TextField tfCor;
     @FXML private TextField tfPlaca;
     @FXML private TextField tfMarca;
     @FXML private TextField tfAno;
@@ -153,7 +153,7 @@ public class VeiculoAdicionarController {
         lblErro.setText("");
         try {
             String placa     = tfPlaca.getText().trim();
-            String automovel = tfAutomovel.getText().trim();
+            String cor = tfCor.getText().trim();
             String marca     = tfMarca.getText().trim();
 
             if (tfAno.getText().trim().isEmpty() || tfKm.getText().trim().isEmpty()) {
@@ -164,7 +164,7 @@ public class VeiculoAdicionarController {
             int ano = Integer.parseInt(tfAno.getText().trim());
             int km  = Integer.parseInt(tfKm.getText().trim());
 
-            if (placa.isEmpty() || marca.isEmpty() || automovel.isEmpty()) {
+            if (placa.isEmpty() || marca.isEmpty() || cor.isEmpty()) {
                 lblErro.setText("Preencha Automóvel, Placa e Marca.");
                 return;
             }
@@ -172,7 +172,7 @@ public class VeiculoAdicionarController {
             Veiculo novo = new Veiculo();
             novo.setPlaca(placa);
             novo.setMarca(marca);
-            novo.setCor(automovel); // Mantido o mapeamento seguro
+            novo.setCor(cor); // Mantido o mapeamento seguro
             novo.setAno(ano);
             novo.setKm(km);
 

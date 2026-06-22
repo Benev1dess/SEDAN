@@ -38,7 +38,6 @@ public class VeiculoController {
     @FXML private TableView<Veiculo>           tabelaVeiculos;
     @FXML private TableColumn<Veiculo, String> colPlaca;
     @FXML private TableColumn<Veiculo, String> colProprietario;
-    @FXML private TableColumn<Veiculo, String> colAutomovel;
     @FXML private TableColumn<Veiculo, String> colMarca;
     @FXML private TableColumn<Veiculo, String> colCor;
     @FXML private TableColumn<Veiculo, String> colAno;
@@ -74,8 +73,6 @@ public class VeiculoController {
             Cliente dono = c.getValue().getDono();
             return new SimpleStringProperty(dono != null ? dono.getNome() : "—");
         });
-
-        colAutomovel.setCellValueFactory(c -> new SimpleStringProperty("Carro"));
 
         colMarca.setCellValueFactory(c ->
                 new SimpleStringProperty(c.getValue().getMarca() != null ? c.getValue().getMarca() : ""));

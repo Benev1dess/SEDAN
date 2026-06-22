@@ -124,7 +124,6 @@
                         <columns>
                             <TableColumn fx:id="colPlaca"        text="Placa"        prefWidth="100"/>
                             <TableColumn fx:id="colProprietario" text="Proprietário" prefWidth="160"/>
-                            <TableColumn fx:id="colAutomovel"    text="Automovel"    prefWidth="110"/>
                             <TableColumn fx:id="colMarca"        text="Marca"        prefWidth="140"/>
                             <TableColumn fx:id="colCor"          text="Cor"          prefWidth="100"/>
                             <TableColumn fx:id="colAno"          text="Ano"          prefWidth="80"/>

@@ -28,11 +28,11 @@
                 <ColumnConstraints percentWidth="33.3"/>
             </columnConstraints>
 
-            <Label text="AUTOMÓVEL" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Label text="COR" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
             <Label text="PLACA"     styleClass="dialog-field-label" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             <Label text="MARCA"     styleClass="dialog-field-label" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
 
-            <TextField fx:id="tfAutomovel" styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="tfCor" styleClass="dialog-field" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
             <TextField fx:id="tfPlaca"     styleClass="dialog-field" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             <TextField fx:id="tfMarca"     styleClass="dialog-field" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
 

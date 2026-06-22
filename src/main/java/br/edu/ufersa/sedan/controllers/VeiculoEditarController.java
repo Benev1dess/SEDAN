@@ -8,14 +8,11 @@ import javafx.stage.Stage;
 
 public class VeiculoEditarController {
 
-    @FXML private TextField tfAutomovel;
     @FXML private TextField tfPlaca;
     @FXML private TextField tfMarca;
     @FXML private TextField tfAno;
     @FXML private TextField tfKm;
-    @FXML private TextField tfServico;
-    @FXML private TextField tfPeca;
-    @FXML private TextField tfValor;
+    @FXML private TextField tfCor;
     @FXML private Label     lblErro;
 
     private final VeiculoService veiculoService = new VeiculoService();
@@ -25,7 +22,7 @@ public class VeiculoEditarController {
 
     public void setVeiculo(Veiculo v) {
         this.veiculoOriginal = v;
-        tfAutomovel.setText(v.getCor());
+        tfCor.setText(v.getCor());
         tfPlaca    .setText(v.getPlaca());
         tfMarca    .setText(v.getMarca());
         tfAno      .setText(String.valueOf(v.getAno()));
@@ -39,19 +36,19 @@ public class VeiculoEditarController {
         lblErro.setText("");
         try {
             String placa     = tfPlaca.getText().trim();
-            String automovel = tfAutomovel.getText().trim();
+            String cor = tfCor.getText().trim();
             String marca     = tfMarca.getText().trim();
             int    ano       = Integer.parseInt(tfAno.getText().trim());
             int    km        = Integer.parseInt(tfKm.getText().trim());
 
-            if (placa.isEmpty() || marca.isEmpty() || automovel.isEmpty()) {
+            if (placa.isEmpty() || marca.isEmpty() || cor.isEmpty()) {
                 lblErro.setText("Preencha Automóvel, Placa e Marca.");
                 return;
             }
 
             veiculoService.alterarVeiculo(
                     veiculoOriginal.getPlaca(),
-                    marca, automovel, placa, ano, km
+                    marca, cor, placa, ano, km
             );
 
             if (aoSalvar != null) aoSalvar.run();
