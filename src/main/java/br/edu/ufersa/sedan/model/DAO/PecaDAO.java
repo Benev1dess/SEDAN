@@ -10,7 +10,7 @@ public class PecaDAO implements BaseDAO<Peca> {
     private Connection obterConexao() throws SQLException {
         Connection conexao = BaseDAO.getConnection();
         if (conexao == null) {
-            throw new SQLException("Conexão com banco está nula.");
+            throw new SQLException("Conexão com o banco está nula.");
         }
         return conexao;
     }
@@ -20,14 +20,22 @@ public class PecaDAO implements BaseDAO<Peca> {
         String sql = "INSERT INTO peca(nome, preco, fabricante) VALUES (?, ?, ?)";
 
         try (Connection con = obterConexao();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, peca.getNome());
             ps.setDouble(2, peca.getPreco());
             ps.setString(3, peca.getFabricante());
 
             int linhas = ps.executeUpdate();
-            System.out.println("SALVOU NO BANCO: " + linhas);
+
+            // Captura o ID gerado automaticamente pelo AUTO_INCREMENT do MySQL
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    peca.setId(generatedKeys.getInt(1));
+                }
+            }
+
+            System.out.println("SALVOU NO BANCO! ID: " + peca.getId());
 
         } catch (SQLException e) {
             System.out.println("ERRO AO INSERIR PEÇA:");
@@ -37,12 +45,18 @@ public class PecaDAO implements BaseDAO<Peca> {
 
     @Override
     public void deletar(Peca peca) {
-        String sql = "DELETE FROM peca WHERE nome = ?";
+        // Deleta prioritariamente pelo ID se ele existir; senão, usa o nome como fallback
+        String sql = (peca.getId() > 0) ? "DELETE FROM peca WHERE idPeca = ?" : "DELETE FROM peca WHERE nome = ?";
 
         try (Connection con = obterConexao();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, peca.getNome());
+            if (peca.getId() > 0) {
+                ps.setInt(1, peca.getId());
+            } else {
+                ps.setString(1, peca.getNome());
+            }
+
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -52,14 +66,24 @@ public class PecaDAO implements BaseDAO<Peca> {
 
     @Override
     public void alterar(Peca peca) {
-        String sql = "UPDATE peca SET preco = ?, fabricante = ? WHERE nome = ?";
+        // Atualiza os dados baseando-se no ID ou no nome original do item
+        String sql = (peca.getId() > 0)
+                ? "UPDATE peca SET nome = ?, preco = ?, fabricante = ? WHERE idPeca = ?"
+                : "UPDATE peca SET preco = ?, fabricante = ? WHERE nome = ?";
 
         try (Connection con = obterConexao();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setDouble(1, peca.getPreco());
-            ps.setString(2, peca.getFabricante());
-            ps.setString(3, peca.getNome());
+            if (peca.getId() > 0) {
+                ps.setString(1, peca.getNome());
+                ps.setDouble(2, peca.getPreco());
+                ps.setString(3, peca.getFabricante());
+                ps.setInt(4, peca.getId());
+            } else {
+                ps.setDouble(1, peca.getPreco());
+                ps.setString(2, peca.getFabricante());
+                ps.setString(3, peca.getNome());
+            }
 
             ps.executeUpdate();
 
@@ -79,6 +103,8 @@ public class PecaDAO implements BaseDAO<Peca> {
 
             while (rs.next()) {
                 Peca peca = new Peca();
+                // CORREÇÃO: Resgata o ID numérico gerado pelo banco para usar no JavaFX e nos Orçamentos
+                peca.setId(rs.getInt("idPeca"));
                 peca.setNome(rs.getString("nome"));
                 peca.setPreco(rs.getDouble("preco"));
                 peca.setFabricante(rs.getString("fabricante"));
@@ -90,7 +116,6 @@ public class PecaDAO implements BaseDAO<Peca> {
             e.printStackTrace();
         }
 
-        System.out.println("TOTAL DE PEÇAS NO BANCO: " + pecas.size());
         return pecas;
     }
 
@@ -106,6 +131,8 @@ public class PecaDAO implements BaseDAO<Peca> {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Peca peca = new Peca();
+                    // CORREÇÃO: Resgata o ID numérico
+                    peca.setId(rs.getInt("idPeca"));
                     peca.setNome(rs.getString("nome"));
                     peca.setPreco(rs.getDouble("preco"));
                     peca.setFabricante(rs.getString("fabricante"));
@@ -132,6 +159,8 @@ public class PecaDAO implements BaseDAO<Peca> {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Peca peca = new Peca();
+                    // CORREÇÃO: Resgata o ID numérico
+                    peca.setId(rs.getInt("idPeca"));
                     peca.setNome(rs.getString("nome"));
                     peca.setPreco(rs.getDouble("preco"));
                     peca.setFabricante(rs.getString("fabricante"));
@@ -150,9 +179,9 @@ public class PecaDAO implements BaseDAO<Peca> {
         List<Peca> pecas = new ArrayList<>();
 
         StringBuilder sql = new StringBuilder(
-                "SELECT DISTINCT p.nome, p.preco, p.fabricante " +
+                "SELECT DISTINCT p.idPeca, p.nome, p.preco, p.fabricante " +
                         "FROM peca p " +
-                        "LEFT JOIN orcamento_pecas op ON p.nome = op.nome_peca " +
+                        "LEFT JOIN orcamento_pecas op ON p.idPeca = op.idPeca " +
                         "LEFT JOIN orcamento o ON op.idOrcamento = o.idOrcamento " +
                         "LEFT JOIN veiculo v ON o.placaVeiculo = v.placa " +
                         "WHERE 1=1"
@@ -186,6 +215,8 @@ public class PecaDAO implements BaseDAO<Peca> {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Peca peca = new Peca();
+                    // CORREÇÃO: Resgata o ID numérico
+                    peca.setId(rs.getInt("idPeca"));
                     peca.setNome(rs.getString("nome"));
                     peca.setPreco(rs.getDouble("preco"));
                     peca.setFabricante(rs.getString("fabricante"));

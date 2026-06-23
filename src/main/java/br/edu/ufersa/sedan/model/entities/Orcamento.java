@@ -37,19 +37,28 @@ public class Orcamento {
     }
 
     public double calcularTotal() {
-        double total = 0;
+        double total = 0.0;
 
-        for (Peca p : pecas) {
-            total += p.getPreco();
+        // Soma o preço das peças direto do atributo privado
+        if (this.pecas != null) {
+            for (Peca p : this.pecas) {
+                if (p != null) {
+                    total += p.getPreco();
+                }
+            }
         }
 
-        for (Servico s : servicos) {
-            total += s.getPreco();
+        // Soma o preço os serviços direto do atributo privado
+        if (this.servicos != null) {
+            for (Servico s : this.servicos) {
+                if (s != null) {
+                    total += s.getPreco();
+                }
+            }
         }
 
         return total;
     }
-
 
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
