@@ -26,6 +26,7 @@ public class FuncionarioController {
     @FXML private TableColumn<Usuario, String> colNome;
     @FXML private TableColumn<Usuario, String> colLogin;
     @FXML private TableColumn<Usuario, String> colTipo;
+    @FXML private TableColumn<Usuario, String> colCpf;
     @FXML private TableColumn<Usuario, String> colEmail;
     @FXML private TableColumn<Usuario, Double> colSalario;
     @FXML private TableColumn<Usuario, Void> colAcoes;
@@ -69,6 +70,10 @@ public class FuncionarioController {
                 new SimpleStringProperty(cell.getValue().getLogin()));
         colTipo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipo().name()));
         colEmail.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
+        colCpf.setCellValueFactory(cellData -> {
+            String cpf = cellData.getValue().getCpf();
+            return new SimpleStringProperty(cpf != null ? cpf : "—");
+        });
         colSalario.setCellValueFactory(cell ->
                 new javafx.beans.property.SimpleObjectProperty<>(
                         cell.getValue().getSalario()
