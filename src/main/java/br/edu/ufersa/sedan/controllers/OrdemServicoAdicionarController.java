@@ -2,62 +2,78 @@ package br.edu.ufersa.sedan.controllers;
 
 import br.edu.ufersa.sedan.model.entities.Orcamento;
 import br.edu.ufersa.sedan.model.entities.OrdemServico;
+import br.edu.ufersa.sedan.model.DAO.OrcamentoDAO;
 import br.edu.ufersa.sedan.model.services.OrdemServicoService;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class OrdemServicoAdicionarController {
 
-    @FXML private TextField txtBuscaOrcamento;
-    @FXML private CheckBox chkFinalizada;
-    @FXML private CheckBox chkPago;
+    @FXML private ComboBox<Orcamento> cbOrcamentos;
+    @FXML private Label lblResumo;
     @FXML private Label lblErro;
 
     private final OrdemServicoService osService = new OrdemServicoService();
-    private Orcamento orcamentoSelecionado; // Definido ao buscar/selecionar na regra do seu sistema
+    private final OrcamentoDAO orcamentoDAO = new OrcamentoDAO();
     private Runnable aoSalvar;
 
-    public void setAoSalvar(Runnable aoSalvar) { this.aoSalvar = aoSalvar; }
+    public void setAoSalvar(Runnable aoSalvar) {
+        this.aoSalvar = aoSalvar;
+    }
 
     @FXML
-    private void onBuscarOrcamento() {
-        lblErro.setText("");
-        String idText = txtBuscaOrcamento.getText().trim();
-        if(idText.isEmpty()) return;
+    public void initialize() {
+        carregarOrcamentosDisponiveis();
+
+        cbOrcamentos.getSelectionModel().selectedItemProperty().addListener((obs, antigo, novo) -> {
+            if (novo != null) {
+                String cliente = (novo.getVeiculo() != null && novo.getVeiculo().getDono() != null)
+                        ? novo.getVeiculo().getDono().getNome() : "Não identificado";
+                String placa = (novo.getVeiculo() != null) ? novo.getVeiculo().getPlaca() : "Sem placa";
+
+                lblResumo.setText("Placa: " + placa + "\nCliente: " + cliente + "\nTotal: R$ " + novo.calcularTotal());
+            } else {
+                lblResumo.setText("Selecione um orçamento para ver os detalhes.");
+            }
+        });
+    }
+
+    private void carregarOrcamentosDisponiveis() {
         try {
-            int idOrcamento = Integer.parseInt(idText);
-            // Simulação de busca do orçamento ativo de acordo com seu ecossistema
-            Orcamento o = new Orcamento();
-            o.setId(idOrcamento);
-            this.orcamentoSelecionado = o;
-            lblErro.setText("Orçamento " + idOrcamento + " vinculado com sucesso.");
-        } catch (NumberFormatException e) {
-            lblErro.setText("Digite um ID de Orçamento válido.");
+            List<Orcamento> orcamentos = orcamentoDAO.listar();
+            cbOrcamentos.setItems(FXCollections.observableArrayList(orcamentos));
+        } catch (Exception e) {
+            lblErro.setText("Erro ao carregar lista de orçamentos.");
+            e.printStackTrace();
         }
     }
 
     @FXML
     private void onConfirmar() {
         lblErro.setText("");
+        Orcamento selecionado = cbOrcamentos.getSelectionModel().getSelectedItem();
+
+        if (selecionado == null) {
+            lblErro.setText("É necessário selecionar um orçamento para gerar a O.S.");
+            return;
+        }
+
         try {
-            if (orcamentoSelecionado == null) {
-                lblErro.setText("Toda ordem de serviço precisa de um orçamento vinculado.");
-                return;
-            }
-
+            // Instancia a entidade populando com as propriedades da tela
             OrdemServico novaOS = new OrdemServico();
-            novaOS.setOrcamento(orcamentoSelecionado);
+            novaOS.setOrcamento(selecionado);
+            novaOS.setData(LocalDate.now());
+            novaOS.setFinalizada(false);
+            novaOS.setPago(false);
 
-            // Usando validações estritas da sua Service
-            osService.setOrcamento(orcamentoSelecionado);
-            osService.setFinalizada(chkFinalizada.isSelected());
-            osService.setPago(chkPago.isSelected());
-
-            novaOS.setFinalizada(chkFinalizada.isSelected());
-            novaOS.setPago(chkPago.isSelected());
-
-            osService.salvarNoBanco(novaOS);
+            // Envia o objeto montado para a service tratada
+            osService.adicionar(novaOS);
 
             if (aoSalvar != null) aoSalvar.run();
             onCancelar();
@@ -66,5 +82,8 @@ public class OrdemServicoAdicionarController {
         }
     }
 
-    @FXML private void onCancelar() { ((Stage) txtBuscaOrcamento.getScene().getWindow()).close(); }
+    @FXML
+    private void onCancelar() {
+        ((Stage) cbOrcamentos.getScene().getWindow()).close();
+    }
 }

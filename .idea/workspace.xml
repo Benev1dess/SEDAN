@@ -6,16 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="0e6bbac0-e0e3-4ad9-8d6c-abe26fb02a74" name="Changes" comment="telas">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/PecaAdicionarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/PecaAdicionarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/PecaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/PecaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/PecaExcluirController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/PecaExcluirController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/DAO/OrcamentoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/DAO/OrcamentoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/DAO/PecaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/DAO/PecaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/OrdemServicoAdicionarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/OrdemServicoAdicionarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/OrdemServicoEditarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/OrdemServicoEditarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/DAO/OrdemDeServicoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/DAO/OrdemDeServicoDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/entities/Orcamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/entities/Orcamento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/pecaAdicionarDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/pecaAdicionarDialog.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/pecaView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/pecaView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/entities/OrdemServico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/entities/OrdemServico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/OrdemServicoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/OrdemServicoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/ordemServicoAdicionarDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/ordemServicoAdicionarDialog.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -40,3 +40,5 @@ public class OrdemServico {
     public void setFinalizada(boolean finalizada) { this.finalizada = finalizada; }
     public void setPago(boolean pago) { this.pago = pago; }
 }
+
+

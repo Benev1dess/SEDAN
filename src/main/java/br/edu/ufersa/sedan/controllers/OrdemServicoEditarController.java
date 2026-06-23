@@ -32,15 +32,11 @@ public class OrdemServicoEditarController {
     private void onConfirmar() {
         lblErro.setText("");
         try {
-            // Configura os estados na service para disparar suas validações nativas
-            osService.setOrcamento(osOriginal.getOrcamento());
-            osService.setFinalizada(chkFinalizada.isSelected());
-            osService.setPago(chkPago.isSelected());
-
             osOriginal.setFinalizada(chkFinalizada.isSelected());
             osOriginal.setPago(chkPago.isSelected());
 
-            osService.editarOrdem(osOriginal.getOrcamento().getId(), osService);
+            // Passa o objeto completo atualizado
+            osService.editarOrdem(osOriginal);
 
             if (aoSalvar != null) aoSalvar.run();
             onCancelar();
