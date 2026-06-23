@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e6bbac0-e0e3-4ad9-8d6c-abe26fb02a74" name="Changes" comment="telas">
+    <list default="true" id="57d30cd3-afde-4aeb-9a8a-5e4a7654cddb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/OrdemServicoAdicionarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/OrdemServicoAdicionarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/OrdemServicoEditarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/OrdemServicoEditarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/DAO/OrdemDeServicoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/DAO/OrdemDeServicoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/entities/Orcamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/entities/Orcamento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/entities/OrdemServico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/entities/OrdemServico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/OrdemServicoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/OrdemServicoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/ordemServicoAdicionarDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/ordemServicoAdicionarDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/RelatorioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/RelatorioController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +16,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="module-info" />
-        <option value="FxmlFile" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -31,63 +24,38 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Acsaemilly&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Benev1dess"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Benev1dess/SEDAN.git&quot;,
-    &quot;accountId&quot;: &quot;fe7e649b-b0c3-443e-b5be-ff69c447f71e&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Benev1dess/SEDAN.git",
+    "accountId": "cb3d2010-ab04-43ad-9447-e4e62eaf4a6b"
   }
-}</component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 0
-}</component>
-  <component name="ProjectId" id="3FJgXM4P42XURvpMTrFXaihk5lk" />
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="3FYYK05hdPwvhZH2mAOAVHMO5Wv" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.sedan [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.sedan [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.sedan [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;funcionalidade-servicos&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="br.edu.ufersa.sedan" />
-    </key>
-  </component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.edu.ufersa.sedan.Main" />
-      <module name="SedanProject" />
+      <module name="sedan" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="br.edu.ufersa.sedan.*" />
@@ -104,63 +72,14 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.32098.37" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0e6bbac0-e0e3-4ad9-8d6c-abe26fb02a74" name="Changes" comment="" />
-      <created>1781798625236</created>
+      <changelist id="57d30cd3-afde-4aeb-9a8a-5e4a7654cddb" name="Changes" comment="" />
+      <created>1782253402803</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1781798625236</updated>
-      <workItem from="1781798627395" duration="626000" />
-      <workItem from="1781799270316" duration="9304000" />
-      <workItem from="1781899296196" duration="4221000" />
+      <updated>1782253402803</updated>
     </task>
-    <task id="LOCAL-00001" summary="telas">
-      <option name="closed" value="true" />
-      <created>1782145610414</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1782145610414</updated>
-    </task>
-    <task id="LOCAL-00002" summary="telas">
-      <option name="closed" value="true" />
-      <created>1782168752052</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1782168752052</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="telas" />
-    <option name="LAST_COMMIT_MESSAGE" value="telas" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/DAO/OrcamentoDAO.java</url>
-          <line>111</line>
-          <properties class="br.edu.ufersa.sedan.model.DAO.OrcamentoDAO" method="listar">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

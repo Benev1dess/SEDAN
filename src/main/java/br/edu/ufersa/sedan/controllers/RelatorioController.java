@@ -1,7 +1,9 @@
 package br.edu.ufersa.sedan.controllers;
 
+import br.edu.ufersa.sedan.model.services.RelatorioFaturamento;
 import br.edu.ufersa.sedan.model.entities.OrdemServico;
-import br.edu.ufersa.sedan.model.services.RelatorioService;
+import br.edu.ufersa.sedan.model.services.Relatorio;
+import br.edu.ufersa.sedan.model.services.RelatorioFactory;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -12,11 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 public class RelatorioController {
@@ -25,7 +24,7 @@ public class RelatorioController {
     @FXML private Label lblTotalPecas;
     @FXML private Label lblTotalServicos;
     @FXML private Label lblClientesAtendidos;
-    @FXML private ImageView logoImage; // Para carregar a logo se necessário
+    @FXML private ImageView logoImage; // Tratado diretamente pelo FXML agora
 
     @FXML private TableView<OrdemServico> tabelaRelatorio;
     @FXML private TableColumn<OrdemServico, String> colOS;
@@ -34,15 +33,13 @@ public class RelatorioController {
     @FXML private TableColumn<OrdemServico, String> colData;
     @FXML private TableColumn<OrdemServico, String> colValor;
 
-
-    private final RelatorioService relatorioService = new RelatorioService();
+    // APLICANDO O FACTORY METHOD: O controlador conhece apenas a interface genérica
+    private final Relatorio relatorioFaturamento = RelatorioFactory.obterRelatorio("FATURAMENTO");
 
     @FXML
     public void initialize() {
         configurarColunas();
         carregarDadosRelatorio();
-        // Se tiver a função de carregar imagem padrão no seu sistema, chame aqui:
-        // carregarLogo();
     }
 
     private void configurarColunas() {
@@ -68,19 +65,19 @@ public class RelatorioController {
 
     @FXML
     public void carregarDadosRelatorio() {
-        List<OrdemServico> ordensFaturadas = relatorioService.obterOrdensFaturadas();
+        if (relatorioFaturamento != null) {
+            // Obtemos o DTO encapsulado gerado pela Factory/Service
+            RelatorioFaturamento dados = relatorioFaturamento.gerar();
 
-        double totalFaturado = relatorioService.calcularFaturamentoTotal(ordensFaturadas);
-        double totalPecas = relatorioService.calcularTotalPecas(ordensFaturadas);
-        double totalServicos = relatorioService.calcularTotalServicos(ordensFaturadas);
-        long totalClientes = relatorioService.contarClientesUnicos(ordensFaturadas);
+            // Atualiza os elementos da tela baseados no DTO
+            lblTotalFaturado.setText(String.format("R$ %.2f", dados.getTotalFaturado()));
+            lblTotalPecas.setText(String.format("R$ %.2f", dados.getTotalPecas()));
+            lblTotalServicos.setText(String.format("R$ %.2f", dados.getTotalServicos()));
+            lblClientesAtendidos.setText(String.valueOf(dados.getClientesAtendidos()));
 
-        lblTotalFaturado.setText(String.format("R$ %.2f", totalFaturado));
-        lblTotalPecas.setText(String.format("R$ %.2f", totalPecas));
-        lblTotalServicos.setText(String.format("R$ %.2f", totalServicos));
-        lblClientesAtendidos.setText(String.valueOf(totalClientes));
-
-        tabelaRelatorio.setItems(FXCollections.observableArrayList(ordensFaturadas));
+            // Popula a tabela de apoio
+            tabelaRelatorio.setItems(FXCollections.observableArrayList(dados.getOrdensComputadas()));
+        }
     }
 
     // MÉTODOS DE NAVEGAÇÃO COMPATÍVEIS COM OS BOTÕES DO SEU SIDEBAR
