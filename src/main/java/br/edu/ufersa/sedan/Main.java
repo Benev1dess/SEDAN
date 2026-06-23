@@ -13,7 +13,7 @@ public class Main extends Application {
         @Override
         public void start(Stage stage) throws Exception {
                 // ALTERADO: Mudamos de loginView.fxml para pecaView.fxml aqui na String
-                URL fxmlUrl = getClass().getResource("/br/edu/ufersa/sedan/views/pecaView.fxml");
+                URL fxmlUrl = getClass().getResource("/br/edu/ufersa/sedan/views/loginView.fxml");
 
                 if (fxmlUrl == null) {
                         throw new IllegalStateException(

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.edu.ufersa.sedan.controllers.OrcamentoExcluirController"
+      stylesheets="@../css/style.css"
+      styleClass="dialog-root"
+      prefWidth="420" spacing="0"
+      alignment="CENTER">
+
+    <padding><Insets top="36" right="32" bottom="28" left="32"/></padding>
+
+    <VBox alignment="CENTER" spacing="8">
+        <HBox alignment="CENTER" spacing="12">
+            <Label text="CONFIRMAR EXCLUSÃO" styleClass="dialog-title-exclusao"/>
+            <Label text="🗑" styleClass="dialog-title-icon-exclusao"/>
+        </HBox>
+        <Label text="Deseja realmente apagar este orçamento permanentemente?"
+               style="-fx-font-size: 13px; -fx-text-fill: #666666;" wrapText="true" textAlignment="CENTER"/>
+    </VBox>
+
+    <HBox spacing="14" alignment="CENTER">
+        <VBox.margin><Insets top="24"/></VBox.margin>
+        <Button text="CANCELAR" styleClass="dialog-btn-red" prefWidth="160" onAction="#onCancelar"/>
+        <Button text="CONFIRMAR" styleClass="dialog-btn-green" prefWidth="160" onAction="#onConfirmar"/>
+    </HBox>
+</VBox>

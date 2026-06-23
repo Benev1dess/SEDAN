@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.edu.ufersa.sedan.controllers.OrcamentoAdicionarController"
+      stylesheets="@../css/style.css"
+      styleClass="dialog-root"
+      prefWidth="560" spacing="0">
+
+    <padding><Insets top="28" right="28" bottom="24" left="28"/></padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Novo Orçamento" styleClass="dialog-title"/>
+        <Label text="+" styleClass="dialog-title-icon"/>
+    </HBox>
+
+    <VBox spacing="0">
+        <padding><Insets top="18" bottom="0"/></padding>
+
+        <Label text="VEÍCULO DO ORÇAMENTO (BUSCA POR PLACA)" styleClass="dialog-field-label"/>
+        <AnchorPane>
+            <VBox.margin><Insets top="4" bottom="16"/></VBox.margin>
+            <HBox styleClass="dialog-search-box" alignment="CENTER_LEFT" spacing="4"
+                  AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <TextField fx:id="txtBuscaVeiculo" styleClass="dialog-search-field" HBox.hgrow="ALWAYS"
+                           promptText="Digite a placa do veículo..." onKeyReleased="#onBuscarVeiculo"/>
+                <Button text="🔍" styleClass="dialog-search-icon" onAction="#onBuscarVeiculo"/>
+            </HBox>
+            <ListView fx:id="listaSugestoes" styleClass="dialog-suggestions" prefHeight="150" maxHeight="180"
+                      visible="false" managed="false"
+                      AnchorPane.topAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+        </AnchorPane>
+
+        <GridPane hgap="14" vgap="0">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50.0"/>
+                <ColumnConstraints percentWidth="50.0"/>
+            </columnConstraints>
+
+            <Label text="SELECIONE AS PEÇAS" styleClass="dialog-field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Label text="SELECIONE OS SERVIÇOS" styleClass="dialog-field-label" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <ListView fx:id="lvPecas" prefHeight="140" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <ListView fx:id="lvServicos" prefHeight="140" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        </GridPane>
+
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <padding><Insets top="12" bottom="4"/></padding>
+            <Label text="TOTAL ESTIMADO:" styleClass="dialog-field-label" style="-fx-font-size: 13px;"/>
+            <Label fx:id="lblTotal" text="R$ 0,00" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+        </HBox>
+    </VBox>
+
+    <Label fx:id="lblErro" styleClass="dialog-error" wrapText="true">
+        <VBox.margin><Insets top="4"/></VBox.margin>
+    </Label>
+
+    <HBox spacing="14" alignment="CENTER">
+        <VBox.margin><Insets top="16"/></VBox.margin>
+        <Button text="CANCELAR" styleClass="dialog-btn-red" prefWidth="180" onAction="#onCancelar"/>
+        <Button text="CONFIRMAR" styleClass="dialog-btn-green" prefWidth="180" onAction="#onConfirmar"/>
+    </HBox>
+</VBox>

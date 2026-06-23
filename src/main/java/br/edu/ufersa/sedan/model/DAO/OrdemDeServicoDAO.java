@@ -7,96 +7,111 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrdemDeServicoDAO {
-    private final static String URL = "jdbc:mysql://localhost:3306/sedanbd";
-    private final static String USER = "root";
-    private final static String PASS = "root";
-    private static Connection con = null;
 
-    public static Connection getConnection() {
-        try {
-            if (con == null || con.isClosed()) {
-                con = DriverManager.getConnection(URL, USER, PASS);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    // Instancia o DAO de orçamentos para carregar os dados completos (veículo, cliente, peças, serviços)
+    private final OrcamentoDAO orcamentoDAO = new OrcamentoDAO();
+
+    private Connection obterConexao() throws SQLException {
+        Connection conexao = BaseDAO.getConnection();
+        if (conexao == null) {
+            throw new SQLException("Conexão com o banco de dados está nula.");
         }
-        return con;
+        return conexao;
     }
 
     public OrdemServico inserir(OrdemServico os) {
-        con = getConnection();
         String sql = "INSERT INTO ordem_servico(id_orcamento, finalizada, pago, data_os) VALUES(?,?,?,?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            // Pegando o id do orçamento associado
+
+        try (Connection con = obterConexao();
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             ps.setInt(1, os.getOrcamento() != null ? os.getOrcamento().getId() : 0);
             ps.setBoolean(2, os.isFinalizada());
             ps.setBoolean(3, os.isPago());
-            ps.setDate(4, Date.valueOf(os.getData())); // Converte LocalDate para java.sql.Date
-            ps.execute();
 
-            ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next()){
-                // os.setId(rs.getInt(1)); // Caso possua setId na model
+            if (os.getData() != null) {
+                ps.setDate(4, Date.valueOf(os.getData()));
+            } else {
+                ps.setDate(4, Date.valueOf(java.time.LocalDate.now()));
             }
-            rs.close();
-            ps.close();
+
+            ps.executeUpdate();
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    // Se a sua model possuir o atributo ID próprio da OS, descomente a linha abaixo:
+                    // os.setId(rs.getInt(1));
+                }
+            }
         } catch (SQLException e) {
+            System.out.println("ERRO AO INSERIR ORDEM DE SERVIÇO:");
             e.printStackTrace();
         }
         return os;
     }
 
     public void atualizarStatus(OrdemServico os) {
-        con = getConnection();
         String sql = "UPDATE ordem_servico SET finalizada=?, pago=? WHERE id_orcamento=?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+
+        try (Connection con = obterConexao();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setBoolean(1, os.isFinalizada());
             ps.setBoolean(2, os.isPago());
             ps.setInt(3, os.getOrcamento() != null ? os.getOrcamento().getId() : 0);
+
             ps.executeUpdate();
-            ps.close();
         } catch (SQLException e) {
+            System.out.println("ERRO AO ATUALIZAR STATUS DA O.S.:");
             e.printStackTrace();
         }
     }
 
     public void deletar(int idOrcamento) {
-        con = getConnection();
         String sql = "DELETE FROM ordem_servico WHERE id_orcamento=?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+
+        try (Connection con = obterConexao();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setInt(1, idOrcamento);
             ps.executeUpdate();
-            ps.close();
         } catch (SQLException e) {
+            System.out.println("ERRO AO DELETAR O.S.:");
             e.printStackTrace();
         }
     }
 
-    // ── NOVO MÉTODO EXIGIDO PELA SERVICE ──────────────────────────────
     public List<OrdemServico> listarTodos() {
-        con = getConnection();
         String sql = "SELECT * FROM ordem_servico";
         List<OrdemServico> lista = new ArrayList<>();
 
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        // Carrega a listagem completa dos orçamentos do sistema de uma vez só para vincular de forma eficiente
+        List<Orcamento> orcamentosDoBanco = orcamentoDAO.listar();
 
-            while(rs.next()) {
+        try (Connection con = obterConexao();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
                 OrdemServico os = new OrdemServico();
+                int idOrcamentoBanco = rs.getInt("id_orcamento");
 
-                // Reconstrói a associação com Orçamento que a View necessita
-                Orcamento o = new Orcamento();
-                o.setId(rs.getInt("id_orcamento"));
-                os.setOrcamento(o);
+                // CRUCIAL: Procura o orçamento completo na lista recuperada da OrcamentoDAO
+                Orcamento orcamentoCompleto = orcamentosDoBanco.stream()
+                        .filter(o -> o.getId() == idOrcamentoBanco)
+                        .findFirst()
+                        .orElse(null);
 
+                // Se não achar o objeto preenchido, cria um fallback básico com o ID para não quebrar a aplicação
+                if (orcamentoCompleto == null) {
+                    orcamentoCompleto = new Orcamento();
+                    orcamentoCompleto.setId(idOrcamentoBanco);
+                }
+
+                os.setOrcamento(orcamentoCompleto);
                 os.setFinalizada(rs.getBoolean("finalizada"));
                 os.setPago(rs.getBoolean("pago"));
 
-                // Converte java.sql.Date com segurança para LocalDate
                 Date dataBanco = rs.getDate("data_os");
                 if (dataBanco != null) {
                     os.setData(dataBanco.toLocalDate());
@@ -104,9 +119,8 @@ public class OrdemDeServicoDAO {
 
                 lista.add(os);
             }
-            rs.close();
-            ps.close();
         } catch (SQLException e) {
+            System.out.println("ERRO AO LISTAR ORDENS DE SERVIÇO:");
             e.printStackTrace();
         }
         return lista;

@@ -1,156 +1,48 @@
 package br.edu.ufersa.sedan.model.services;
 
 import br.edu.ufersa.sedan.model.DAO.OrdemDeServicoDAO;
-import br.edu.ufersa.sedan.model.entities.Orcamento;
 import br.edu.ufersa.sedan.model.entities.OrdemServico;
-import br.edu.ufersa.sedan.model.entities.Servico;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 
 public class OrdemServicoService {
 
-    private final OrdemDeServicoDAO dao = new OrdemDeServicoDAO();
+    private final OrdemDeServicoDAO osDAO = new OrdemDeServicoDAO();
 
-    private Orcamento orcamento;
-    private boolean finalizada;
-    private boolean pago;
-    private LocalDate data;
-    private List<Servico> servicos = new ArrayList<>();
-
-    public OrdemServicoService() {
-        this.data = LocalDate.now();
-        this.finalizada = false;
-        this.pago = false;
-    }
-
-    // --- Métodos de Integridade (Validações) ---
-
-    public void setOrcamento(Orcamento orcamento) {
-        if (orcamento == null) {
-            throw new IllegalArgumentException("Toda ordem de serviço precisa de um orçamento vinculado.");
+    // Método definitivo de inserção de O.S. a partir da entidade preenchida na View
+    public void adicionar(OrdemServico os) {
+        if (os == null) {
+            throw new IllegalArgumentException("A Ordem de Serviço não pode ser nula.");
         }
-        this.orcamento = orcamento;
-    }
-
-    public void setFinalizada(boolean finalizada) {
-        if (!finalizada && this.pago) {
-            throw new IllegalStateException("Não é possível reabrir uma ordem que já foi paga.");
+        if (os.getOrcamento() == null) {
+            throw new IllegalArgumentException("A O.S. precisa estar vinculada a um orçamento válido.");
         }
 
-        if (finalizada && this.orcamento == null) {
-            throw new IllegalStateException("Não é possível finalizar uma ordem sem um orçamento aprovado.");
+        // Verifica se já existe uma O.S. para este mesmo orçamento para evitar duplicidade
+        boolean jaExiste = osDAO.listarTodos().stream()
+                .anyMatch(ordem -> ordem.getOrcamento() != null && ordem.getOrcamento().getId() == os.getOrcamento().getId());
+
+        if (jaExiste) {
+            throw new IllegalStateException("Já existe uma Ordem de Serviço gerada para este Orçamento.");
         }
 
-        this.finalizada = finalizada;
+        osDAO.inserir(os);
     }
 
-    public void setPago(boolean pago) {
-        if (pago && !this.finalizada) {
-            throw new IllegalStateException("A ordem deve ser finalizada antes de registrar o pagamento.");
-        }
-        this.pago = pago;
-    }
-
-    public void setData(LocalDate data) {
-        if (data == null) {
-            throw new IllegalArgumentException("A data não pode ser nula.");
-        }
-        if (data.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("A data da ordem não pode ser uma data futura.");
-        }
-        this.data = data;
-    }
-
-    // --- Métodos de Operação (Lógica de Negócio e Integração com Banco) ---
-
-    /**
-     * Busca todas as ordens salvas no banco de dados para alimentar a tabela principal.
-     */
-    public List<OrdemServico> listarTodasOrdens() {
-        return dao.listarTodos();
-    }
-
-    /**
-     * Salva uma nova ordem de serviço no banco de dados.
-     */
-    public void salvarNoBanco(OrdemServico os) {
-        dao.inserir(os);
-    }
-
-    /**
-     * Modifica o status (finalizada e pago) de uma ordem de serviço existente no banco.
-     */
-    public void modificarStatus(OrdemServico os) {
-        // Roda as validações rigorosas da própria Service usando o estado atual do objeto enviado
-        this.setOrcamento(os.getOrcamento());
-        this.setFinalizada(os.isFinalizada());
-        this.setPago(os.isPago());
-
-        // Se as validações passarem, atualiza no banco
-        dao.atualizarStatus(os);
-    }
-
-    /**
-     * Remove uma ordem de serviço do banco de dados com base no objeto de entidade.
-     */
-    public void removerOrdem(OrdemServico os) {
+    public void editarOrdem(OrdemServico os) {
         if (os == null || os.getOrcamento() == null) {
-            throw new IllegalArgumentException("Ordem de serviço ou orçamento inválido para exclusão.");
+            throw new IllegalArgumentException("Dados inválidos para alteração.");
         }
-        // Aplica a sua regra de negócio nativa de proteção contra faturamento
-        if (os.isPago()) {
-            throw new IllegalStateException("Não é permitido excluir uma ordem que já foi faturada (paga).");
-        }
-
-        // Delega a remoção para a DAO usando a chave (id do orçamento)
-        dao.deletar(os.getOrcamento().getId());
+        osDAO.atualizarStatus(os);
     }
 
-    public void adicionarServico(Servico s) {
-        if (s == null) {
-            throw new IllegalArgumentException("O serviço a ser adicionado não pode ser nulo.");
+    public void excluirOrdem(int idOrcamento) {
+        if (idOrcamento <= 0) {
+            throw new IllegalArgumentException("ID de orçamento inválido.");
         }
-        if (this.finalizada) {
-            throw new IllegalStateException("Não é permitido adicionar serviços a uma ordem já finalizada.");
-        }
-        this.servicos.add(s);
+        osDAO.deletar(idOrcamento);
     }
 
-    public void editarOrdem(int id, OrdemServicoService novaOrdem) {
-        if (this.pago) {
-            throw new IllegalStateException("Ordens pagas não podem ser editadas.");
-        }
-        // Mantida a assinatura para compatibilidade com implementações futuras locais
+    public List<OrdemServico> listarTodasOrdens() {
+        return osDAO.listarTodos();
     }
-
-    public void excluirOrdem(int id) {
-        if (this.pago) {
-            throw new IllegalStateException("Não é permitido excluir uma ordem que já foi faturada (paga).");
-        }
-        dao.deletar(id);
-    }
-
-    public List<OrdemServicoService> buscarOrdemPorVeiculo(String placa) {
-        if (placa == null || placa.isEmpty()) {
-            throw new IllegalArgumentException("A placa é obrigatória para a busca.");
-        }
-        return new ArrayList<>();
-    }
-
-    public List<OrdemServicoService> buscarOrdemPorCliente(String cpf) {
-        if (cpf == null || cpf.isEmpty()) {
-            throw new IllegalArgumentException("O CPF é obrigatório para a busca.");
-        }
-        return new ArrayList<>();
-    }
-
-    // --- Getters ---
-
-    public Orcamento getOrcamento() { return orcamento; }
-    public boolean isFinalizada() { return finalizada; }
-    public boolean isPago() { return pago; }
-    public LocalDate getData() { return data; }
-    public List<Servico> getServicos() { return new ArrayList<>(servicos); }
 }

@@ -410,3 +410,56 @@
     -fx-background-color: #f0f0f0;
     -fx-background-radius: 2;
 }
+/* =========================================================
+   COMPLEMENTO: Customizações de Listas e Tabelas do Sistema
+   ========================================================= */
+
+/* Estilização base para ListViews internas do modal (Seleção múltipla) */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+
+/* Customização dos elementos individuais de cada lista */
+.list-view .list-cell {
+    -fx-padding: 6px 10px;
+    -fx-text-fill: #333333;
+    -fx-font-size: 12px;
+    -fx-background-color: transparent;
+}
+
+/* Realce de item selecionado em listas (Verde Padrão Instrução) */
+.list-view .list-cell:filled:selected {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+}
+
+.list-view .list-cell:filled:hover {
+    -fx-background-color: #f1f1f1;
+    -fx-text-fill: #333333;
+}
+
+.list-view .list-cell:filled:selected:hover {
+    -fx-background-color: #219653;
+    -fx-text-fill: white;
+}
+
+/* Modificadores estéticos adicionais para DatePicker */
+.date-picker {
+    -fx-background-color: transparent;
+}
+
+.date-picker > .text-field {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 2px;
+    -fx-padding: 6px;
+}
+
+.date-picker > .text-field:focused {
+    -fx-border-color: #cc0000;
+}

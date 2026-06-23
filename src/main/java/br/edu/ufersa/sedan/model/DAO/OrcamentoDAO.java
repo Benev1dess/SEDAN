@@ -2,6 +2,7 @@ package br.edu.ufersa.sedan.model.DAO;
 
 import br.edu.ufersa.sedan.model.entities.Orcamento;
 import br.edu.ufersa.sedan.model.entities.Peca;
+import br.edu.ufersa.sedan.model.entities.Servico;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +16,23 @@ public class OrcamentoDAO implements BaseDAO<Orcamento> {
         con = BaseDAO.getConnection();
         String sqlOrcamento = "INSERT INTO orcamento(placaVeiculo, dataOrcamento) VALUES (?, ?)";
 
-
         try (PreparedStatement ps = con.prepareStatement(sqlOrcamento, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, orcamento.getPlacaVeiculo());
-            ps.setDate(2, Date.valueOf(orcamento.getDataOrcamento())); // Converte LocalDate para Date do SQL
+            ps.setDate(2, Date.valueOf(orcamento.getDataOrcamento()));
             ps.executeUpdate();
 
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int idOrcamentoGerado = generatedKeys.getInt(1);
 
-                    // Salva as peças vinculadas a esse orçamento na tabela muitos-para-muitos
+                    // Salva as peças vinculadas
                     if (orcamento.getListaPecas() != null) {
                         salvarPecasDoOrcamento(idOrcamentoGerado, orcamento.getListaPecas());
+                    }
+
+                    // Salva os serviços vinculados
+                    if (orcamento.getServicos() != null) {
+                        salvarServicosDoOrcamento(idOrcamentoGerado, orcamento.getServicos());
                     }
                 }
             }
@@ -39,12 +44,39 @@ public class OrcamentoDAO implements BaseDAO<Orcamento> {
     private void salvarPecasDoOrcamento(int idOrcamento, List<Peca> pecas) throws SQLException {
         String sqlVinculo = "INSERT INTO orcamento_pecas(idOrcamento, idPeca) VALUES (?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sqlVinculo)) {
-            for (Peca peca : pecas) {
+            for (Peca p : pecas) {
                 ps.setInt(1, idOrcamento);
-                ps.setInt(2, peca.getId());
-                ps.addBatch(); // Otimiza para enviar todas as peças de uma vez só
+                ps.setInt(2, p.getId());
+                ps.addBatch();
             }
             ps.executeBatch();
+        }
+    }
+
+    private void salvarServicosDoOrcamento(int idOrcamento, List<Servico> servicos) throws SQLException {
+        String sqlVinculo = "INSERT INTO orcamento_servicos(idOrcamento, idServico) VALUES (?, ?)";
+        String sqlDescobrirId = "SELECT idServico FROM servico WHERE nome = ? LIMIT 1";
+
+        try (PreparedStatement psVinculo = con.prepareStatement(sqlVinculo);
+             PreparedStatement psBuscaId = con.prepareStatement(sqlDescobrirId)) {
+
+            for (Servico servico : servicos) {
+                psBuscaId.setString(1, servico.getNome());
+                int idServicoReal = 0;
+
+                try (ResultSet rs = psBuscaId.executeQuery()) {
+                    if (rs.next()) {
+                        idServicoReal = rs.getInt("idServico");
+                    }
+                }
+
+                if (idServicoReal > 0) {
+                    psVinculo.setInt(1, idOrcamento);
+                    psVinculo.setInt(2, idServicoReal);
+                    psVinculo.addBatch();
+                }
+            }
+            psVinculo.executeBatch();
         }
     }
 
@@ -71,8 +103,6 @@ public class OrcamentoDAO implements BaseDAO<Orcamento> {
             ps.setDate(2, Date.valueOf(orcamento.getDataOrcamento()));
             ps.setInt(3, orcamento.getId());
             ps.executeUpdate();
-
-            // Em cenários reais, aqui você também atualizaria/limparia a tabela associativa de peças se elas mudassem
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -82,7 +112,11 @@ public class OrcamentoDAO implements BaseDAO<Orcamento> {
     public List<Orcamento> listar() {
         List<Orcamento> orcamentos = new ArrayList<>();
         con = BaseDAO.getConnection();
-        String sql = "SELECT * FROM orcamento";
+
+        String sql = "SELECT o.*, v.marca, v.cor, v.ano, v.km, c.idCliente, c.nome AS nome_cliente, c.cpf " +
+                "FROM orcamento o " +
+                "LEFT JOIN veiculo v ON o.placaVeiculo = v.placa " +
+                "LEFT JOIN cliente c ON v.idCliente = c.idCliente";
 
         try (PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -94,15 +128,56 @@ public class OrcamentoDAO implements BaseDAO<Orcamento> {
                 o.setPlacaVeiculo(rs.getString("placaVeiculo"));
                 o.setDataOrcamento(rs.getDate("dataOrcamento").toLocalDate());
 
-                // Carrega a lista de peças associadas resgatando-as como ArrayList limpa
-                o.setListaPecas(buscarPecasDoOrcamento(id));
+                if (o.getVeiculo() == null) {
+                    o.setVeiculo(new br.edu.ufersa.sedan.model.entities.Veiculo());
+                }
+                br.edu.ufersa.sedan.model.entities.Veiculo v = o.getVeiculo();
+                v.setPlaca(rs.getString("placaVeiculo"));
+                v.setMarca(rs.getString("marca"));
+                v.setCor(rs.getString("cor"));
+
+                String nomeCli = rs.getString("nome_cliente");
+                if (nomeCli != null) {
+                    br.edu.ufersa.sedan.model.entities.Cliente cliente = new br.edu.ufersa.sedan.model.entities.Cliente();
+                    cliente.setNome(nomeCli);
+                    cliente.setCpf(rs.getString("cpf"));
+                    v.setDono(cliente);
+                }
+
+                // Carrega as duas listas de forma explícita
+                List<Peca> pecasDoBanco = buscarPecasDoOrcamento(id);
+                o.setPecas(pecasDoBanco);
+                o.setListaPecas(pecasDoBanco);
+
+                o.setServicos(buscarServicosDoOrcamento(id));
 
                 orcamentos.add(o);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return orcamentos; // Retorna a lista purinha!
+        return orcamentos;
+    }
+
+    private List<Servico> buscarServicosDoOrcamento(int idOrcamento) throws SQLException {
+        List<Servico> servicos = new ArrayList<>();
+        String sql = "SELECT s.nome, s.preco FROM servico s " +
+                "JOIN orcamento_servicos os ON s.idServico = os.idServico " +
+                "WHERE os.idOrcamento = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idOrcamento);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String nome = rs.getString("nome");
+                    double preco = rs.getDouble("preco");
+                    if (nome != null) {
+                        servicos.add(new Servico(nome, preco));
+                    }
+                }
+            }
+        }
+        return servicos;
     }
 
     private List<Peca> buscarPecasDoOrcamento(int idOrcamento) throws SQLException {

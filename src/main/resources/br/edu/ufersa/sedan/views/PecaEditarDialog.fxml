@@ -5,33 +5,33 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="br.edu.ufersa.sedan.controllers.PecaAdicionarController"
+      fx:controller="br.edu.ufersa.sedan.controllers.PecaEditarController"
       stylesheets="@../css/style.css"
       styleClass="dialog-container"
       spacing="14" prefWidth="420">
 
-    <Label text="Nova Peça no Estoque" styleClass="dialog-title"/>
+    <Label text="Atualizar Dados do Item" styleClass="dialog-title"/>
     <Separator/>
 
     <VBox spacing="4">
-        <Label text="Nome da Peça:" styleClass="form-label"/>
-        <TextField fx:id="txtNome" promptText="Ex: Amortecedor Dianteiro" styleClass="form-field"/>
+        <Label text="Nome da Peça (Não modificável):" styleClass="form-label"/>
+        <TextField fx:id="txtNome" styleClass="form-field" disable="true"/>
     </VBox>
 
     <VBox spacing="4">
         <Label text="Fabricante:" styleClass="form-label"/>
-        <TextField fx:id="txtFabricante" promptText="Ex: Cofap" styleClass="form-field"/>
+        <TextField fx:id="txtFabricante" styleClass="form-field"/>
     </VBox>
 
     <VBox spacing="4">
-        <Label text="Preço de Venda (R$):" styleClass="form-label"/>
-        <TextField fx:id="txtPreco" promptText="0.00" styleClass="form-field"/>
+        <Label text="Novo Preço (R$):" styleClass="form-label"/>
+        <TextField fx:id="txtPreco" styleClass="form-field"/>
     </VBox>
 
     <Label fx:id="lblErro" styleClass="error-label" wrapText="true"/>
 
     <HBox spacing="10" alignment="CENTER_RIGHT">
         <Button text="Cancelar" styleClass="btn-cancel" onAction="#onCancelar"/>
-        <Button text="Salvar" styleClass="btn-submit" onAction="#onConfirmar"/>
+        <Button text="Atualizar" styleClass="btn-submit" onAction="#onConfirmar"/>
     </HBox>
 </VBox>
