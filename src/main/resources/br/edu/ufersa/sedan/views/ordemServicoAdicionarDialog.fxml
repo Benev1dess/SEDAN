@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.edu.ufersa.sedan.controllers.OrdemServicoAdicionarController"
+      stylesheets="@../css/style.css"
+      styleClass="dialog-container"
+      spacing="14" prefWidth="450">
+
+    <Label text="Gerar Ordem de Serviço de Orçamento" styleClass="dialog-title"/>
+    <Separator/>
+
+    <VBox spacing="4">
+        <Label text="Selecione o Orçamento Base:" styleClass="form-label"/>
+        <ComboBox fx:id="cbOrcamentos" promptText="Escolha um orçamento..." styleClass="form-field" maxWidth="Infinity"/>
+    </VBox>
+
+    <VBox spacing="8" style="-fx-background-color: #f8fafc; -fx-padding: 10; -fx-background-radius: 6; -fx-border-color: #e2e8f0;">
+        <Label text="Resumo do Veículo / Cliente:" styleClass="form-label"/>
+        <Label fx:id="lblResumo" text="Selecione um orçamento para ver os detalhes." wrapText="true" style="-fx-text-fill: #475569;"/>
+    </VBox>
+
+    <Label fx:id="lblErro" styleClass="error-label" wrapText="true"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancelar" styleClass="btn-cancel" onAction="#onCancelar"/>
+        <Button text="Gerar O.S." styleClass="btn-submit" onAction="#onConfirmar"/>
+    </HBox>
+</VBox>

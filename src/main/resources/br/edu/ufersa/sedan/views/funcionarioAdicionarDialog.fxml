@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.edu.ufersa.sedan.controllers.FuncionarioAdicionarController"
+      stylesheets="@../css/style.css"
+      styleClass="dialog-root"
+      prefWidth="650"
+      spacing="0">
+
+    <padding>
+        <Insets top="28" right="28" bottom="24" left="28"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+    <Label text="Cadastrar Funcionário"
+           styleClass="dialog-title"/>
+
+        <Label text="✏"
+               styleClass="dialog-title-icon"/>
+    </HBox>
+
+    <VBox spacing="0">
+        <padding>
+            <Insets top="18"/>
+        </padding>
+
+        <GridPane hgap="14" vgap="0">
+
+            <columnConstraints>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.3"/>
+            </columnConstraints>
+
+            <!-- Linha 1 -->
+
+            <Label text="NOME"
+                   styleClass="dialog-field-label"
+                   GridPane.columnIndex="0"
+                   GridPane.rowIndex="0"/>
+
+            <Label text="LOGIN"
+                   styleClass="dialog-field-label"
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="0"/>
+
+            <Label text="TIPO"
+                   styleClass="dialog-field-label"
+                   GridPane.columnIndex="2"
+                   GridPane.rowIndex="0"/>
+
+            <TextField fx:id="tfNome"
+                       styleClass="dialog-field"
+                       GridPane.columnIndex="0"
+                       GridPane.rowIndex="1"/>
+
+            <TextField fx:id="tfLogin"
+                       styleClass="dialog-field"
+                       GridPane.columnIndex="1"
+                       GridPane.rowIndex="1"/>
+
+            <ComboBox fx:id="cbTipo"
+                      styleClass="dialog-field"
+                      GridPane.columnIndex="2"
+                      GridPane.rowIndex="1"/>
+
+            <Region GridPane.rowIndex="2"
+                    prefHeight="12"/>
+
+            <!-- Linha 2 -->
+
+            <Label text="EMAIL"
+                   styleClass="dialog-field-label"
+                   GridPane.columnIndex="0"
+                   GridPane.rowIndex="3"/>
+
+            <Label text="CPF"
+                   styleClass="dialog-field-label"
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="3"/>
+
+            <Label text="SALÁRIO"
+                   styleClass="dialog-field-label"
+                   GridPane.columnIndex="2"
+                   GridPane.rowIndex="3"/>
+
+            <TextField fx:id="tfEmail"
+                       styleClass="dialog-field"
+                       GridPane.columnIndex="0"
+                       GridPane.rowIndex="4"/>
+
+            <TextField fx:id="tfCpf"
+                       styleClass="dialog-field"
+                       GridPane.columnIndex="1"
+                       GridPane.rowIndex="4"/>
+
+            <TextField fx:id="tfSalario"
+                       styleClass="dialog-field"
+                       GridPane.columnIndex="2"
+                       GridPane.rowIndex="4"/>
+
+            <Region GridPane.rowIndex="5"
+                    prefHeight="12"/>
+
+            <!-- Linha 3 -->
+
+            <Label text="SENHA"
+                   styleClass="dialog-field-label"
+                   GridPane.columnIndex="0"
+                   GridPane.rowIndex="6"/>
+
+            <PasswordField fx:id="pfSenha"
+                           styleClass="dialog-field"
+                           GridPane.columnIndex="0"
+                           GridPane.rowIndex="7"/>
+
+        </GridPane>
+    </VBox>
+
+    <Label fx:id="lblErro"
+           styleClass="dialog-error"
+           wrapText="true">
+        <VBox.margin>
+            <Insets top="8"/>
+        </VBox.margin>
+    </Label>
+
+    <HBox spacing="14" alignment="CENTER">
+        <VBox.margin>
+            <Insets top="24"/>
+        </VBox.margin>
+
+        <Button text="CANCELAR"
+                styleClass="dialog-btn-red"
+                prefWidth="220"
+                onAction="#onCancelar"/>
+
+        <Button text="CONFIRMAR"
+                styleClass="dialog-btn-green"
+                prefWidth="220"
+                onAction="#onConfirmar"/>
+    </HBox>
+
+</VBox>

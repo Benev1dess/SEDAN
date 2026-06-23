@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="br.edu.ufersa.sedan.controllers.ServicoController"
+            stylesheets="@../css/style.css"
+            prefWidth="900" prefHeight="600"
+            styleClass="root">
+
+    <left>
+        <VBox styleClass="sidebar" prefWidth="160">
+            <VBox spacing="0" VBox.vgrow="ALWAYS">
+
+                <Button text="Clientes" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onClientes">
+                    <graphic><Label text="👤"/></graphic>
+                </Button>
+
+                <Button text="Veículos" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onVeiculos">
+                    <graphic><Label text="🚗"/></graphic>
+                </Button>
+
+                <Button text="Peças" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onPecas">
+                    <graphic><Label text="⚙"/></graphic>
+                </Button>
+
+                <Button text="Serviços" styleClass="sidebar-item, sidebar-item-active"
+                        maxWidth="Infinity" onAction="#onServicos">
+                    <graphic><Label text="🔧"/></graphic>
+                </Button>
+
+                <Button text="Orçamentos" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onOrcamentos">
+                    <graphic><Label text="💲"/></graphic>
+                </Button>
+
+                <Button text="Ordem de serviço" styleClass="sidebar-item"
+                        maxWidth="Infinity" wrapText="true"
+                        onAction="#onOrdemServico">
+                    <graphic><Label text="📋"/></graphic>
+                </Button>
+
+                <Button text="Relatórios" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onRelatorios">
+                    <graphic><Label text="📄"/></graphic>
+                </Button>
+
+                <Button text="Funcionários" styleClass="sidebar-item"
+                        maxWidth="Infinity" onAction="#onFuncionarios">
+                    <graphic><Label text="👥"/></graphic>
+                </Button>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Button text="Sair" styleClass="sidebar-item, sidebar-sair"
+                        maxWidth="Infinity" onAction="#onSair">
+                    <graphic><Label text="🚪"/></graphic>
+                </Button>
+
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="0">
+
+            <HBox styleClass="header" alignment="CENTER" prefHeight="70">
+                <ImageView fx:id="logoImage" fitHeight="55" preserveRatio="true"/>
+            </HBox>
+
+            <VBox styleClass="outer-panel" VBox.vgrow="ALWAYS" spacing="0">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <Label text="GERENCIAMENTO DE SERVIÇOS" styleClass="page-title"/>
+
+                <VBox styleClass="table-panel" VBox.vgrow="ALWAYS">
+
+                    <HBox spacing="16" alignment="CENTER_LEFT" styleClass="table-toolbar">
+                        <padding><Insets bottom="10"/></padding>
+
+                        <VBox spacing="4">
+                            <CheckBox fx:id="chkNomeServico"
+                                      text="Nome do serviço"
+                                      styleClass="filter-checkbox"
+                                      selected="true"
+                                      onAction="#onFiltroChanged"/>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <HBox styleClass="search-box" alignment="CENTER_LEFT" spacing="4">
+                            <TextField fx:id="txtBusca"
+                                       promptText="Busque pelo nome do serviço..."
+                                       styleClass="search-field"
+                                       prefWidth="320"
+                                       onKeyReleased="#onBuscar"/>
+                            <Button text="🔍" styleClass="search-icon-button"
+                                    onAction="#onBuscar"/>
+                        </HBox>
+                    </HBox>
+
+                    <TableView fx:id="tabelaServicos"
+                               VBox.vgrow="ALWAYS"
+                               styleClass="clientes-table">
+
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+
+                        <columns>
+                            <TableColumn fx:id="colNomeServico" text="Nome do serviço" prefWidth="450"/>
+                            <TableColumn fx:id="colPreco"       text="Preço"            prefWidth="250"/>
+                            <TableColumn fx:id="colAcoes"       text=""                 prefWidth="100" sortable="false"/>
+                        </columns>
+
+                    </TableView>
+
+                    <HBox alignment="CENTER_RIGHT" styleClass="table-footer">
+                        <Button fx:id="btnAdicionar"
+                                text="+ Adicionar serviços"
+                                styleClass="add-button"
+                                onAction="#onAdicionar"/>
+                    </HBox>
+
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+
+</BorderPane>
