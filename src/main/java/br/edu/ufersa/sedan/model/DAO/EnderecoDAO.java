@@ -36,7 +36,7 @@ public class EnderecoDAO implements BaseDAO<Endereco> {
 
         con = BaseDAO.getConnection();
 
-        String sql = "DELETE FROM endereco WHERE idEndereco = ?";
+        String sql = "DELETE FROM endereco WHERE id = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -57,7 +57,7 @@ public class EnderecoDAO implements BaseDAO<Endereco> {
 
         con = BaseDAO.getConnection();
 
-        String sql = "UPDATE endereco SET rua = ?, bairro = ?, num = ? WHERE idEndereco = ?";
+        String sql = "UPDATE endereco SET rua = ?, bairro = ?, num = ? WHERE id = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -94,7 +94,7 @@ public class EnderecoDAO implements BaseDAO<Endereco> {
 
                 Endereco endereco = new Endereco();
 
-                endereco.setIdEndereco(rs.getInt("idEndereco"));
+                endereco.setIdEndereco(rs.getInt("id"));
                 endereco.setRua(rs.getString("rua"));
                 endereco.setBairro(rs.getString("bairro"));
                 endereco.setNum(rs.getInt("num"));
@@ -118,7 +118,7 @@ public class EnderecoDAO implements BaseDAO<Endereco> {
 
         con = BaseDAO.getConnection();
 
-        String sql = "SELECT * FROM endereco WHERE idEndereco = ?";
+        String sql = "SELECT * FROM endereco WHERE id = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -131,7 +131,7 @@ public class EnderecoDAO implements BaseDAO<Endereco> {
 
                 Endereco endereco = new Endereco();
 
-                endereco.setIdEndereco(rs.getInt("idEndereco"));
+                endereco.setIdEndereco(rs.getInt("id"));
                 endereco.setRua(rs.getString("rua"));
                 endereco.setBairro(rs.getString("bairro"));
                 endereco.setNum(rs.getInt("num"));
@@ -168,7 +168,7 @@ public class EnderecoDAO implements BaseDAO<Endereco> {
 
                 Endereco endereco = new Endereco();
 
-                endereco.setIdEndereco(rs.getInt("idEndereco"));
+                endereco.setIdEndereco(rs.getInt("id"));
                 endereco.setRua(rs.getString("rua"));
                 endereco.setBairro(rs.getString("bairro"));
                 endereco.setNum(rs.getInt("num"));
@@ -205,7 +205,7 @@ public class EnderecoDAO implements BaseDAO<Endereco> {
 
                 Endereco endereco = new Endereco();
 
-                endereco.setIdEndereco(rs.getInt("idEndereco"));
+                endereco.setIdEndereco(rs.getInt("id"));
                 endereco.setRua(rs.getString("rua"));
                 endereco.setBairro(rs.getString("bairro"));
                 endereco.setNum(rs.getInt("num"));

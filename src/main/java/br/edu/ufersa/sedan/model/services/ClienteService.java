@@ -23,13 +23,6 @@ public class ClienteService {
             return;
         }
 
-        // salva endereço primeiro (se existir DAO funcionando pra isso)
-        Endereco endereco = cliente.getEndereco();
-
-        if (endereco != null) {
-            enderecoDAO.inserir(endereco);
-        }
-
         // salva cliente
         clienteDAO.inserir(cliente);
     }
@@ -84,7 +77,11 @@ public class ClienteService {
     public boolean removerCliente(String cpf) {
         Cliente cliente = buscarPorCpf(cpf);
         if (cliente != null) {
+            Endereco endereco = cliente.getEndereco();
             clienteDAO.deletar(cliente);
+            if (endereco != null) {
+                enderecoDAO.deletar(endereco);
+            }
             return true;
         }
 

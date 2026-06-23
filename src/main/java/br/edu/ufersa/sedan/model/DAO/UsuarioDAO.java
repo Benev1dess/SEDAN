@@ -32,7 +32,7 @@ public class UsuarioDAO implements BaseDAO<Usuario> {
     @Override
     public void deletar(Usuario usuario) {
         con = BaseDAO.getConnection();
-        String sql = "DELETE FROM tb_usuario WHERE idUsuario = ?";
+        String sql = "DELETE FROM tb_usuario WHERE id = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, usuario.getId());
@@ -45,7 +45,7 @@ public class UsuarioDAO implements BaseDAO<Usuario> {
     @Override
     public void alterar(Usuario usuario) {
         con = BaseDAO.getConnection();
-        String sql = "UPDATE tb_usuario SET nome = ?, login = ?, senha = ?, email = ?, cpf = ?, salario = ?, tipo = ? WHERE idUsuario = ?";
+        String sql = "UPDATE tb_usuario SET nome = ?, login = ?, senha = ?, email = ?, cpf = ?, salario = ?, tipo = ? WHERE id = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, usuario.getNome());
