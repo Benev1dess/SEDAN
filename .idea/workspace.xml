@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57d30cd3-afde-4aeb-9a8a-5e4a7654cddb" name="Changes" comment="">
+    <list default="true" id="57d30cd3-afde-4aeb-9a8a-5e4a7654cddb" name="Changes" comment="Final">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/RelatorioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/controllers/RelatorioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/entities/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/entities/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/Relatorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/Relatorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/RelatorioFaturamentoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/RelatorioFaturamentoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/RelatorioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ufersa/sedan/model/services/RelatorioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/relatorioView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/br/edu/ufersa/sedan/views/relatorioView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,21 +30,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Benev1dess"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Benev1dess&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/Benev1dess/SEDAN.git",
-    "accountId": "cb3d2010-ab04-43ad-9447-e4e62eaf4a6b"
+    "accountId": "ac444c2c-8951-4ab7-8b04-dafed8430946"
   }
 }]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="3FYYK05hdPwvhZH2mAOAVHMO5Wv" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -48,8 +54,13 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main"
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
@@ -72,6 +83,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.25134.95" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.25134.95" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="57d30cd3-afde-4aeb-9a8a-5e4a7654cddb" name="Changes" comment="" />
@@ -79,7 +98,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1782253402803</updated>
+      <workItem from="1782298754930" duration="6603000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Final" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final" />
   </component>
 </project>

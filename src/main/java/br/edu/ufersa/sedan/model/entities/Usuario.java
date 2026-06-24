@@ -10,11 +10,7 @@ public class Usuario {
     private double salario;
     private TipoUsuario tipo;
 
-    /**
-     * Construtor Vazio / Padrão
-     * OBRIGATÓRIO para a camada DAO conseguir instanciar o objeto
-     * e preencher os dados via seleções do banco de dados (ResultSet).
-     */
+
     public Usuario() {
     }
 

@@ -92,22 +92,42 @@
                     <HBox spacing="16" alignment="CENTER_LEFT" styleClass="table-toolbar">
                         <padding><Insets bottom="15" top="5"/></padding>
 
+                        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #f8fafc; -fx-padding: 8; -fx-background-radius: 6; -fx-border-color: #e2e8f0; -fx-border-radius: 6;">
+                            <Label text="De:" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 12px;"/>
+                            <DatePicker fx:id="dpInicio" prefWidth="130" style="-fx-font-size: 12px;"/>
+
+                            <Label text="Até:" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 12px;"/>
+                            <DatePicker fx:id="dpFim" prefWidth="130" style="-fx-font-size: 12px;"/>
+
+                            <Button text="🔍 Filtrar" styleClass="search-icon-button"
+                                    style="-fx-padding: 5 12; -fx-font-size: 12px; -fx-background-color: #4f46e5; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"
+                                    onAction="#carregarDadosRelatorio"/>
+                        </HBox>
+
+                        <Separator orientation="VERTICAL" prefHeight="40"/>
+
                         <HBox spacing="20" alignment="CENTER_LEFT">
                             <VBox spacing="2">
-                                <Label text="Faturamento Total" style="-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-font-weight: bold;"/>
+                                <Label text="Faturamento Período" style="-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-font-weight: bold;"/>
                                 <Label fx:id="lblTotalFaturado" text="R$ 0,00" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #10b981;"/>
                             </VBox>
+
                             <Separator orientation="VERTICAL" prefHeight="30"/>
+
                             <VBox spacing="2">
                                 <Label text="Total em Peças" style="-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-font-weight: bold;"/>
                                 <Label fx:id="lblTotalPecas" text="R$ 0,00" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #3b82f6;"/>
                             </VBox>
+
                             <Separator orientation="VERTICAL" prefHeight="30"/>
+
                             <VBox spacing="2">
                                 <Label text="Total em Serviços" style="-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-font-weight: bold;"/>
                                 <Label fx:id="lblTotalServicos" text="R$ 0,00" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #8b5cf6;"/>
                             </VBox>
+
                             <Separator orientation="VERTICAL" prefHeight="30"/>
+
                             <VBox spacing="2">
                                 <Label text="Clientes Atendidos" style="-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-font-weight: bold;"/>
                                 <Label fx:id="lblClientesAtendidos" text="0" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #f59e0b;"/>
@@ -115,10 +135,6 @@
                         </HBox>
 
                         <Region HBox.hgrow="ALWAYS"/>
-
-                        <Button text="🔄 Atualizar Dados" styleClass="search-icon-button"
-                                style="-fx-padding: 6 12; -fx-font-size: 12px;"
-                                onAction="#carregarDadosRelatorio"/>
                     </HBox>
 
                     <TableView fx:id="tabelaRelatorio"
@@ -140,7 +156,7 @@
                     </TableView>
 
                     <HBox alignment="CENTER_RIGHT" styleClass="table-footer">
-                        <Label text="*Apenas ordens Finalizadas e Pagas são calculadas neste relatório."
+                        <Label text="*Apenas ordens Finalizadas e Pagas dentro do período especificado são calculadas neste relatório."
                                style="-fx-font-size: 11px; -fx-text-fill: #94a3b8; -fx-font-style: italic;"/>
                     </HBox>
 

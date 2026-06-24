@@ -8,9 +8,8 @@ import java.util.stream.Collectors;
 
 public class RelatorioService {
 
-    private final OrdemServicoService osService = new OrdemServicoService();
+    protected final OrdemServicoService osService = new OrdemServicoService();
 
-    // Filtra apenas ordens que foram concluídas e faturadas de fato
     public List<OrdemServico> obterOrdensFaturadas() {
         return osService.listarTodasOrdens().stream()
                 .filter(os -> os.isFinalizada() && os.isPago())
@@ -50,7 +49,7 @@ public class RelatorioService {
     public long contarClientesUnicos(List<OrdemServico> ordens) {
         return ordens.stream()
                 .filter(os -> os.getOrcamento() != null && os.getOrcamento().getVeiculo() != null && os.getOrcamento().getVeiculo().getDono() != null)
-                .map(os -> os.getOrcamento().getVeiculo().getDono().getCpf()) // Agrupa por CPF para não contar o mesmo cliente duas vezes
+                .map(os -> os.getOrcamento().getVeiculo().getDono().getCpf())
                 .distinct()
                 .count();
     }

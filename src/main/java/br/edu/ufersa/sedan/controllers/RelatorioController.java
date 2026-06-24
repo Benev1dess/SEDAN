@@ -9,22 +9,24 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class RelatorioController {
 
+    @FXML private DatePicker dpInicio;
+    @FXML private DatePicker dpFim;
     @FXML private Label lblTotalFaturado;
     @FXML private Label lblTotalPecas;
     @FXML private Label lblTotalServicos;
     @FXML private Label lblClientesAtendidos;
-    @FXML private ImageView logoImage; // Tratado diretamente pelo FXML agora
 
     @FXML private TableView<OrdemServico> tabelaRelatorio;
     @FXML private TableColumn<OrdemServico, String> colOS;
@@ -33,11 +35,14 @@ public class RelatorioController {
     @FXML private TableColumn<OrdemServico, String> colData;
     @FXML private TableColumn<OrdemServico, String> colValor;
 
-    // APLICANDO O FACTORY METHOD: O controlador conhece apenas a interface genérica
     private final Relatorio relatorioFaturamento = RelatorioFactory.obterRelatorio("FATURAMENTO");
 
     @FXML
     public void initialize() {
+        // Inicializa o filtro mostrando por padrão os últimos 30 dias de movimentação
+        dpInicio.setValue(LocalDate.now().minusDays(30));
+        dpFim.setValue(LocalDate.now());
+
         configurarColunas();
         carregarDadosRelatorio();
     }
@@ -66,16 +71,21 @@ public class RelatorioController {
     @FXML
     public void carregarDadosRelatorio() {
         if (relatorioFaturamento != null) {
-            // Obtemos o DTO encapsulado gerado pela Factory/Service
-            RelatorioFaturamento dados = relatorioFaturamento.gerar();
+            LocalDate inicio = dpInicio.getValue();
+            LocalDate fim = dpFim.getValue();
 
-            // Atualiza os elementos da tela baseados no DTO
+            // Proteção básica contra campos nulos
+            if (inicio == null) inicio = LocalDate.now().minusDays(30);
+            if (fim == null) fim = LocalDate.now();
+
+            // Puxa os dados injetando o período do filtro do requisito
+            RelatorioFaturamento dados = relatorioFaturamento.gerar(inicio, fim);
+
             lblTotalFaturado.setText(String.format("R$ %.2f", dados.getTotalFaturado()));
             lblTotalPecas.setText(String.format("R$ %.2f", dados.getTotalPecas()));
             lblTotalServicos.setText(String.format("R$ %.2f", dados.getTotalServicos()));
             lblClientesAtendidos.setText(String.valueOf(dados.getClientesAtendidos()));
 
-            // Popula a tabela de apoio
             tabelaRelatorio.setItems(FXCollections.observableArrayList(dados.getOrdensComputadas()));
         }
     }
